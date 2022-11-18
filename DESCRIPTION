@@ -1,0 +1,26 @@
+Package: apcmpkg
+Type: Package
+Title: Air Pollution & Congenital Malformations (APCM) dissertation code
+Version: 0.1.0
+Date: 2022-04-13
+Authors@R: c(
+    person("Abigail", "Stamm", email = "abigail.stamm@health.ny.gov", 
+      role = c("cre", "aut"), comment = "author of R package"))
+Maintainer: Abigail Stamm <astamm@albany.edu>
+Description: The APCM package contains all of the functions I used to run my 
+   analyses for my dissertation.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 4.2.0)
+Imports: 
+  broom
+  dlnm
+  dplyr
+  ggplot2
+  graphics
+  grDevices
+  gridExtra
+  stats
+  tibble
+  

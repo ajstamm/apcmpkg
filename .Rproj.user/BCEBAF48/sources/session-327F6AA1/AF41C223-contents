@@ -1,0 +1,29 @@
+# older version of function - obsolete?
+
+draw_aim2_forest_plot <- function(data, title) {
+  my_x <- c(0, round(max(data$lag)))
+
+  #mean profiles in the same graphs
+  mp <- ggplot(data, aes(x=lag, y=rr, group = air, fill = air, col = air)) +
+    theme_bw() +
+    theme(legend.position = "bottom",
+          text = element_text(size = 12),
+          plot.title = element_text(size = 12),
+          axis.text = element_text(size = 12),
+          legend.text = element_text(size = 12)) +
+    geom_hline(yintercept = 1) +
+    geom_vline(xintercept = seq(from = 0, to = my_x[2], by = 4)) +
+    geom_line() +
+    geom_point(size = 2.5) +
+    labs(x = "Lag week", y = "Risk Ratio", title = title) + #
+    guides(shape = FALSE) +
+    scale_x_continuous(breaks = seq(from = 0, to = my_x[2], by = 2)) +
+    scale_color_manual(labels = c("Ozone", "PM2.5"),
+                       values = c("blue", "red"),
+                       name = "Air pollutant") +
+    scale_fill_manual(labels = c("Ozone", "PM2.5"),
+                      values = c("blue", "red"),
+                      name = "Air pollutant") +
+    geom_errorbar(aes(ymin = cilow, ymax = cihigh), width = 0.1)
+  return(mp)
+}
