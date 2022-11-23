@@ -4,4 +4,3 @@ inst/doc/**
 .git/**
 ^extdata/**
 
-.Rproj.user
