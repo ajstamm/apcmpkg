@@ -8,11 +8,13 @@
 #' risk ratios and other details.
 #' It returns a tibble with the details about each model.
 #'
+#' @export
 #'
 # checking by buffer because I kept erroring ...
 
 rr_by_buffer <- function(models, buffers) {
-  r <- list(base = tibble(model = as.character(), model_type = as.character(),
+  r <- list(base = tibble::tibble(model = as.character(),
+                                  model_type = as.character(),
                           defect = as.character(), measure = as.character(),
                           air = as.character(), lags = as.numeric(),
                           buffer = as.character(), green = as.character(),

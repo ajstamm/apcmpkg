@@ -7,12 +7,17 @@
 #' This function draws the risk ratios and confidence intervals by lag
 #' for each air pollutant on the same graph. It returns a ggplot object.
 #'
+#' @export
+#'
 
 draw_aim2_forest_plot <- function(data, title) {
   my_x <- c(0, round(max(data$lag)))
 
   #mean profiles in the same graphs
-  mp <- ggplot2::ggplot(data, aes(x=lag, y=rr, group = air, fill = air, col = air)) +
+  mp <- ggplot2::ggplot(data, ggplot2::aes(x=!!dplyr::sym("lag"), y=!!dplyr::sym("rr"),
+                                  group = !!dplyr::sym("air"),
+                                  fill = !!dplyr::sym("air"),
+                                  col = !!dplyr::sym("air"))) +
     ggplot2::theme_bw() +
     ggplot2::theme(legend.position = "bottom",
           text = ggplot2::element_text(size = 12),
@@ -32,6 +37,7 @@ draw_aim2_forest_plot <- function(data, title) {
     ggplot2::scale_fill_manual(labels = c("Ozone", "PM2.5"),
                       values = c("blue", "red"),
                       name = "Air pollutant") +
-    ggplot2::geom_errorbar(aes(ymin = cilow, ymax = cihigh), width = 0.1)
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = !!dplyr::sym("cilow"),
+                               ymax = !!dplyr::sym("cihigh")), width = 0.1)
   return(mp)
 }

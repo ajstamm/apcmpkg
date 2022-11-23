@@ -10,6 +10,8 @@
 #' and returns a residual plot with basic, but correct, labels and an overlaid
 #' best fit line.
 #'
+#' @export
+#'
 
 residual_plot <- function(bd, air, measure, model, list) {
   m <- list[[bd]][[air]][[measure]][[model]]$mbasic
@@ -19,8 +21,8 @@ residual_plot <- function(bd, air, measure, model, list) {
   lag <- list[[bd]][[air]][[measure]][[model]]$mblag
 
   print(summary(m))
-  x <- d |> dplyr::select(!!sym(l[lag + 1])) %>% unlist()
+  x <- d |> dplyr::select(!!dplyr::sym(l[lag + 1])) |> unlist()
   plot(x, m$residuals, main = paste(bd, air, measure, model),
        xlab = air, ylab = "residuals")
-  graphics::abline(lm(m$residuals ~ x))
+  graphics::abline(stats::lm(m$residuals ~ x))
 }

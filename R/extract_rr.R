@@ -14,6 +14,7 @@
 #' Note to self: I modified this at some point - make sure it still works when
 #' only one cross-basis is used.
 #'
+#' @export
 #'
 
 # extract risk ratios for aim 3
@@ -50,7 +51,7 @@ extract_rr <- function(model, label, data) {
   r[["basic"]] <- dplyr::bind_rows(
     summarize_pred(p1, threshold = ocentre, air = "o3", lbl = label),
     summarize_pred(p2, threshold = pcentre, air = "pm", lbl = label)
-  ) |> mutate(model_type = "unadjusted")
+  ) |> dplyr::mutate(model_type = "unadjusted")
 
 
   # adjusted model ----
@@ -71,7 +72,7 @@ extract_rr <- function(model, label, data) {
     dplyr::mutate(measure = msr, lags = lags,
                   buffer = gsub(".+_", "", model),
                   defect = gsub("_.+", "", model),
-                  sig = cihigh < 1 | cilow > 1)
+                  sig = !!dplyr::sym("cihigh") < 1 | !!dplyr::sym("cilow") > 1)
 
   return(f)
 }

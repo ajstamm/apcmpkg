@@ -25,7 +25,7 @@
 #' freedom. For linear models, one lag was retained.
 #'
 #'
-#'
+#' @export
 #'
 
 
@@ -39,7 +39,7 @@ cb_diagnostics <- function(data, argvar = "lin", arglag = "lin", knots = NULL,
   if (argvar == "lin" & arglag == "lin") knots <- 0
 
   for (i in 1:length(defect)) {
-    d <- data %>% filter(set == defect[i])
+    d <- data |> dplyr::filter(!!dplyr::sym("set") == defect[i])
     if (nrow(d) > 0) {
       for (j in 1:length(measure)) {
         for (k in 1:length(pollutant)) {
@@ -84,7 +84,8 @@ cb_diagnostics <- function(data, argvar = "lin", arglag = "lin", knots = NULL,
 
               mb <- stats::glm(case ~ cb, family = stats::binomial(), d)
               mbaic <- stats::extractAIC(mb)[2]
-              mc <- stats::glm(case ~ edu_cat + inc_cat + tobacco_cat + cseason_cat + cb,
+              mc <- stats::glm(case ~ edu_cat + inc_cat + tobacco_cat +
+                                      cseason_cat + cb,
                         family = stats::binomial(), d)
               mcaic <- stats::extractAIC(mc)[2]
 

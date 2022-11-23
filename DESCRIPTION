@@ -14,13 +14,20 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.2.0)
 Imports: 
-  broom
-  dlnm
-  dplyr
-  ggplot2
-  graphics
-  grDevices
-  gridExtra
-  stats
+  broom,
+  dlnm,
+  dplyr,
+  ggplot2,
+  graphics,
+  grDevices,
+  gridExtra,
+  stats,
   tibble
-  
+Suggests: 
+  knitr
+RoxygenNote: 7.2.1
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+URL: https://github.com/ajstamm/apcmpkg
+BugReports: https://github.com/ajstamm/apcmpkg/issues
+

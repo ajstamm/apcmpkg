@@ -1,24 +1,38 @@
 # run models for aim 3
 # I think this is specific to two-pollutant, but too tired to care right now
 
+#' Run the models
+#'
+#' @param settings Model settings table.
+#' @param data     Dataset to model.
+#' @param buffers  Green space buffers, if relevant.
+#'
+#' This function runs the multi-pollutant models for Aim 3.
+#'
+#' @export
+#'
+#'
+
+
 
 run_models <- function(settings, data, buffers = NULL) {
   mdls <- list()
   if (is.null(buffers)) buffers <- c(50, seq(from = 100, to = 500, by = 100))
   for (i in 1:nrow(settings)) {
     for (j in 1:length(buffers)) {
-      d <- dplyr::filter(data, set == settings$bd[i]) |>
-        dplyr::mutate(grass = !!sym(paste0("b", buffers[j], "_grass")),
-                      trees = !!sym(paste0("b", buffers[j], "_trees")))
-      medians <- list(grass = median(d$grass, na.rm = TRUE),
-                      trees = median(d$trees, na.rm = TRUE))
-      d <- dplyr::mutate(d, grass_trees = ifelse(grass > medians$grass &
-                                                   trees > medians$trees, "GT",
-                                                 ifelse(grass > medians$grass, "Gt",
-                                                        ifelse(trees > medians$trees, "gT",
-                                                               "gt")))) |>
-        dplyr:: select(set, case, edu_cat, inc_cat, tobacco_cat, cseason_cat,
-                       grass_trees, dplyr::contains(settings$Measure[i]))
+      d <- dplyr::filter(data, !!dplyr::sym("set") == settings$bd[i]) |>
+        dplyr::mutate(grass = !!dplyr::sym(paste0("b", buffers[j], "_grass")),
+                      trees = !!dplyr::sym(paste0("b", buffers[j], "_trees")))
+      medians <- list(grass = stats::median(d$grass, na.rm = TRUE),
+                      trees = stats::median(d$trees, na.rm = TRUE))
+      d <- dplyr::mutate(d, grass_trees = ifelse(!!dplyr::sym("grass") > medians$grass &
+                                                 !!dplyr::sym("trees") > medians$trees, "GT",
+                                          ifelse(!!dplyr::sym("grass") > medians$grass, "Gt",
+                                          ifelse(!!dplyr::sym("trees") > medians$trees, "gT",
+                                                   "gt")))) |>
+        dplyr:: select(!!dplyr::sym("set"), !!dplyr::sym("case"), !!dplyr::sym("edu_cat"), !!dplyr::sym("inc_cat"),
+                       !!dplyr::sym("tobacco_cat"), !!dplyr::sym("cseason_cat"),
+                       !!dplyr::sym("grass_trees"), dplyr::contains(settings$Measure[i]))
         # "contains()" may be from tidyselect; in case of compile error
 
       ko3 <- as.numeric(substr(settings$o3[i], 5, 5))
