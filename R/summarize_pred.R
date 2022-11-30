@@ -9,6 +9,7 @@
 #' This function extracts parameters of the prediction model to be used for
 #' assessment and plotting.
 #'
+#' @export
 #'
 
 summarize_pred <- function(pred, threshold, air, lbl) {

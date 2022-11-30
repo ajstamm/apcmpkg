@@ -13,17 +13,20 @@
 #' and uses a grob function to combine them into one figure.
 #'
 #'
+#' @export
 #'
 #'
 
 
 draw_aim2_forest <- function(data, defect_abbr, lags, defect_name = "") {
   my_lags <- lags
-  d <- data |> dplyr::filter(bd == defect_abbr, measure == "mean",
-                             lags == my_lags)
+  d <- data |> dplyr::filter(!!dplyr::sym("bd") == defect_abbr,
+                             !!dplyr::sym("measure") == "mean",
+                             !!dplyr::sym("lags") == my_lags)
   x <- draw_aim2_forest_plot(data = d, title = "(a) Mean models")
-  d <- data |> dplyr::filter(bd == defect_abbr, measure == "peak",
-                             lags == my_lags)
+  d <- data |> dplyr::filter(!!dplyr::sym("bd") == defect_abbr,
+                             !!dplyr::sym("measure") == "peak",
+                             !!dplyr::sym("lags") == my_lags)
   y <- draw_aim2_forest_plot(data = d, title = "(b) Peak models")
 
   main <- paste(defect_name, paste0(lags, "-week"), "models: \n",

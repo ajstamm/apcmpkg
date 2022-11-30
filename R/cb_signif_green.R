@@ -12,6 +12,7 @@
 #' @param knots2   Degrees of freedom for the `arglag2` argument, if any.
 #'                 This setting is optional.
 #' @param startlag Maximum number of lags to include in the model.
+#' @param greens   Green space values.
 #'
 #' @description
 #' This function determines the number of lags that should be used in the
@@ -32,6 +33,7 @@
 #' If two cross-bases are used in the model, the same number of lags is used
 #' for both and significance is determined if either one is significant.
 #'
+#' @export
 #'
 # check cross-basis with green space
 # saves cross-basis and model parameters
@@ -49,7 +51,7 @@ cb_signif_green <- function(data, argvar = "lin", arglag1 = "lin", knots1 = NULL
   if (is.null(knots2) | arglag2 == "lin") knots2 <- 0
 
   for (i in 1:length(defect)) {
-    d <- data %>% filter(set == defect[i])
+    d <- data |> dplyr::filter(!!dplyr::sym("set") == defect[i])
     if (nrow(d) > 0) {
       for (j in 1:length(measure)) {
         for (k in 1:length(pollutant)) {
@@ -99,12 +101,12 @@ cb_signif_green <- function(data, argvar = "lin", arglag1 = "lin", knots1 = NULL
               } else {
                 mb <- stats::glm(case ~ cb1 + cb2, family = stats::binomial(), d)
               }
-              mbaic <- extractAIC(mb)[2]
+              mbaic <- stats::extractAIC(mb)[2]
               # evaluating the lag
               x <- broom::tidy(mb) |>
-                dplyr::filter(grepl("^cb", term)) |>
-                dplyr::mutate(var = substr(term, 1, 3)) |>
-                dplyr::group_by(var) |> dplyr::slice_tail()
+                dplyr::filter(grepl("^cb", !!dplyr::sym("term"))) |>
+                dplyr::mutate(var = substr(!!dplyr::sym("term"), 1, 3)) |>
+                dplyr::group_by(!!dplyr::sym("var")) |> dplyr::slice_tail()
               if (sum(!is.na(x$p.value)) > 0) {
                 if ((sum(x$p.value < 0.05) > 1 & model$mbp > 0.05) |
                     (sum(x$p.value < 0.1) > 1 & model$mbp > 0.1) |
@@ -133,9 +135,9 @@ cb_signif_green <- function(data, argvar = "lin", arglag1 = "lin", knots1 = NULL
                 }
                 mgtaic <- stats::extractAIC(mgt)[2]
                 y <- broom::tidy(mgt) |>
-                  dplyr::filter(grepl("^cb", term)) |>
-                  dplyr::mutate(var = substr(term, 1, 3)) |>
-                  dplyr::group_by(var) |> dplyr::slice_tail()
+                  dplyr::filter(grepl("^cb", !!dplyr::sym("term"))) |>
+                  dplyr::mutate(var = substr(!!dplyr::sym("term"), 1, 3)) |>
+                  dplyr::group_by(!!dplyr::sym("var")) |> dplyr::slice_tail()
                 # even though cov doesn't matter if basic fails ...
                 if (sum(!is.na(y$p.value)) > 0) {
                   if ((sum(y$p.value < 0.05) > 1 & model$mgtp > 0.05) |
@@ -154,19 +156,19 @@ cb_signif_green <- function(data, argvar = "lin", arglag1 = "lin", knots1 = NULL
               # green-water ----
               if ("gw" %in% greens) {
                 if (is.null(arglag2)) {
-                  mgw <- glm(case ~ cb1 + edu_cat + inc_cat + tobacco_cat +
+                  mgw <- stats::glm(case ~ cb1 + edu_cat + inc_cat + tobacco_cat +
                                cseason_cat + green_water,
                              family = stats::binomial(), d)
                 } else {
-                  mgw <- glm(case ~ cb1 + cb2 + edu_cat + tobacco_cat +
+                  mgw <- stats::glm(case ~ cb1 + cb2 + edu_cat + tobacco_cat +
                                inc_cat + cseason_cat + green_water,
                              family = stats::binomial(), d)
                 }
                 mgwaic <- stats::extractAIC(mgw)[2]
                 z <- broom::tidy(mgw) |>
-                  dplyr::filter(grepl("^cb", term)) |>
-                  dplyr::mutate(var = substr(term, 1, 3)) |>
-                  dplyr::group_by(var) |> dplyr::slice_tail()
+                  dplyr::filter(grepl("^cb", !!dplyr::sym("term"))) |>
+                  dplyr::mutate(var = substr(!!dplyr::sym("term"), 1, 3)) |>
+                  dplyr::group_by(!!dplyr::sym("var")) |> dplyr::slice_tail()
                 if (sum(!is.na(z$p.value)) > 0) {
                   if ((sum(z$p.value < 0.05) > 1 & model$mgwp > 0.05) |
                       (sum(z$p.value < 0.1) > 1 & model$mgwp > 0.1) |

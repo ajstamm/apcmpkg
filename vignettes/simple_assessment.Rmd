@@ -1,0 +1,116 @@
+---
+title: "Tutorial 1: Creating the Model"
+author: "Abigail Stamm"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Tutorial 1: Creating the Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setting up your workspace
+
+This section is a temporary placeholder until the package is sufficiently developed to be installable. 
+
+First, load the package. While it is incomplete, it will install from GitHub and it contains the functions relevant for this vignette.
+```{r, eval = FALSE}
+install.packages(devtools)
+devtools::install_github("ajstamm/apcmpkg", dependencies = TRUE)
+```
+
+Next, create your case-level data using this data structure: 
+
+* case = 0, 1
+* set = cf, clp, cp, cs
+* edu_cat = 4 categories
+* inc_cat = 4 categories
+* tobacco_cat = 0, 1
+* cseason_cat = summer, winter, spring, autumn
+* o3 mean measures
+
+*At present, only 5 weeks to test and sloppy ozone simulation.*
+
+```{r, eval = TRUE}
+edu_lvls <- c("Some HS", "HS grad", "Some uni", "Uni grad", "Post uni")
+inc_lvls <- c("Low", "Med-low", "Med-high", "High")
+seas_lvls <- c("Winter", "Spring", "Summer", "Autumn")
+
+d <- tibble::tibble(
+  set = rep("clp", 1000),
+  case = sample(c(0, 1), prob = c(75, 25), size = 1000, replace = TRUE),
+  edu_cat = ifelse(case == 0, sample(edu_lvls, prob = c(16, 23, 27, 17, 17)),
+                   sample(edu_lvls, prob = c(17, 26, 29, 15, 13))),
+  inc_cat = ifelse(case == 0, sample(inc_lvls, prob = c(25, 25, 25, 25)),
+                   sample(inc_lvls, prob = c(29, 28, 22, 21))),
+  tobacco_cat = ifelse(case == 0, sample(c(0, 1), prob = c(85, 15)),
+                       sample(c(0, 1), prob = c(78, 22))),
+  cseason_cat = ifelse(case == 0, sample(seas_lvls, prob = c(23, 25, 27, 25)), 
+                       sample(seas_lvls, prob = c(25, 22, 26, 27))),
+  id = sample(1:1000, size = 1000)
+)
+
+o <- tibble::tibble( # mean = ~38, sd = ~11
+  w1_o3_mean = rnorm(1000, mean = 38, sd = 11),
+  temp1 = rnorm(1000, mean = 38, sd = 11),
+  w2_o3_mean = w1_o3_mean - (w1_o3_mean - temp1) / 4,
+  temp2 = rnorm(1000, mean = 38, sd = 11),
+  w3_o3_mean = w2_o3_mean - (w2_o3_mean - temp2) / 4,
+  temp3 = rnorm(1000, mean = 38, sd = 11),
+  w4_o3_mean = w3_o3_mean - (w3_o3_mean - temp3) / 4,
+  temp4 = rnorm(1000, mean = 38, sd = 11),
+  w5_o3_mean = w4_o3_mean - (w4_o3_mean - temp4) / 4,
+  id = sample(1:1000, size = 1000)
+) |> dplyr::select(id, dplyr::contains("mean"))
+
+d <- dplyr::full_join(d, o, by = "id")
+
+```
+
+
+# Run the model
+
+The function `cb_signif()` determines the number of lags to use in the cross-basis object of ozone lag weeks by running the model multiple times and dropping the earliest lag if it is not significant at $\alpha=0.1$. For more information on this function, check its help file.
+
+The code below uses the simplest options for the cross-basis object, a linear relationship between case status and ozone both in the latest week and across the lags. The earliest lag to test is four weeks before the latest week.
+
+```{r, eval = TRUE}
+mdl <- cb_signif(d, argvar = "lin", arglag = "lin", knots = 0, startlag = 4)
+```
+
+# Run the predictions
+
+For the prediction models, we will use the following settings:
+
+* `centre`: Threshold of 60 ppm, which is about two standard deviations above the mean. (Tabassum suggested 70 ppm, based on the NAAQS level of concern, even though NAAQS levels are not recommended as a threshold of danger for individual exposure.)
+* `atvals`: Values to calculate in the prediction, based on values in the simulated data.
+* `plotvar`: Threshold plus 10, to simulate a 10ppb increase in exposure.
+
+```{r, eval = TRUE}
+plots <- cross_plot(bd = "clp", air = "o3", measure = "mean", 
+                    model = "lin_lin", list = mdl)
+```
+
+# Save your results
+
+Save a PDF of your plots.
+
+```{r, eval = TRUE}
+grDevices::pdf("images/acpm_tutorial1_exampleplots.pdf", onefile=TRUE, 
+               width = 10, height = 7)
+for (myplot in plots) grDevices::replayPlot(myplot)
+grDevices::dev.off() # need to close pdf file
+```
+
+
+

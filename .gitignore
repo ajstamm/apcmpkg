@@ -1,0 +1,6 @@
+# folders
+inst/doc/**
+.Rproj.user/**
+.git/**
+^extdata/**
+
