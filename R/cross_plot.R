@@ -25,12 +25,15 @@
 #' @export
 # need example
 
-cross_plot <- function(bd, air, measure, model, list,
+cross_plot <- function(list, bd, air, measure, lags, residual = FALSE,
                        centre = NULL, atvals = NULL, plotvar = NULL) {
-  cb <- list[[bd]][[air]][[measure]][[model]]$mccb
-  mc <- list[[bd]][[air]][[measure]][[model]]$mcov
-  lag <- list[[bd]][[air]][[measure]][[model]]$mclag
-  d <- list[[bd]]$data
+  nam <- names(list)
+  nam_mdl <- nam[grepl(paste(bd, air, measure, sep = "_"), nam) &
+                   grepl(lags, nam)]
+  cb1 <- list[[nam_mdl]]$mccb1
+  m <- list[[nam_mdl]]$mcov
+  lag <- list[[nam_mdl]]$mclag
+  d <- list[[paste(bd, "data", sep = "_")]]
   l <- rev(names(d)[grepl(paste(air, measure, sep = "_"),
                           names(d))]) # most recent first
 
@@ -61,13 +64,13 @@ cross_plot <- function(bd, air, measure, model, list,
   graphics::par(mar = c(4, 2, 2, 1), mgp = c(3, 1, 0), xpd = TRUE)
 
   # CI bars chart
-  cp <- dlnm::crosspred(cb, mc, cen = centre, at = atvals, bylag = 1)
+  cp <- dlnm::crosspred(cb1, m, cen = centre, at = atvals, bylag = 1)
   title <- paste(bd, air, measure, "single-pollutant CI lines")
   plot(cp, "slices", ci="bars", type="p", col=2, pch=19, var = plotvar,
        ci.level=0.95, main=title, xlim = c(0, lag), ylab = "RR")
   plots$singleline <- grDevices::recordPlot()
   # cumulative charts
-  cp <- dlnm::crosspred(cb, mc, cumul=TRUE, cen = centre, at = atvals, bylag = 0.1)
+  cp <- dlnm::crosspred(cb1, m, cumul=TRUE, cen = centre, at = atvals, bylag = 0.1)
   title <- paste(bd, air, measure, "Lags CI curve")
   plot(cp, "slices", var=plotvar, col=3, ylab="RR", xlim = c(0, lag),
        ci.arg=list(density=15,lwd=2), main=title)
@@ -82,14 +85,16 @@ cross_plot <- function(bd, air, measure, model, list,
   # plot(cp, "contour", xlab="O3", key.title=title("RR"),
   #      plot.title=title("Contour plot", xlab="O3", ylab="Lag"))
   # diagnostics
-  cb <- list[[bd]][[air]][[measure]][[model]]$mbcb
-  m <- list[[bd]][[air]][[measure]][[model]]$mbasic
-  lag <- list[[bd]][[air]][[measure]][[model]]$mblag
-  b <- d |> dplyr::select(!!dplyr::sym(l[lag + 1])) |> unlist()
-  title <- paste(bd, air, measure, "residuals")
-  plot(b, stats::resid(m), main = title, xlab = air, ylab = "residuals")
-  graphics::abline(stats::lm(stats::resid(m) ~ b))
-  plots$resid <- grDevices::recordPlot()
+  if (residual) {
+    cb <- list[[nam_mdl]]$mbcb1
+    m <- list[[nam_mdl]]$mbasic
+    lag <- list[[nam_mdl]]$mblag
+    b <- d |> dplyr::select(!!dplyr::sym(l[lag + 1])) |> unlist()
+    title <- paste(bd, air, measure, "residuals")
+    plot(b, stats::resid(m), main = title, xlab = air, ylab = "residuals")
+    graphics::abline(stats::lm(stats::resid(m) ~ b))
+    plots$resid <- grDevices::recordPlot()
+  }
 
   graphics::par(mar=c(5,4,4,2)+.1, mgp = c(3, 1, 0))
   grDevices::dev.off()

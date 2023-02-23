@@ -25,7 +25,6 @@
 #' freedom. For linear models, one lag was retained.
 #'
 #'
-#' @export
 #'
 #'
 
@@ -42,7 +41,7 @@ cb_signif <- function(data, argvar = "lin", arglag = "lin", knots = NULL,
 
   for (i in 1:length(defect)) {
     # run cross-bases for each defect separately
-    d <- data |> dplyr::filter(!!dplyr::sym("set") == defect[i])
+    d <- data %>% filter(set == defect[i])
     if (nrow(d) > 0) {
       for (j in 1:length(measure)) {
         for (k in 1:length(pollutant)) {
@@ -86,10 +85,9 @@ cb_signif <- function(data, argvar = "lin", arglag = "lin", knots = NULL,
               }
 
               # evaluation models ----
-              mb <- stats::glm(case ~ cb, family = stats::binomial(), d)
+              mb <- stats::glm(case ~ cb, family = binomial(), d)
               mbaic <- stats::extractAIC(mb)[2] # unadjusted
-              mc <- stats::glm(case ~ edu_cat + inc_cat + tobacco_cat +
-                                 cseason_cat + cb,
+              mc <- stats::glm(case ~ edu_cat + inc_cat + tobacco_cat + cseason_cat + cb,
                         family = stats::binomial(), d)
               mcaic <- stats::extractAIC(mc)[2] # adjusted
 
