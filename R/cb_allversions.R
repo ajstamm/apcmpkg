@@ -35,7 +35,7 @@
 #'
 
 cb_allversions <- function(data, argvar = "lin", arglag1 = "lin", knots1 = 0,
-                           arglag2 = "lin", knots2 = 0, lags = 16,
+                           arglag2 = NULL, knots2 = 0, lags = 16,
                            greens = c("gt", "gw")) {
   defect <- unique(data$set)
   lbl <- names(data)[grepl(".\\d+_.._.+", names(data))]
@@ -45,17 +45,26 @@ cb_allversions <- function(data, argvar = "lin", arglag1 = "lin", knots1 = 0,
   pollutant <- pollutant[pollutant %in% c("pm", "o3")]
   mlist <- list()
 
-  if (length(argvar) == 1) argvar <- rep(argvar, 4)
-  if (length(arglag1) == 1) arglag1 <- rep(arglag1, 4)
-  if (length(knots1) == 1) knots1 <- rep(knots1, 4)
-  if (length(arglag2) == 1) arglag2 <- rep(arglag2, 4)
-  if (length(knots2) == 1) knots2 <- rep(knots2, 4)
 
+
+  if (length(argvar) == 1) argvar <- rep(argvar, 4) else
+    if (length(argvar) == 2) argvar <- rep(argvar, 2)
+  if (length(arglag1) == 1) arglag1 <- rep(arglag1, 4) else
+    if (length(arglag1) == 2) arglag1 <- rep(arglag1, 2)
+  if (length(knots1) == 1) knots1 <- rep(knots1, 4) else
+    if (length(knots1) == 2) knots1 <- rep(knots1, 2)
   argvar <- matrix(argvar, nrow = 2, byrow = TRUE)
   arglag1 <- matrix(arglag1, nrow = 2, byrow = TRUE)
   knots1 <- matrix(knots1, nrow = 2, byrow = TRUE)
-  arglag2 <- matrix(arglag2, nrow = 2, byrow = TRUE)
-  knots2 <- matrix(knots2, nrow = 2, byrow = TRUE)
+
+  if (!is.null(arglag2)) {
+    if (length(arglag2) == 1) arglag2 <- rep(arglag2, 4) else
+      if (length(arglag2) == 2) arglag2 <- rep(arglag2, 2)
+    if (length(knots2) == 1) knots2 <- rep(knots2, 4) else
+      if (length(knots2) == 2) knots2 <- rep(knots2, 2)
+    arglag2 <- matrix(arglag2, nrow = 2, byrow = TRUE)
+    knots2 <- matrix(knots2, nrow = 2, byrow = TRUE)
+  }
 
   for (i in 1:length(defect)) {
     # df not applicable for linear relationships

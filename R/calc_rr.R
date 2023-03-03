@@ -1,13 +1,13 @@
 #' Calculate risk ratios for model cross-bases
-#' 
-#' 
+#'
+#'
 
-calc_rr <- function(data, model, cb, measure, defect, lags) {
+calc_rr <- function(data, model, cb1 = NULL, cb2 = NULL, measure, defect, lags) {
   l <- names(d)[grepl(measure, names(d))][1:(lags + 1)] # most recent last
-  
+
   if (grepl("pm_mean", measure)) {
     centre <- 17.80 # 20 # Q1
-    atvals <- 1:37 
+    atvals <- 1:37
   } else if (grepl("pm_peak", measure)) { # peak
     centre <- 31.47 # 30 # Q1
     atvals <- 3:81
@@ -20,23 +20,47 @@ calc_rr <- function(data, model, cb, measure, defect, lags) {
   }
   plotvar <- centre + 10
   atvals <- c(atvals, centre, plotvar)
-  
-  cb1 <- cb
+
   m <- model
-  
-  p <- dlnm::crosspred(cb1, m, at = plotvar, cen = centre)
-  # estimated effects at each lag for given measure value
-  r <- data.frame(rr = t(p$matRRfit), cilow = t(p$matRRlow), 
-                  cihigh = t(p$matRRhigh))
-  names(r) <- c("rr", "cilow", "cihigh")
-  r$lag <- rownames(r)
-  # estimated cumulative effect of all lags
-  r <- rbind(r, data.frame(rr = p$allRRfit, cilow = p$allRRlow, 
-                           cihigh = p$allRRhigh, lag = "cum"))
-  r$defect <- defect
-  r$air <- measure
-  r$threshold <- centre
-  r$lags <- lags
-  
-  return(r)
+
+  rr <- data.frame()
+
+  if (!is.null(cb1)) {
+    p <- dlnm::crosspred(cb1, m, at = plotvar, cen = centre)
+    # estimated effects at each lag for given measure value
+    r <- data.frame(rr = t(p$matRRfit), cilow = t(p$matRRlow),
+                    cihigh = t(p$matRRhigh))
+    names(r) <- c("rr", "cilow", "cihigh")
+    r$lag <- rownames(r)
+    # estimated cumulative effect of all lags
+    r <- rbind(r, data.frame(rr = p$allRRfit, cilow = p$allRRlow,
+                             cihigh = p$allRRhigh, lag = "cum"))
+    r$defect <- defect
+    r$air <- measure
+    r$threshold <- centre
+    r$lags <- lags
+
+    rr <- dplyr::bind_rows(rr, r)
+  }
+  if (!is.null(cb2)) {
+    p <- dlnm::crosspred(cb2, m, at = plotvar, cen = centre)
+    # estimated effects at each lag for given measure value
+    r <- data.frame(rr = t(p$matRRfit), cilow = t(p$matRRlow),
+                    cihigh = t(p$matRRhigh))
+    names(r) <- c("rr", "cilow", "cihigh")
+    r$lag <- rownames(r)
+    # estimated cumulative effect of all lags
+    r <- rbind(r, data.frame(rr = p$allRRfit, cilow = p$allRRlow,
+                             cihigh = p$allRRhigh, lag = "cum"))
+    r$defect <- defect
+    r$air <- measure
+    r$threshold <- centre
+    r$lags <- lags
+
+    rr <- dplyr::bind_rows(rr, r)
+  }
+
+
+
+  return(rr)
 }
