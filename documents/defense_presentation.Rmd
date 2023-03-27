@@ -1,0 +1,1277 @@
+---
+title: "Association of prenatal exposure to air pollutants with select birth defects using the case-cohort approach"
+author: "Abigail Stamm"
+date: "February 6, 2023"
+output: 
+  beamer_presentation:
+    includes:
+      in_header: preamble_beamer.tex
+    latex_engine: xelatex
+    keep_tex: TRUE
+    slide_level: 2
+bibliography: library.bib
+csl: ama-citation.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr); library(kableExtra); library(rmarkdown);library(tidyverse)
+```
+
+
+
+# Background
+
+## Objective & rationale
+
+<!-- goal: ~30 minutes = 30 slides -->
+
+
+**Objective: ** 
+
+To assess the association between pregnant women's exposure to \gls{pm25} and 
+\gls{o3} and the risk that their fetuses will develop clubfoot, oral clefts, or craniosynostosis in \gls{nys} over the years 2002-2015 using a case-cohort design
+
+$~$
+
+**Rationale**
+
+* Birth defects may be caused by oxidative stress via smoking
+* Smoking contains many components of \gls{pm25}
+* Insufficient research on air pollutants and birth defects
+
+
+
+## Study aims
+
+1. Is there an association between select air pollutants and select birth defects?
+1. Does green space alter the effects of select air pollutants on select birth defects?
+1. Does a multi-pollutant model vs single-pollutant model alter the effects of each air pollutant on select birth defects?
+
+$~$
+
+\textit{Select air pollutants}: \gls{pm25} or \gls{o3}  
+\textit{Select birth defects}: clubfoot, oral clefts, and craniosynostosis
+
+
+
+
+
+
+
+
+## Outcome definitions
+
+\begincols{}
+\column{0.5\textwidth}
+
+**Birth defects:** Abnormalities that form in the developing fetus
+
+$~$
+
+**Of interest for this study**
+
+- Clubfoot
+- Cleft lip
+- Cleft palate
+- Craniosynostosis
+
+<!-- 
+Define each in brief detail
+- Cleft lip: Split lip that occurs when mandible does not fuse fully before birth
+- Cleft palate: Split palate that occurs when palatine shelf does not fuse fully before birth
+- Craniosynostosis: Premature fusion of two or more skull plates, deforming the skull
+- Clubfoot: Deformation of the foot
+-->
+
+\column{0.5\textwidth}
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/CDCcleft2017.jpg}
+\centering
+\end{figure}
+\footnotesize
+Infant with cleft lip and palate[@CDCclefts2017]
+\normalsize
+\stopcols
+
+
+
+## Critical windows of development
+
+<!-- add specific body parts -->
+
+\begincols{}
+\column{0.5\textwidth}
+
+**Clubfoot:** gestational weeks 4-12 when limbs develop
+
+<!-- note when feet turn: 6-7 -->
+
+$~$
+
+**Cleft lip:** gestational weeks 3-9 when jaw develops
+
+$~$
+
+**Cleft palate:** gestational weeks 5-12 when face develops
+
+
+$~$
+
+**Craniosynostosis:** gestational weeks 4-12 when skull develops
+
+
+
+\column{0.5\textwidth}
+
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/ucla2008reportcardmini.png}
+\centering
+\end{figure}
+\footnotesize
+Weeks of development for relevant birth defects[@Ritz2008a]
+\normalsize
+\stopcols
+
+
+
+```{r, eval = FALSE, echo = FALSE}
+> elaborate on why - proposal description
+```
+
+## Known or suspected causes of birth defects
+
+\begincols{}
+\column{0.4\textwidth}
+
+* ~30%-40% causes known[@Al-Hadithi2012]
+
+
+$~$
+
+* Suspected gene-environment-health interaction[@Honein2000; @Durham2017]
+
+<!-- 
+most causes not known
+interaction of genetics, environment, and mother's health 
+-->
+
+\column{0.6\textwidth}
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/clubfoot_miedzybrodzka2003.png}
+\centering
+\end{figure}
+\footnotesize
+Infant with clubfoot[@Miedzybrodzka2003]
+\normalsize
+\stopcols
+
+
+<!-- how does OS work? -->
+
+## Known risk factors for birth defects
+
+<!-- a lot not even known -->
+
+
+\begincols{}
+\column{0.6\textwidth}
+
+
+**Demographic:** parents' age; mother's race, ethnicity, education, and \gls{ses}; infant sex; parity
+
+$~$
+
+**Health:** mother's \gls{bmi}, pre-gestational diabetes
+
+$~$
+
+**Environment:** parents' smoking; mother's alcohol and folate use
+
+<!-- talk a bit about smoking -->
+
+\column{0.4\textwidth}
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/craniosynostosis_nagaraja2013.png}
+\centering
+\end{figure}
+\footnotesize
+Skull exhibiting craniosynostosis[@Nagaraja2013]
+\normalsize
+\stopcols
+
+
+
+
+
+## Cigarette smoke
+
+<!-- 
+slide that summarizes something on smoking & birth defects, including definition 
+note components that cause defects
+-->
+
+Maternal smoke exposure due to smoking herself or to secondhand smoke
+
+$~$
+
+Smoke components of concern
+
+* Benzene
+* 1,3-Butadiene
+* Acetaldehyde
+* Toluene
+* Chromium VI
+
+
+
+## Teratogenic mechanism
+
+
+**Teratogenic mechanism:** Oxidative stress - imbalance of antioxidants and \gls{roxs} in the cell, reducing its ability to remove chemicals that can damage \gls{dna}
+
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/oxidativestresspath.png}
+\end{figure}
+\centering
+\footnotesize
+Proposed mechanism by which oxidative stress disrupts the fetus[@Hansen2018]
+\normalsize
+
+\begincols{}
+\column{0.4\textwidth}
+\column{0.6\textwidth}
+\stopcols
+
+
+
+<!-- how does OS work? -->
+
+## Purpose of the study
+
+To assess the association between pregnant women's exposure to \gls{pm25} and 
+\gls{o3} and the risk that their fetuses will develop clubfoot, oral clefts, or craniosynostosis in \gls{nys} over the years 2002-2015 using a case-cohort design
+
+
+
+
+## Air pollutant definitions
+
+**Air pollution:** Composite of chemicals suspended in the air
+
+- \textbf{\gls{pm25}:} Particles less than 2.5$\mu$m diameter created by combustion
+- \textbf{\gls{o3}:} Oxygen molecule created by chemical reactions in sunlight
+
+**Green space:** Presence of plants such as grass or trees
+
+<!-- 
+pm25: Mixture of solid, liquid, and gas particles less than 2.5$\mu$m diameter caused by combustion, such as wood burning, vehicles, and industry
+o3: Oxygen molecule created by chemical reactions in the air triggered by sunlight
+-->
+
+Research on these exposures and birth defects to date is sparse and inconclusive.
+
+Green space is of interest because it can reduce \gls{pm25} and \gls{o3}. 
+
+
+<!-- 
+clefts contradictory results, cs/cf almost no research 
+note general study limitations - temporal/spatial 
+
+GS/air relationship unclear in terms of health
+trees generally remove air pollutants, but they do release VOCs, which on hot days can be converted to O3 if NOx present
+grasses release VOCs when cut 
+-->
+
+# Methods
+
+## Case-cohort study design
+
+Strengths of case-cohort over case-control
+
+* \footnotesize Lower selection bias: non-cases drawn from full population 
+* \footnotesize Lower information bias: exposures assessed without considering case status
+
+<!-- add n for each of these -->
+
+\footnotesize 
+**Population:** infants born in 2002-2015 in \gls{nys} with \gls{nys} birth residence outside \gls{nyc}
+
+**Cases:** 4 case definitions, identified by \gls{bpa} code diagnosis from CMR (n = 5,587)
+
+**Cohort:** randomly selected from population, 3 births per case matched on birth year (n = 18,153)
+
+$~$
+
+Data sources: \gls{nys} Vital Records, \gls{cmr}
+
+\normalsize
+<!-- from this point until conclusion separate exposure, model, results by aim -->
+
+## Air pollutant exposure classification
+
+Exposure: \gls{o3} or \gls{pm25} 
+
+- Weekly \gls{o3} and \gls{pm25} means and peaks calculated by tract
+    - Means: weekly averages to smooth possibly spurious estimates 
+    - Peaks: weekly maximums to capture short bursts of higher exposure
+- Births assigned exposure of maternal residence tract during weeks of interest 
+
+<!-- means consistent with other research -->
+
+Data source: Downscaler air pollutant model
+
+<!-- 
+Downscaler incorporates land use, weather, elevation, and monitoring station data.
+* Statewide census tract level model for \gls{pm25} and \gls{o3}
+* Daily estimates for years 2002-2016 - summarized weekly for analysis
+-->
+
+## Covariates
+
+
+\begincols{}
+\column{0.4\textwidth}
+
+* Season of conception
+* Maternal smoking
+* Maternal education
+* Median census tract income
+* Green space
+
+
+<!--  
+did not include alcohol due to very few yes (<10 for 3 case groups)
+GS only aims 2-3
+education replaced race because our interest was SES, not genetic - unknown who assigned race and therefore if it correlates with ancestry
+
+-->
+
+$~$
+
+
+Data source: 
+
+* \gls{nys} Vital Records
+* US Census
+
+\column{0.6\textwidth}
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, height=!]{images/dag_defensemini.png}
+\centering
+\end{figure}
+\footnotesize
+Directed acyclic graph
+\normalsize
+\stopcols
+
+<!-- 
+
+Minimally sufficient set: mother's education, smoking, and alcohol use and season of conception
+
+* Season of conception: winter, spring, summer, autumn
+* Maternal smoking: yes or no while pregnant
+* Maternal education: less than high school, high school graduate, any college, college graduate, advanced studies
+* Median census tract income: quartiles
+* green space: grass-trees, green-water
+
+Too much missingness in alcohol use, so substituted tract income to approximate SES
+
+
+Noted in the study, but not necessarily used in model (not in DAG)
+
+**Maternal risk health behaviors:** maternal smoking, alcohol use
+**Maternal health:** maternal pre-pregnancy diabetes, BMI
+**Maternal demographics:** race, education, ethnicity, age
+**Infant:** birth month, sex, estimated conception date
+-->
+
+
+
+
+# Aim 1
+
+Is there an association between select air pollutants and select birth defects?
+
+## Statistical analysis
+
+* Univariate
+* Bivariate
+* Multivariate
+* Sensitivity
+
+<!-- 
+univariate, bivariate, sensitivity largely same for all aims 
+difference was exposures & multivariate - will cover individually
+-->
+
+## Distribution of comparison and case groups
+
+\scriptsize
+Distribution of maternal and infant characteristics by case status,  
+New York State outside New York City, 2002 to 2015
+```{r desc, echo = FALSE, warning=FALSE, message=FALSE}
+t <- readxl::read_xlsx("data/tables_desc_20220325.xlsx", sheet = 1) |>
+  dplyr::filter(grepl("Smoked|conception|household|education", var))
+n <- unique(t$var)
+v <- factor(t$var, levels = n)
+b <- table(v)
+
+t |> select(-var) |> 
+  kable(booktabs = TRUE, format = "latex", # escape = F, longtable = F, 
+        caption = NULL,
+        col.names = c(" ", rep(c("n", "(%)"), 5)), 
+        align = c("l", rep(c("r", "l"), 5)), linesep = "") |> 
+  add_header_above(c(" ", "(n=18,153)" = 2, 
+                     "(n=2423)" = 2,  
+                     "palate (n=1281)" = 2, 
+                     "(n=952)" = 2, 
+                     "(n=931)" = 2), line_sep = 1) |>
+  add_header_above(c(" ", "Non-cases" = 2, 
+                     "Clubfoot" = 2,  
+                     "Cleft lip w/wo cleft" = 2, 
+                     "Cleft palate" = 2, 
+                     "Craniosynostosis" = 2), line = F, line_sep = 0) |>
+  kableExtra::group_rows(index = b) |> # 
+  row_spec(0, bold=TRUE) |>
+  column_spec(1, bold = FALSE, width = "10.5em") |> # 
+  column_spec(c(2,4), bold = FALSE, width = "2.5em") |> # 
+  column_spec(c(3,5,9), bold = FALSE, width = "2.5em") |>
+  column_spec(c(6,8,10), bold = FALSE, width = "2em") |> # 
+  column_spec(c(7,11), bold = FALSE, width = "2em") |> # 
+  kableExtra::kable_styling(position = "center", font_size = 5)
+
+```
+\normalsize
+
+
+## Aim 1 study design
+
+Case-cohort study with time-varying exposure   
+\begin{equation}
+\begin{multlined}[0.9\linewidth] 
+logit(RR_{bd}) = \beta_0 + \sum{(\alpha_jAir)} + \beta_1Education + \\
+\beta_2Season + \beta_3Smoking + \beta_4Income
+\end{multlined}
+\end{equation}   
+$\alpha_jAir$ = series of betas for each air pollutant and week of estimates   
+$bd$ = birth defect case group
+
+Two models: 
+
+- Three-month: 4 weeks pre-conception to gestation week 8
+- Four-month: 4 weeks pre-conception to gestation week 12
+
+<!-- 
+Distributed lag logistic regression model
+used dlnm package in R
+number of categories: edu = 5, season = 4, smoking = 2, income = 4
+-->
+
+
+## Aim 1 cumulative effect
+
+\scriptsize
+Cumulative risk ratios for covariate models of air pollutant and birth defects pairs,   
+New York State outside New York City, 2002 to 2015 \tiny
+<!-- 2 pages, cumulative and by lag - note major patterns -->
+```{r rrcum1, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model1_cumrr_20220511.csv") |>
+  mutate(defect = gsub("_.._.ea._..$", "", model),
+         air = gsub("^[a-z]+_|_.ea._1.$", "", model),
+         measure = gsub("^[a-z]+_.._|_..$", "", model),
+         lags = gsub("^[a-z]+_.._.ea._", "", model)) |>
+  gather(key = "rrs", value = "ests", rr:cihigh) |>
+  mutate(rr_lag = paste(rrs, lags, sep = "_"),
+         ests = sprintf("%1.2f", as.numeric(ests))) |>
+  select(defect, air, measure, rr_lag, ests) |>
+  spread(key = "rr_lag", value = "ests") |>
+  mutate(ci_16 = paste0("(", cilow_16, " - ", cihigh_16, ")"),
+         ci_12 = paste0("(", cilow_12, " - ", cihigh_12, ")"), 
+         ci_12 = ifelse(grepl("NA", ci_12), "", ci_12), 
+         rr_12 = ifelse(is.na(rr_12), "", rr_12), 
+         air = ifelse(air=="pm", "PM\\textsubscript{2.5}", "Ozone"),
+         pollutant = paste(air, measure)) |>
+  select(defect, pollutant, rr_16, ci_16, rr_12, ci_12)
+
+u <- t |> 
+  dplyr::mutate(wk_12 = paste(rr_12, ci_12),
+                wk_16 = paste(rr_16, ci_16), 
+                defect_12 = paste(defect, 12, sep = "_"),
+                defect_16 = paste(defect, 16, sep = "_")) |>
+  dplyr::select(defect_12, defect_16, pollutant, wk_16, wk_12) |>
+  tidyr::spread(key = "defect_16", value = "wk_16") |>
+  tidyr::spread(key = "defect_12", value = "wk_12") |>
+  tidyr::gather(key = "defect", value = "rr", cf_16:cs_12) |>
+  dplyr::filter(!is.na(rr)) |>
+  dplyr::mutate(rr = gsub(" - ", "-", rr)) |>
+  tidyr::spread(key = "defect", value = "rr") |>
+  dplyr::select(-cf_12)
+
+
+u |> 
+  kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = NULL, 
+        col.names = c("Pollutant", rep(c("(95\\% CI)"), 7)), 
+        align = c("l", rep("c", 7))) |>
+  row_spec(0, bold=FALSE) |>
+  column_spec(1, bold = FALSE, width = "6em") |> # 
+  column_spec(c(2:8), bold = FALSE, width = "5em") |> # 
+  add_header_above(c(" ", "4-month RR", rep(c("3-month RR", "4-month RR"), 3)), line_sep = 1, line = F) |>
+  add_header_above(c(" ", "Clubfoot", "Cleft lip w/wo palate" = 2, "Cleft palate" = 2, "Craniosynostosis" = 2), 
+                   line = T, line_sep = 1) |>
+  kableExtra::kable_styling(font_size = 5) 
+
+
+```
+Models adjusted for maternal education & smoking, tract-level median income, and conception season. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. For clubfoot, only the four-month model was run.
+
+\normalsize
+
+<!-- 
+cumulative effect shows overall, how much exposure contributed to outcome spread across all weeks 
+nothing stands out 
+-->
+
+
+
+## Aim 1 weeks with highest effect
+
+\scriptsize
+Weekly risk ratios for covariate models of air pollutant and birth defects pairs, New York State outside New York City, 2002 to 2015 \tiny
+```{r rrlags1, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model1_rr_highest.csv") |>
+  mutate(defect = gsub("_.._.ea._..$", "", model),
+         air = gsub("^[a-z]+_|_.ea._1.$", "", model),
+         measure = gsub("^[a-z]+_.._|_..$", "", model),
+         weeks = gsub("^[a-z]+_.._.ea._", "", model), 
+         air = ifelse(air=="pm", "PM\\textsubscript{2.5}", "Ozone"),
+         pollutant = paste(air, measure), 
+         flag = cilow > 1 | cihigh < 1, # add bold code when pasting if flag
+         ci = paste0("(", sprintf("%1.2f", as.numeric(cilow)), "-", 
+                     sprintf("%1.2f", as.numeric(cihigh)), ")"),
+         ci = ifelse(grepl("NA", ci), "", 
+              ifelse(flag, paste0("\\textbf{", ci, "}"), ci)), 
+         rr = sprintf("%1.2f", as.numeric(rr)),
+         rr = ifelse(grepl("NA", rr), "", 
+              ifelse(flag, paste0("\\textbf{", rr, "}"), rr)),
+         rr_ci = paste(rr, ci), 
+         model_wk = paste("w", weeks, "lag", sep = "_"),
+         model_rr = paste("w", weeks, "rr", sep = "_")) |> 
+  select(defect, pollutant, model_wk, model_rr, week, rr_ci) |>
+  spread(key = "model_wk", value = "week") |>
+  spread(key = "model_rr", value = "rr_ci") |>
+  gather(key = "models", value = "vals", w_12_lag:w_16_rr) |>
+  dplyr::filter(!is.na(vals)) |>
+  spread(key = "models", value = "vals") |>
+  dplyr::mutate(bd = gsub("cf", "Clubfoot", defect),
+                bd = gsub("cs", "Craniosynostosis", bd), 
+                bd = gsub("clp", "Cleft lip w/wo cleft palate", bd),
+                bd = gsub("cp", "Cleft palate", bd)) |> 
+  dplyr::select(-defect)
+t[is.na(t)] <- ""
+
+
+t |> dplyr::select(bd, pollutant:w_16_rr) |>
+  kable(booktabs = TRUE, format = "latex", escape = F, 
+        caption = NULL, 
+        col.names = c("Birth defect", "Pollutant", 
+                      rep(c("Week", "RR (95\\% CI)"), 2)), 
+        align = c("l", "l", rep("c", 4))) |>
+  kableExtra::row_spec(0, bold = FALSE) |>
+  kableExtra::column_spec(1, bold = FALSE, width = "11em") |> # 
+  kableExtra::column_spec(2, bold = FALSE, width = "6em") |> # 
+  kableExtra::column_spec(c(3, 5), bold = FALSE, width = "2em") |> # 
+  kableExtra::column_spec(c(4, 6), bold = FALSE, width = "8em") |> # 
+  kableExtra::collapse_rows(columns = 1:2, valign = "top", 
+                            latex_hline = "major") |>
+  add_header_above(c(" ", " ", "Three-month model" = 2, 
+                     "Four-month model" = 2)) |>
+  kableExtra::kable_styling(font_size = 5)
+```
+
+Models were adjusted for maternal education level, maternal smoking, tract-level median income, and conception season. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. Week 0 is week of conception; week 12 is end of the first trimester. For clubfoot, only the four-month model was run. 
+
+\normalsize
+
+<!-- 
+talking points 
+define weeks  - conception = 0, pre = -4 to -1, post = 1 to 8 or 12
+CLP - extending model beyond critical window (weeks 3-9) washes out observed effect
+-->
+
+
+
+
+## Aim 1 take-aways
+
+Highest effects:
+
+* Clubfoot
+    * Pre-conception: \gls{o3} mean & peak
+    * Post-conception: \gls{pm25} mean (week 11) & peak (week 5)
+* Cleft \lcp
+    * Pre-conception: \gls{o3} mean & peak
+    * Post-conception: \gls{pm25} mean (week 8) & peak (week 5)
+* Cleft palate
+    * Pre-conception: \gls{o3} peak
+    * Post-conception: \gls{o3} mean, \gls{pm25} mean & peak (~week 8)
+* Craniosynostosis
+    * Pre-conception: \gls{pm25} peak
+    * Post-conception: \gls{o3} mean & peak, \gls{pm25} mean (~week 7)
+
+
+<!-- 
+General patterns: 
+results showed higher effect for o3 before & around conception (except CS), 
+higher effect for pm25 during critical windows
+
+
+Clubfoot:  
+O3 mean - before conception 
+O3 peak - just after conception
+PM2.5 mean - week 11 of pregnancy
+PM2.5 peak - week 5 of pregnancy
+Cleft lip/palate:
+O3 mean - before conception or in week 7 of pregnancy 
+O3 peak - just before or after conception
+PM2.5 mean - week 8 or 12 of pregnancy
+PM2.5 peak - week 5 or 12 of pregnancy
+Cleft palate:
+O3 mean - weeks 7 and 11 of pregnancy
+O3 peak - week of conception or week 11 of pregnancy
+PM2.5 mean - second month of pregnancy 
+PM2.5 peak - weeks 7 and 8 of pregnancy
+Craniosynostosis:
+
+O3 mean - weeks 6 and 7 of pregnancy
+O3 peak - weeks 7 and 8 of pregnancy
+PM2.5 mean - weeks 6 and 7 of pregnancy
+PM2.5 peak - before conception or in week 11 of pregnancy
+
+-->
+
+
+
+# Aim 2
+
+Does green space alter the effects of select air pollutants on select birth defects?
+
+## Aim 2 exposure classification
+
+Exposure: \gls{pm25} or \gls{o3}, and green space: 
+
+- Aim 1, plus ...
+- proportions of area in 50m, 100m, 200m, 300m, 400m, 500m buffers around mother's residence at birth classified as grasses, trees, or water
+
+Data source: Downscaler air pollutant model, \gls{nlcd}
+
+
+
+
+
+## Aim 2 study design
+
+Case-cohort study with time-varying exposure  
+\begin{equation}
+\begin{multlined}[0.9\linewidth] 
+logit(RR_{bd}) = \beta_0 + \sum{(\alpha_jAir)} + \beta_1Education + \\ 
+\beta_2Season + \beta_3Smoking + \beta_4Income + \beta_5Green
+\end{multlined}
+\end{equation}  
+$\alpha_jAir$ = series of betas for each air pollutant and week of estimates  
+$bd$ = birth defect case group  
+$Green$ = green space measure
+
+## Aim 2 cumulative effect
+
+\scriptsize
+Cumulative risk ratios for covariate models of air pollutant and birth defects pairs with 300m buffer of grasses and trees, 
+New York State outside New York City, 2002 to 2015 \tiny
+```{r rrcum2, echo=FALSE, message = FALSE}
+t <- readxl::read_xls("data/model2rr_tables.xls", sheet = "cumulative") |>
+  dplyr::mutate(air = gsub("2.5$", "\textsubscript{2.5}", air),
+                air = gsub("\\\\\\\\", "\\\\", air),
+                green = gsub("_", "-", green),
+                pollutant = paste(air, measure),
+                weeks = paste("wk", lags, sep = "_"),
+                bd = gsub("Clu.+", "cf", bd),
+                bd = gsub("Cra.+", "cs", bd),
+                bd = gsub("Cleft l.+", "clp", bd),
+                bd = gsub("Cleft p.+", "cp", bd)) |>
+  dplyr::select(bd, green, pollutant, weeks, b_300)
+
+u <- t |> 
+  tidyr::spread(key = "weeks", value = "b_300") |>
+  dplyr::mutate(defect_12 = paste(bd, 12, sep = "_"),
+                defect_16 = paste(bd, 16, sep = "_")) |>
+  dplyr::select(defect_12, defect_16, green, pollutant, wk_16, wk_12) |>
+  tidyr::spread(key = "defect_16", value = "wk_16") |>
+  tidyr::spread(key = "defect_12", value = "wk_12") |>
+  tidyr::gather(key = "defect", value = "rr", cf_16:cs_12) |>
+  dplyr::filter(!is.na(rr)) |>
+  dplyr::mutate(rr = gsub(" - ", "-", rr)) |>
+  tidyr::spread(key = "defect", value = "rr") |>
+  dplyr::mutate(green = gsub("gra.+", paste("Proportion of grasses and trees",
+                                            "within 300m buffer"), green),
+                green = gsub("gre.+", paste("Proportion of green space and",
+                                            "water within 300m buffer"), green))
+
+b <- table(u$green)
+
+
+u |> dplyr::select(-green) |>
+  kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = NULL, 
+        col.names = c("Pollutant", rep(c("(95\\% CI)"), 7)), 
+        align = c("l", rep("c", 7))) |>
+  add_header_above(c(" ", "4-month RR", rep(c("3-month RR", "4-month RR"), 3)), 
+                   line_sep = 1, line = F) |>
+  add_header_above(c(" ", "Clubfoot", "Cleft lip w/wo palate" = 2, 
+                     "Cleft palate" = 2, "Craniosynostosis" = 2), 
+                   line = T, line_sep = 1) |>
+  kableExtra::group_rows(index = b, escape = F) |> # 
+  # kableExtra::row_spec(cumsum(b), hline_after = TRUE) |>
+  row_spec(0, bold=FALSE) |>
+  column_spec(1, bold = FALSE, width = "7em") |> # 
+  column_spec(c(2:8), bold = FALSE, width = "5em") |> # 
+  kableExtra::kable_styling(font_size = 5) 
+
+
+```
+Models adjusted for maternal education & smoking, tract-level median income, conception season, and green space. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. For clubfoot, only the four-month model was run because limb formation finishes around week 12.
+
+\normalsize
+
+
+
+## Aim 2 weeks with highest effect
+
+\scriptsize
+Weekly risk ratios for covariate models of air pollutant and birth defects pairs  with 300m buffer of grasses and trees, New York State outside New York City, 2002 to 2015 \tiny
+```{r rrlags2, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model2_rr_highest.csv") |>
+  dplyr::filter(!grepl("water", green)) |>
+  mutate(defect = gsub("_.+", "", model),
+         air = gsub("^[a-z]+_|_.ea._.+", "", model),
+         measure = gsub("^[a-z]+_.._|_.._300$", "", model),
+         weeks = gsub("^[a-z]+_.._.ea._|_300", "", model), 
+         air = ifelse(air=="pm", "PM\\textsubscript{2.5}", "Ozone"),
+         pollutant = paste(air, measure), 
+         flag = cilow > 1 | cihigh < 1, # add bold code when pasting if flag
+         ci = paste0("(", sprintf("%1.2f", as.numeric(cilow)), "-", 
+                     sprintf("%1.2f", as.numeric(cihigh)), ")"),
+         rr = sprintf("%1.2f", as.numeric(rr)),
+         rr_ci = paste(rr, ci), 
+         rr_ci = ifelse(grepl("NA", rr_ci), "", 
+                 ifelse(flag, paste0("\\textbf{", rr_ci, "}"), rr_ci)),
+         model_wk = paste("w", weeks, "lag", sep = "_"),
+         model_rr = paste("w", weeks, "rr", sep = "_")) |> 
+  select(defect, pollutant, model_wk, model_rr, week, rr_ci) |>
+  spread(key = "model_wk", value = "week") |>
+  spread(key = "model_rr", value = "rr_ci") |>
+  gather(key = "models", value = "vals", w_12_lag:w_16_rr) |>
+  dplyr::filter(!is.na(vals)) |>
+  spread(key = "models", value = "vals") |>
+  dplyr::mutate(bd = gsub("cf", "Clubfoot", defect),
+                bd = gsub("cs", "Craniosynostosis", bd), 
+                bd = gsub("clp", "Cleft lip w/wo cleft palate", bd),
+                bd = gsub("cp", "Cleft palate", bd)) |> 
+  dplyr::select(-defect)
+t[is.na(t)] <- ""
+
+
+t |> dplyr::select(bd, pollutant:w_16_rr) |>
+  kable(booktabs = TRUE, format = "latex", escape = F, 
+        caption = NULL, 
+        col.names = c("Birth defect", "Pollutant", 
+                      rep(c("Week", "RR (95\\% CI)"), 2)), 
+        align = c("l", "l", rep("c", 4))) |>
+  kableExtra::row_spec(0, bold = FALSE) |>
+  kableExtra::column_spec(1, bold = FALSE, width = "11em") |> # 
+  kableExtra::column_spec(2, bold = FALSE, width = "6em") |> # 
+  kableExtra::column_spec(c(3, 5), bold = FALSE, width = "2em") |> # 
+  kableExtra::column_spec(c(4, 6), bold = FALSE, width = "8em") |> # 
+  kableExtra::collapse_rows(columns = 1:2, valign = "top", 
+                            latex_hline = "major") |>
+  add_header_above(c(" ", " ", "Three-month model" = 2, 
+                     "Four-month model" = 2)) |>
+  kableExtra::kable_styling(font_size = 5)
+```
+
+Models were adjusted for maternal education level, maternal smoking, tract-level median income, green space, and conception season. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. Week 0 is week of conception; week 12 is end of the first trimester. For clubfoot, only the four-month model was run. 
+
+\normalsize
+
+<!-- talking points:
+showing only grass-trees at 300m buffer, as results were similar across buffers for both green space measures
+
+
+differ from non-green models - 
+  cp o3 peak, cs pm mean
+as with aim 1, 
+  o3 affects cf, clp, cp around conception, pm post but ns
+  o3 affects cs in 2nd month (post), pm around conception
+  
+
+ -->
+
+## Aim 2 take-aways
+
+Effects altered by including green space:
+
+* Cleft palate: 
+    * Weekly \gls{o3} peak highest around conception
+
+* Craniosynostosis: 
+    * Cumulative effect of \gls{pm25} mean much higher than in model without green space
+    * Weekly \gls{pm25} mean highest around conception
+
+
+
+
+# Aim 3
+
+Does a multi-pollutant model vs single-pollutant model alter the effects of each air pollutant on select birth defects?
+
+## Aim 3 exposure classification
+
+
+
+Exposure: \gls{pm25} and \gls{o3}, and green space: 
+
+- Aims 1 and 2, except ...
+- \gls{pm25} and \gls{o3} are included in the same model
+
+
+Data source: 
+
+* Downscaler air pollutant model
+* \gls{nlcd}
+
+
+<!-- difference from prior aim - multipollutant -->
+
+## Aim 3 study design
+
+Case-cohort study with time-varying exposure  
+\begin{equation}
+\begin{multlined}[0.9\linewidth] 
+logit(RR_{bd}) = \beta_0 + \sum{(\alpha_aO_3)} + \sum{(\alpha_bPM_{2.5})} + \\
+\beta_1Education + \beta_2Season + \beta_3Smoking + \\ 
+\beta_4Income + \beta_5Green
+\end{multlined}
+\end{equation}  
+$\alpha_aO_3$ and $\alpha_bPM_{2.5}$ = series of betas for each air pollutant and week of estimates  
+$bd$ = birth defect case group  
+$Green$ = green space measure
+
+
+
+## Aim 3 cumulative effect
+
+\scriptsize
+Cumulative risk ratios for covariate multi-pollutant models of air pollutants and birth defects with 300m buffer of grasses and trees, 
+New York State outside New York City, 2002 to 2015 \tiny
+```{r rrcum3, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model3cov_rrciwide_2022-08-26_all.csv") |>
+  dplyr::filter(lag == "cum", model_type == "adjusted", buffer == "b300") |> 
+  dplyr::mutate(o3 = ifelse(is.na(o3), "", o3),
+                pm = ifelse(is.na(pm), "", pm),
+                weeks_o = paste("w", lags, "o3", sep = "_"),
+                weeks_p = paste("w", lags, "pm", sep = "_")) |>
+  select(defect, measure, weeks_o, weeks_p, o3, pm) 
+
+u <- t |>
+  dplyr::mutate(bd = gsub("cf", "Clubfoot", defect),
+                bd = gsub("cs", "Craniosynostosis", bd), 
+                bd = gsub("clp", "Cleft lip w/wo cleft palate", bd),
+                bd = gsub("cp", "Cleft palate", bd)) |> 
+  tidyr::spread(key = "weeks_o", value = "o3") |>
+  tidyr::spread(key = "weeks_p", value = "pm") |>
+  tidyr::gather(key = "weeks", value = "rr", w_12_o3:w_16_pm) |>
+  dplyr::filter(!is.na(rr)) |>
+  tidyr::spread(key = "weeks", value = "rr") |>
+  dplyr::select(bd, measure, w_12_o3:w_16_pm)
+u[is.na(u)] <- ""
+
+# b <- table(u$bd)
+
+u |> # dplyr::select(-bd) |>
+  kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = NULL, 
+        col.names = c("Birth Defect", "Measure", 
+                      rep(c("O\\textsubscript{3} RR (95\\% CI)",
+                            "PM\\textsubscript{25} RR (95\\% CI)"), 2)), 
+        align = c("l", rep("c", 7))) |>
+  add_header_above(c(" ", " ", "Three-month model" = 2, "Four-month model" = 2),
+                   line_sep = 1, line = T) |>
+  kableExtra::collapse_rows(columns = 1:2, valign = "top", 
+                            latex_hline = "major") |>
+  # kableExtra::group_rows(index = b, escape = F) |> # 
+  row_spec(0, bold=FALSE) |>
+  column_spec(1, bold = FALSE, width = "10em") |> # 
+  column_spec(2, bold = FALSE, width = "2.5em") |> # 
+  column_spec(c(3, 5), bold = FALSE, width = "8em") |> # 
+  column_spec(c(4, 6), bold = FALSE, width = "9em") |> # 
+  kableExtra::kable_styling(font_size = 5) 
+
+
+```
+Models adjusted for maternal education & smoking, tract-level median income, green space, and conception season. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. For clubfoot, only the four-month model was run.
+
+\normalsize
+
+
+
+
+## Aim 3 weeks with highest effect
+
+\scriptsize
+Weekly risk ratios for covariate models of air pollutant and birth defects pairs  with 300m buffer of grasses and trees, New York State outside New York City, 2002 to 2015 \tiny
+```{r rrlags3, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model3_rr_highest.csv") |>
+  mutate(air = ifelse(air=="pm", "PM\\textsubscript{2.5}", "Ozone"),
+         flag = cilow > 1 | cihigh < 1, # add bold code when pasting if flag
+         ci = paste0("(", sprintf("%1.2f", as.numeric(cilow)), "-", 
+                     sprintf("%1.2f", as.numeric(cihigh)), ")"),
+         rr = sprintf("%1.2f", as.numeric(rr)),
+         rr_ci = paste(rr, ci), 
+         rr_ci = ifelse(grepl("NA", rr_ci), "", 
+                 ifelse(flag, paste0("\\textbf{", rr_ci, "}"), rr_ci)),
+         model_wk = paste("w", lags, "lag", sep = "_"),
+         model_rr = paste("w", lags, "rr", sep = "_")) |> 
+  select(defect, measure, air, model_wk, model_rr, week, rr_ci) |>
+  spread(key = "model_wk", value = "week") |>
+  spread(key = "model_rr", value = "rr_ci") |>
+  gather(key = "models", value = "vals", w_12_lag:w_16_rr) |>
+  dplyr::filter(!is.na(vals)) |>
+  spread(key = "models", value = "vals") |>
+  dplyr::mutate(bd = gsub("cf", "Clubfoot", defect),
+                bd = gsub("cs", "Craniosynostosis", bd), 
+                bd = gsub("clp", "Cleft lip w/wo cleft palate", bd),
+                bd = gsub("cp", "Cleft palate", bd)) |> 
+  dplyr::select(bd, measure, air, w_12_lag:w_16_rr)
+t[is.na(t)] <- ""
+
+
+t |> 
+  kable(booktabs = TRUE, format = "latex", escape = F, 
+        caption = NULL, 
+        col.names = c("Birth defect", "Measure", "Pollutant",
+                      rep(c("Week", "RR (95\\% CI)"), 2)), 
+        align = c(rep("l", 3), rep("c", 4))) |>
+  kableExtra::row_spec(0, bold = FALSE) |>
+  kableExtra::column_spec(1, bold = FALSE, width = "11em") |> # 
+  kableExtra::column_spec(2:3, bold = FALSE, width = "4em") |> # 
+  kableExtra::column_spec(c(4, 6), bold = FALSE, width = "2em") |> # 
+  kableExtra::column_spec(c(5, 7), bold = FALSE, width = "8em") |> # 
+  kableExtra::collapse_rows(columns = 1:3, valign = "top", 
+                            latex_hline = "major") |>
+  add_header_above(c(" ", " ", " ", "Three-month model" = 2, 
+                     "Four-month model" = 2)) |>
+  kableExtra::kable_styling(font_size = 5)
+```
+
+Models were adjusted for maternal education level, maternal smoking, tract-level median income, and conception season. \gls{rr} applies to a 10-unit increase over two standard deviations above the mean. Week 0 is week of conception; week 12 is end of the first trimester. For clubfoot, only the four-month model was run.
+
+\normalsize
+
+## Aim 3 take-aways
+
+Effects altered by using a multi-pollutant model:
+
+* \footnotesize Clubfoot: 
+    * \footnotesize Cumulative effect of \gls{o3} mean lower and \gls{pm25} mean higher than in single-pollutant model
+    * \footnotesize Weekly \gls{o3} mean and peak highest post-conception (not before), higher than in single-pollutant model
+* \footnotesize Cleft \lcp: 
+    * \footnotesize Weekly \gls{o3} mean and peak highest post-conception (not before), lower than in single-pollutant model
+    * \footnotesize Weekly \gls{pm25} mean highest earlier post-conception, lower than in single-pollutant model
+* \footnotesize Cleft palate: 
+    * \footnotesize Cumulative effect of \gls{o3} mean higher than in single-pollutant model
+* \footnotesize Craniosynostosis: 
+    * \footnotesize Cumulative effect of \gls{pm25} mean higher than in single-pollutant model
+    * \footnotesize Weekly \gls{o3} and \gls{pm25} peak lower than in single-pollutant model, no longer significant
+
+
+
+
+## Sensitivity analyses
+
+<!-- from aim 1 --->
+
+
+Conducted 3 analyses
+
+1. Under-reporting of maternal smoking: 
+    - Reported: non-cases 15%, case groups 20-22%
+    - Even if under-reported, difference between non-cases & cases would likely still exist
+    - 1% missing smoking would not impact difference
+
+2. Misclassification of clubfoot: 
+    - Estimated 95% talipes equinovarus
+    - Modeling tests for 5% misclassification non-significant
+
+3. Misclassification of ungeocoded records: 
+    - Results comparable with and without ungeocoded records (n=507)
+
+
+
+# Conclusion
+
+## Limitations
+
+<!-- from summary chapter -->
+
+Unknowns: 
+
+- Maternal time spent outside at home
+- Maternal residential mobility
+- Second-hand smoke exposure
+- Occupational exposure to \gls{pm25} & \gls{o3}
+- Indoor exposure to \gls{pm25} & \gls{o3}
+
+Assumptions:
+
+- \gls{pm25} composition is comparable across locations 
+- Median tract income reflects mother's income
+- Green space is relatively consistent over time
+
+<!-- pm25 composition - not seasons; I controlled for that -->
+<!-- all exposure misclassification, presumed non-differential, bias results toward null -->
+<!-- sensitivity - no difference removing ungeocoded -->
+<!-- research: mothers who move during pregnancy tend to move to areas with similar levels of air pollution[@Lupo2009] -->
+<!-- smoking: underreported on birth certificates[@Roohan2003], but cases > non-cases in study if non-differential -->
+<!-- all more likely to bias results toward null than away 
+
+-->
+
+## Strengths
+
+- Case-cohort study design
+- Well defined, easily identified birth defects
+- Statewide (excluding \gls{nyc}) birth records over 14 years joined to \gls{cmr}
+- Birthdate and residence point coordinates for precise exposure estimates
+- Statewide daily air pollutant exposure data
+- Statewide land cover data that differentiate between trees and grass
+
+<!-- defect misclassification unlikely and sensitivity test on clubfoot not significant -->
+
+
+
+
+
+## Findings: air pollutants only
+
+
+\gls{o3}
+
+- Pre-conception exposure: 
+    - Peak only: cleft palate
+    - Mean & peak: cleft \lcp, clubfoot
+- Post-conception exposure:
+    - Mean only: cleft \lcp, cleft palate
+    - Mean & peak: craniosynostosis
+
+\gls{pm25}
+
+- Pre-conception exposure: 
+    - Mean & peak: craniosynostosis
+- Post-conception exposure:
+    - Peak only: clubfoot
+    - Mean & peak: cleft \lcp, cleft palate
+
+
+## Findings: air pollutants & green space
+
+Estimates altered by including green space
+
+- \gls{o3} peak: cleft palate
+- \gls{pm25} mean: craniosynostosis
+- No effect: cleft \lcp, clubfoot
+
+
+Estimates altered by using a multi-pollutant model
+
+- \gls{o3} peak: clubfoot
+- \gls{o3} mean & peak: cleft \lcp
+- \gls{pm25} mean & peak: clubfoot, cleft \lcp, craniosynostosis
+- No effect: cleft palate
+
+
+## Next steps 
+
+* Research on exposure around conception 
+* Research evaluating multiple exposures at once
+* Improved spatial & temporal granularity
+* Evaluate different models of air pollution data
+* Research that incorporates neighborhood characteristics
+
+<!-- intersection with EJ as driver of risk -->
+
+
+## Acknowledgements
+
+\begin{center}
+
+Dissertation committee
+
+Professors and fellow students
+
+Colleagues at the Department of Health
+
+Family and friends
+
+\end{center}
+
+## Contact
+
+\begin{center}
+
+Abigail Stamm
+
+astamm@albany.edu
+
+https://github.com/ajstamm/apcmpkg
+
+\end{center}
+
+
+# Supplemental
+
+## Oral clefts, PM, and O\textsubscript{3}
+
+Monitoring station data
+
+
+- \footnotesize 6 averaged over critical window, 1 significant: 
+    - \footnotesize \gls{pm25}: cleft palate \gls{or} 0.69 (0.50-0.93) 4\ugm change[@Hansen2009]
+- \footnotesize 5 averaged monthly, 4 significant: 
+    - \footnotesize \gls{o3}: cleft \lcp \gls{aor} 1.17 (1.01-1.36) month 1; \gls{aor} 1.22 (1.03-1.46) month 2[@Hwang2008]
+    - \footnotesize \gls{pm25}: cleft palate \gls{rr} 1.09 (1.01-1.17)  month 1; cleft \lcp \gls{rr} 1.05 (1.01-1.08) month 2[@Wang2018] 
+    - \footnotesize \gls{pm10}: oral clefts strong association[@Huang2021]
+    - \footnotesize \gls{pm10}: cleft \lcp spatial association[@Gasca-Sanchez2019]
+
+\normalsize
+
+Modeled data
+
+
+- \footnotesize 1 averaged annually, not significant
+- \footnotesize 6 averaged over critical window, 3 significant:
+    - \footnotesize \gls{pm25}: oral clefts \gls{or} 0.90 (0.82-0.99) 5\ugm change[@Vinikoor-Imler2015]
+    - \footnotesize \gls{pm25}: cleft palate \gls{or} 1.43 (1.11-1.86) 10\ugm increase[@Zhou2017]
+    - \footnotesize \gls{pm25}: cleft palate \gls{aor} 1.74 (1.15-2.64)[@Zhu2015a]
+
+\normalsize
+
+<!-- 3 modeled that looked only at pm not significant -->
+<!-- 3 modeled that looked at pm & o3 found only pm significant -->
+
+
+## Craniosynostosis, Clubfoot, PM, and O\textsubscript{3}
+
+
+Clubfoot
+
+ - 1 averaged monitoring station data monthly, not significant
+
+Craniosynostosis
+
+- 1 averaged monitoring station data over 2 months, not significant
+- 1 averaged modeled data over 1st trimester, significant:
+    - \gls{o3} \gls{aor} 1.38 (1.11-1.72) 13.3ppb increase[@Vinikoor-Imler2015]
+    - \gls{pm25} \gls{or} 0.78 (0.64-0.96) 5\ugm increase[@Vinikoor-Imler2015]
+
+
+## Characteristics of prior literature
+
+Measures of exposure
+
+- monitoring station value applied to buffer or tract
+- monitoring stations sparse
+- modeled data estimated
+- use residence at birth
+
+Measures of time
+
+- only one study considered pre-conception exposure
+- most studies averaged over critical window or trimester
+- no study used time shorter than one month
+- averages may mask variation
+
+Measures of outcome
+
+- most studies used birth registries or NBDPS
+- most studies were case-control
+
+<!-- 
+add single air-defect-green study 
+note multi-pollutant model studies
+-->
+
+
+## Model settings
+
+\scriptsize
+Cross-basis settings for distributed lag logistic regression models \tiny
+
+```{r cb, echo=FALSE, eval = TRUE, message = FALSE}
+t <- readr::read_csv("data/results_singlepoll.csv") |>
+  mutate(arglag_12 = ifelse(is.na(arglag_12), "", arglag_12)) |> 
+  select(`Birth defect`, `Air pollutant`, Measure, arglag_12, arglag_16)
+
+t |> kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = NULL,
+        col.names = c("Birth defect", "Pollutant", "Measure", 
+                      "Four-month model settings", "Three-month model settings"), 
+        align = c(rep("l", 5))) |>
+  row_spec(0, bold=TRUE) |>
+  column_spec(c(2, 3), bold = FALSE, width = "4em") |> # 
+  column_spec(c(1), bold = FALSE, width = "9em") |> # 
+  column_spec(c(4, 5), bold = FALSE, width = "10.5em") |> # 
+  kableExtra::collapse_rows(1:3, latex_hline = "major", valign = "top") |>
+  kableExtra::kable_styling(position = "center", font_size = 6) 
+```
+
+Setting refers to the relationship between exposure and outcome for the matrix containing the lag weeks. For clubfoot, only the four-month models were run.
+
+\normalsize
+
+
+## Green space calculation
+
+\begin{figure}[H]
+\includegraphics[width=0.8\textwidth, height=!]{images/spatialjoins.png}
+\centering
+\end{figure}
+\footnotesize
+\begin{center}
+Figure 6: Data merging method
+\end{center}
+\normalsize
+
+<!-- 
+proportion of areas in buffers
+grass, trees, water highly correlated, so created composites
+
+mother's residence assigned to tract
+air pollutant estimates at tract level 
+green space (aim 2-3) in 30m^2 grid - 
+created buffers around each residence & calculated proportion of green space types in buffer
+-->
+
+
+
+
+
+
+# References {.allowframebreaks}
+
+\tiny

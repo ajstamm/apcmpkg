@@ -1,0 +1,355 @@
+---
+title: "Association of prenatal exposure to air pollutants with select birth defects using the case-cohort approach"
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+    latex_engine: xelatex
+    keep_tex: TRUE
+    toc: FALSE
+geometry: margin=2cm
+fontsize: 16pt
+bibliography: library.bib
+csl: ama-citation.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr); library(kableExtra); library(rmarkdown);library(tidyverse)
+```
+
+\large
+\singlespacing
+
+
+# Background
+
+## Objective & rationale
+
+The objective of my dissertation was to evaluate the effect of outdoor exposure to air pollution at the mother's residence at birth during the early part of her pregnancy on the risk of her child being born with birth defects.
+
+I chose this topic because there is evidence that risk of many birth defects increases when the fetus is exposed to oxidative stress via inhaled cigarette smoke. As the by-product of combustion, cigarette smoke has many of the same components as \gls{pm25} in air pollution. To date, there is insufficient research on the association between air pollution and birth defects. 
+
+
+## Study aims
+
+My dissertation includes three aims that build on each other. 
+
+* First, is there an association between air pollution and birth defects? 
+* Second, is this association altered if green space is taken into consideration? 
+* Third, is the association altered if I include multiple air pollutants in the same model?
+
+The air pollutants I selected are \gls{o3} and combined \gls{pm25}. The birth defects I selected are clubfoot, oral clefts, and craniosynostosis.
+
+
+
+## Outcome definitions
+
+Birth defects are any abnormalities that form in the developing fetus. Some birth defects also occur at birth, but the ones I selected can all be identified prenatally.
+
+Clubfoot is a deformation of the foot. There are three types of clubfoot, including talipes calcaneovalgus, talipes calcaneovarus, and talipes equinovarus. By far, the most common type in New York is talipes equinovarus, which can be misclassified if the hospital's narrative does not specify. 
+
+Oral clefts generally fall into three groups, cleft lip, cleft palate, and cleft lip and palate. Cleft lip is a split lip that occurs when the mandible, or jaw, does not fuse fully before birth. Cleft palate is a split palate, or roof of the mouth, that occurs when the palatine shelf does not fuse fully before birth. Consistent with past research, I have combined cleft lip with cleft lip and palate.
+
+Craniosynostosis is the premature fusion of two or more skull plates, which causes the skull to deform when the brain pushes around the fused plates as it grows. 
+
+
+\pagebreak
+
+## Critical windows of development
+
+The fetus is most susceptible to clubfoot during weeks four to twelve of pregnancy, when the limbs are developing, especially around weeks 6 to 7 when the feet turn.
+
+The fetus is most susceptible to cleft lip during weeks three to nine, when the mandible, or jaw, is developing and to cleft palate during weeks five to twelve, when the face, especially the upper palate, is developing.
+
+The fetus is most susceptible to craniosynostosis during weeks four to twelve of pregnancy, when the cranium, or skull, is developing. 
+
+These birth defects were selected because they are posited to be susceptible to similar routes of exposure and because they can be diagnosed prenatally. 
+
+
+## Known or suspected causes of birth defects
+
+For thirty to forty percent of birth defect cases, the cause is known. Many of these are genetic. For and estimated twenty-five to fifty percent of clubfoot cases, for example, there is a family history of clubfoot.
+
+However, in the majority of birth defect cases, the causes are unknown and believed to be epigenetic. Epigenetics refers to interactions among the infant's genetics, the mother's health, and the mother's environment before and during pregnancy.
+
+
+
+## Known risk factors of birth defects
+
+Here I have listed some of the risk factors associated with the birth defects I studied, roughly broken down by parental demographics, the mother's health, and mother's environment before and during pregnancy.
+
+Of interest for this study, clubfoot has been linked to maternal smoking, diabetes, and obesity. Oral clefts have been linked to maternal age, obesity, smoking, and alcohol use. Craniosynostosis has been linked to both parents’ age and smoking. Several of these variables are components of \gls{ses}, which has been linked to oral clefts and craniosynostosis.
+
+
+## Research on smoking
+
+Smoking, both maternal and second-hand when the father smokes, is associated with all of the birth defects I am evaluating. There is evidence that particles from cigarette smoke are inhaled, enter the mother's bloodstream through the lungs, and either cross the placenta or disrupt oxygen flow across the placenta. 
+
+Some of the components of cigarette smoke associated with these birth defects are listed here. They have all been associated with skeletal, bone, or limb defects in human or animal studies.
+
+\pagebreak
+
+## Teratogenic mechanism
+
+The teratogenic mechanism, or method by which smoke particles may disrupt the fetus, is shown here. There are two similar theories for how oxidative stress affects the fetus.
+
+In the first theory, some components of smoke disrupt the placenta's ability to transmit nutrients and oxygen. This reduces oxygen to the fetus, which increases the concentration of \gls{roxs}. Some \gls{roxs} are necessary for fetal cells to function, but when there are too many for antioxidants to handle, they can damage fetal \gls{dna}.
+
+In the second theory, some components of smoke can cause blood vessels in the placenta to develop too quickly, causing the fetus to be exposed to high oxygen too early, which increases the concentration of \gls{roxs}, leading to cell damage. Normally, the fetus grows in a low-oxygen environment in the first trimester, shifting gradually to a higher oxygen environment in the second trimester.  The critical windows for the birth defects included in the study all occur in the first trimester.
+
+
+## Purpose of the study
+
+Given the research on smoking and birth defects, and the common components between cigarette smoke and air pollution, including the ones I listed earlier like benzene, I chose to research air pollution, specifically \gls{o3} and \gls{pm25}, and birth defects. 
+
+Research on this topic to date is sparse - I was only able to locate one study that included clubfoot and \gls{pm10} and two studies that included craniosynostosis and \gls{o3} and \gls{pm25}. Results for the 18 studies that evaluated oral clefts and \gls{o3} and \gls{pm25} were mixed.
+
+Many previous studies included mean air pollutant measures of a month or more, or locations that were very large, such as counties, or very close to air pollution monitoring stations. My study reduced temporal granularity to weeks and spatial granularity to street address points statewide.
+
+
+
+## Air pollutant description
+
+Air pollution is a composite of chemicals suspended in the air. These composites may vary by location, season, and weather. Ozone is a molecule of three oxygen atoms created when \gls{nox} in PM reacts with \gls{voc} in chemical reactions triggered by sunlight.
+
+\gls{pm25} is a mixture of solid and liquid particles of less than 2.5$\mu$m in diameter, or 3% of the diameter of human hair. Many of these particles are created by combustion from sources such as wood smoke and car exhaust. Researchers are interested in this size because it is small enough to inhale easily and to cross the membranes in the lungs into the bloodstream. 
+
+
+
+\pagebreak
+
+# Methods
+
+## Case-cohort study design
+
+Case-cohort studies are similar to case-control studies in that both identify cases after exposure. They differ in how the comparison group is selected. In case-control studies, the comparison group is selected only from people without the health outcome of interest. In case-cohort studies, the comparison group is selected from all members of the population, in this case all births in New York outside \gls{nyc} between 2002 and 2015 whether or not they are cases. This reduces the chance of bias when determining exposures.
+
+Each case group was analyzed separately. In total, there were 2,423 clubfoot cases, 952 cleft \lcp cases, 1,281 cleft palate cases, and 931 craniosynostosis cases. Separate comparison groups were created for each case group.
+
+
+## Air pollution exposure classification
+
+The exposures I included are \gls{o3} or \gls{pm25} estimates from the \gls{epa} Downscaler air pollution model. Downscaler is a complex atmospheric chemistry and air transport model that incorporates meteorology, land use, atmospheric chemistry and several types of pollution sources. Estimates are then recalibrated using monitoring station measurements. The Downscaler model estimates daily \gls{o3} and \gls{pm25} concentrations at census tract level. 
+
+For my study, I created two measures using these estimates. For the first measure, I calculated weekly means for each air pollutant to smooth out possibly spurious estimates. This also is consistent with other research that used mean calculations. For the second measure, I used peak estimates to capture short periods of higher exposure that would be lost when calculating means. Higher exposure, even for a short time, has been associated with other health outcomes, such as asthma, and to my knowledge has not been evaluated with these birth defects. 
+
+After calculating weekly values, I joined the air pollutant measures to births based on the estimated week of conception and census tract in which the mother lived at birth.
+
+
+
+## Covariates
+
+Prior to beginning my study, I developed the \gls{dag} here. From my DAG, the minimally sufficient set of covariates to include in my model were mother's education, maternal smoking, household income, maternal alcohol use, and season of conception. 
+
+I had considered including race, but I chose education instead because race is a social construct and education is a better marker for \gls{ses}.
+
+I had to drop alcohol because there were very few "yes" responses . Three case groups had fewer than 10 birth certificates report that the mother had ever ingested alcohol while pregnant. 
+
+Season of conception was coded by season: December to February for winter, March to May for spring, June to August for summer, and September to November for fall. Maternal smoking was coded "yes" or "no" whether the mother ever smoked cigarettes while pregnant. Maternal education was coded as less than high school, high school graduate, any college, college graduate, or advanced education. Because income is not included in the births data, I used median census tract income from the US Census' American Community Survey categorized in quartiles.
+
+I included green space for Aims 2 and 3 and will describe it further when I discuss Aim 2.
+
+\pagebreak
+
+# Aim 1
+
+Is there an association between select air pollutants and select birth defects?
+
+## Statistical analysis
+
+For my study, I performed the standard univariate and bivariate analyses. Univariate and bivariate results were largely the same for all aims, so I will cover univariate analyses only in aim 1 and skip bivariate analyses in the interest of time. The bulk of my analysis was the multivariate portion. I performed three sensitivity analyses, which I will cover after Aim 3. 
+
+
+## Distribution of comparison and case groups
+
+This table shows frequencies for variables used in the analyses for both comparison and case groups. In this table, all comparison groups were combined. 
+
+There a few patterns to note. Case groups in general have lower income and education levels than comparison groups. Case groups have higher smoking rates than comparison groups. For season of conception, the only pattern was that cleft palate cases were more often conceived in fall and winter than in spring and summer.
+
+Among variables not shown, case groups had higher proportions of preterm births and low birthweight births than comparison groups. Mothers of cases had higher \gls{bmi} than in the comparison groups. In case groups, a higher proportion of mothers identified as white and a lower proportion identified as black than in the comparison groups.
+
+
+## Aim 1 study design
+
+For all three studies, I used the case-cohort design I described earlier. For multivariate analyses, I used the dlnm package in R to run a distributed lag non-linear model. This allowed me to use a matrix of weeks for air pollution exposure rather than a single variable.
+
+This is my general model. Each air pollutant and birth defect pair was run in its own model. I ran models that covered two time periods to address variation in critical windows among different birth defects and uncertainty about what time periods were most important. The four-month model covered weeks from one month before conception to the end of the first trimester of pregnancy. The three-month model ran from one month before conception to the end of the second month of pregnancy.
+
+I ran only the four-month model only for clubfoot because initially, I did not expect a three-month model would be informative because the foot does not start to turn until the end of the second month. I may run the three month model later to test that. 
+
+
+
+## Aim 1 cumulative effect
+
+The cumulative effect shows overall, how much the exposure contributed to outcome, spread across all weeks. The four case groups are listed across the top, with risk ratios for the three and four-month models in separate columns. Each row represents a different exposure. 
+
+This table does not show any strong patterns.
+
+\pagebreak
+
+## Aim 1 weeks with highest effect
+
+In this table, in the interest of time and space, I included only the week that showed the highest effect in each model. Weeks can be read from week 0, which is conception, backward to week -4, a month before pregnancy, and forward to week 8, the end of the second month of pregnancy, or week 12, the end of the third month of pregnancy. 
+
+Here, the effect of ozone on risk of clubfoot and cleft \lcp is greater before or around conception, but the effect of \gls{pm25} on risk of these birth defects is greater during their critical windows. Ozone peak concentrations had the highest effect on risk of cleft palate at conception, but the other three air pollutant measures had higher effects during cleft palate's critical window. Craniosynostosis was the only birth defect evaluated for which \gls{pm25} had the highest effect before conception, while all other air pollutant measures' highest effects were during the critical window. 
+
+The one exception to this was cleft \lcp, for which the four-month model showed week 12, after the critical window, as having the highest effect. I believe this is because extending the model three weeks past the critical window washed out the observed effect.
+
+
+## Aim 1 summary
+
+In general, ozone had the highest effect on the risk of most of the birth defects before conception and \gls{pm25} had the highest effect on the risk of most of the birth defects during the critical window. For cleft palate and craniosynostosis, time period of highest effect differed depending on whether the model included mean or peak values.
+
+
+# Aim 2
+
+Does green space alter the effects of select air pollutants on select birth defects?
+
+## Aim 2 exposure classification
+
+For Aim 2, I used the same air pollutant measures as in aim 1 and added green space. To calculate green space, I used the 2011 \gls{nlcd}. This dataset subsets the country into 30 meter square grids and assigns one of 16 land types to each grid cell based on the dominant land type in that cell. For this study, the land types were categorized as follows. 
+
+Water was placed in its own category. The category "trees" included deciduous, evergreen, or mixed forests and woody and emergent herbaceous wetland. The category "grasses" included scrub, grasslands, pasture, and cultivation. The category "built environment" included all remaining land types. 
+
+I drew six buffers of between 50m and 500m around the mother's residence in ArcGIS and calculated the proportion of each land category that fell inside each buffer. I considered including grasses and trees in the same models, but they were too highly correlated, so I created composite measures, instead. My first composite measure combined grasses and trees and my second composite measure combined grasses, trees, and water.
+
+
+## Aim 2 study design
+
+
+As I stated for Aim 1, for all three studies, I used the case-cohort design I described earlier, with a distributed lag non-linear model. In this model, each air pollutant and birth defect pair was run in its own set of models, with one model for each green space buffer. As with Aim 1, I ran models that covered two time periods for all birth defects except clubfoot.
+
+
+## Aim 2 cumulative effect
+
+Here, I included only the results for the 300 meter buffer. Risk ratios were largely the same across buffers, so this buffer is representative. 
+
+As with Aim 1, this table does not show any clear patterns. Of note, for craniosynostosis, the mean \gls{pm25} risk ratio is much higher here than in aim 1. All other risk ratios are comparable to aim 1. All risk ratios are similar between the two green space measures.
+
+
+## Aim 2 weeks with highest effect
+
+
+In this table, in the interest of time and space, I included only the week that showed the highest effect in each 300 meter buffer for only the grasses and trees composite measure. These results were mostly consistent across buffers for both green space measures. Weeks can be read from week 0, which is conception, backward to week -4, a month before pregnancy, and forward to week 8, the end of the second month of pregnancy, or week 12, the end of the third month of pregnancy. 
+
+Here, the results are largely the same as in aim 1 with two exceptions. The first exception was for peak ozone in the four-month model for cleft palate. In this model, the week of highest effect shifted from the end of the critical window to around conception. The second exception was for mean \gls{pm25} in the four-month model for craniosynostosis. In this model, the week of highest effect shifted from the critical window to before conception.
+
+
+
+
+## Aim 2 take-aways
+
+Effects were altered for only two relationships by including green space in the analysis. For cleft palate, the effect of peak ozone was highest around conception in both models, with effects higher than in the aim 1 models. For craniosynostosis, the effect of mean \gls{pm25} was highest around conception in the four-month model, but unchanged in the three-month model, with lower weekly effects in month 2 of pregnancy and higher weekly effects in month 3 of pregnancy than in the aim 1 model. In addition, the cumulative effect of mean \gls{pm25} on risk of craniosynostosis was much higher than in aim 1.
+
+For these two air pollutant and birth defect pairs, including green space appears to increase the effect of the air pollutant on the birth outcome.
+
+
+# Aim 3
+
+Does a multi-pollutant model vs single-pollutant model alter the effects of each air pollutant on select birth defects?
+
+## Aim 3 exposure classification
+
+For Aim 3, I used the same air pollutant measures as in aim 2. Because the results were similar between the green space measures, I only ran the models for the grasses and trees composite measure. However, for these models, I included mean ozone in the same model as mean \gls{pm25} and peak ozone in the same model as peak \gls{pm25}.
+
+## Aim 3 study design
+
+As I stated for Aim 1, for all three studies, I used the case-cohort design I described earlier, with a distributed lag non-linear model. 
+
+In this model, each pair of air pollutants was run in its own set of models for each birth defect, with one model for each green space buffer. The equation shown reflects the addition of both air pollutants in the model. As with Aim 1, I ran models that covered two time periods for all birth defects except clubfoot.
+
+\pagebreak
+
+
+## Aim 3 cumulative effect
+
+Here, I included only the results for the 300 meter buffer. Risk ratios were largely the same across buffers, so this buffer is representative. As with Aim 1, this table does not show any clear patterns. 
+
+Compared to the single-pollutant models in aim 1, for clubfoot, the cumulative effect of mean ozone was lower and for mean \gls{pm25} was higher than in the aim 1 models. For cleft palate, the cumulative effect of mean ozone was higher than in the aim 1 model. For craniosynostosis, the cumulative effect of mean \gls{pm25} was higher than in the aim 1 model. All other results are comparable to aim 1.
+
+
+## Aim 3 weeks with highest effect
+
+In this table, in the interest of time and space, I included only the week that showed the highest effect for each air pollutant in each 300 meter buffer for the grasses and trees composite measure. Weeks can be read from week 0, which is conception, backward to week -4, a month before pregnancy, and forward to week 8, the end of the second month of pregnancy, or week 12, the end of the third month of pregnancy. Here, once again, results were mostly consistent across buffers. 
+
+For clubfoot, the weeks of highest effect for mean and peak ozone shifted from around conception to the critical window. For cleft \lcp, the weeks of highest effect for mean and peak ozone shifted from around conception to the critical window, and the week of highest effect for mean \gls{pm25} shifted to the beginning of the critical window. For craniosynostosis, the weeks of highest effect for peak \gls{o3} and \gls{pm25} lost significance.
+
+
+
+## Aim 3 take-aways
+
+Effects of different air pollutants altered the risk for all birth defects by including both air pollutants in the same model. Cumulative effects were reduced for mean ozone and clubfoot. Cumulative effects were increased for mean \gls{pm25} and both clubfoot and craniosynostosis, and for mean ozone and cleft palate.
+
+Compared to the single-pollutant models in aim 1, for clubfoot, the effect of mean ozone was highest during the critical window, with effects higher than in the aim 1 model. For cleft \lcp, the effects of mean and peak ozone and mean \gls{pm25} were highest during the critical window, with effects lower than in the aim 1 model. For craniosynostosis, the effects of peak ozone and \gls{pm25} were highest during the critical window, lower than in the aim 1 models.
+
+Including both air pollutants in the model appears to increase the effect of ozone on risk of clubfoot, but moderate the effects of air pollutants on risk of cleft \lcp and craniosynostosis. For cleft palate, since only the cumulative effect changed, not effects during individual weeks, the impact of including both air pollutants is unclear.
+
+
+\pagebreak
+
+
+## Sensitivity analyses
+
+I conducted three sensitivity analyses on maternal smoking, clubfoot, and geocodability. Research shows that maternal smoking is under-reported in New York, so I evaluated whether a change in rate of smoking by up to 5% would affect results. The comparison groups and most of the case groups differ by more than 5%, so even if there was under-reporting, it is likely more mothers of cases smoked during pregnancy than comparison mothers.
+
+As I mentioned at the beginning, there are multiple types of clubfoot. In New York, an estimated 95% of clubfoot cases are talipes equinovarus. Because talipes equinovarus is so common, hospitals' reports to the \gls{nys} birth defects registry may report clubfoot without clarifying when they mean talipes equinovarus. For this reason, I was advised to perform a sensitivity test of 5% misclassification among cases. Modeling tests were not significant, so a 5% misclassification of clubfoot is unlikely to impact results. 
+
+Last, 507 records could not be geocoded to a street address, so the zip code centroid was used instead. Since zip code clusters in New York cross census tracts and even counties, those births could have misclassified exposure. To test this, I reran the aim 1 models without the ungeocoded records. Risk ratios were the same, suggesting any misclassification would not impact results.
+
+
+
+
+# Conclusion
+
+## Limitations
+
+There was a lot I did not know about maternal exposure to air pollution that could affect results. Among them, 
+
+* How much time did the mother spend outside around her house during pregnancy?
+* Was she living at that house for her entire pregnancy?
+* Was she exposed to second-hand smoke, air pollution at work, or indoor air pollution?
+
+To run my analysis, I assumed that the components of \gls{pm25} do not change with location and weather, that census tract values (both median household income and air pollutant estimates) reflect the mother's experience during pregnancy, and that green space is relatively consistent over time.
+
+All of these unknowns and assumptions are related to exposure misclassification. Due to the study design, I presume any misclassification is non-differential, or consistent across comparison and case groups, and that as a consequence of the misclassification, results would be biased toward the null and underestimate the effect.
+
+
+## Strengths
+
+To mitigate exposure misclassification, using a case-cohort study design is a strength of the study. I studied birth defects that are well defined and easily identified even before birth, so case assignment should be complete. I had access to statewide birth data (outside \gls{nyc}) at street level and birthdate for precise exposure estimates, while most previous studies used birth month, larger geographies, or births limited to within buffers around air monitoring stations. Most of the research I reviewed on birth outcomes, air pollution, and green space used a dataset that does not differentiate between grasses and trees. There is mixed evidence on how well trees reduce ozone, while grasses may be more effective, so including grasses and trees separately may be important.
+
+
+
+
+## Findings: air pollutants only
+
+In the single-pollutant analyses, ozone had the highest effect before conception on risk of clubfoot and oral clefts and the highest effect during the critical window on risk of oral clefts and craniosynostosis. \gls{pm25} had the highest effect before conception on risk of craniosynostosis and the highest effect during the critical window on risk of clubfoot and oral clefts.
+
+
+
+## Findings: air pollutants & green space
+
+In the single-pollutant analysis with green space, green space altered the effect of peak ozone on risk of cleft palate and the effect of mean \gls{pm25} on risk of craniosynostosis. It had no effect on risk of cleft \lcp or clubfoot.
+
+In the multi-pollutant analysis with green space, including both pollutants altered the effect of ozone on risk of clubfoot and cleft \lcp and the effect of \gls{pm25} on risk of clubfoot, cleft \lcp, and craniosynostosis. It had no effect on risk of cleft palate.
+
+
+## Next steps 
+
+We need more research on the relationship between air pollution and these birth defects, especially clubfoot and craniosynostosis and during pre-conception exposure. To improve spatial and temporal granularity of birth research, we need buy-in from state and national vital records and birth defects registries. Since the Downscaler model ends in 2017, other air pollution datasets should also be evaluated for this work. Last week, my friend defended his dissertation on environmental burden of disease, where he talked about the intersection of health and environmental justice work. Including neighborhood characteristics such as historical redlining and housing quality could help to determine if environmental injustice is a driver of environmental risk.
+
+
+
+## Acknowledgements
+
+I acknowledge the help and support of my dissertation committee, professors and fellow students, colleagues at the Department of Health, and family and friends.
+
+
+## Contact
+
+Feel free to reach out to me by email or follow my work on GitHub. I have provided some of my dissertation R code at the link here and plan to add the rest over the next few months. 
+
+I welcome your questions.
+
+
