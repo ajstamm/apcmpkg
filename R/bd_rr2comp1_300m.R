@@ -82,7 +82,8 @@ bd_rr2comp1_300m <- function(bd, my_caption, file, file_compare = NULL) {
               "conception season, green space, ozone, and PM\\\\textsubscript{2.5}. ")
   }
   foot <- c(foot,
-            "RR applies to a 10-unit increase over two standard deviations above the mean.",
+            "RR applies to a 10-unit increase from the previous week in the air pollutant (ppb for ozone and ",
+            "µg/m\U00B3 for PM\U2082.\U2085) over two standard deviations above the mean.",
             "Week 0 refers to the week of conception. Week 12 refers to the end of the first trimester of pregnancy.")
 
   t |> dplyr::select(-pollutant) |>
