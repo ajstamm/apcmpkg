@@ -3,16 +3,14 @@
 
 
 bd_rr2_tables <- function(my_sheet, my_caption, bold_rows = 0) {
-  my_foot <- paste("Model was adjusted for maternal education level,",
-                   "maternal smoking, tract-level median income,",
-                   "conception season, and the indicated green space ")
-  f2 <- paste("variable. Week 0 is week of conception.",
-              "Week 12 is the end of the first trimester of pregnancy.")
-  # if (grepl("cf", my_sheet)) {
-  #   f2 <- c(paste(f2, "For clubfoot, only the 16-week model was run because limb formation"),
-  #       "finishes around week 12.")
-  # }
-  my_foot <- c(my_foot, f2)
+  my_foot <- c(
+    "NA = Data not applicable, either model not run or weeks not included.",
+    paste("Model was adjusted for maternal education level, maternal smoking, ",
+          "tract-level median income, conception season, ",
+          "and the indicated green space "),
+    paste("variable. Week 0 is week of conception. ",
+          "Week 12 is the end of the first trimester of pregnancy.")
+  )
 
   t <- readxl::read_xls("data/model2rr_tables.xls", sheet = my_sheet) |>
     dplyr::filter(!is.na(bd)) |>

@@ -1,17 +1,15 @@
 # possibly also use for aim 2 cum table and a variant for aim 1 table(s)
 bd_rr3_tables <- function(my_bd, my_caption, bold_rows = 0) {
-  my_foot <- c(paste("Model was adjusted for O\\\\textsubscript{3},",
-                     "PM\\\\textsubscript{2.5}, maternal education level,",
-                     "maternal smoking, tract-level median income, "),
-               paste("conception season, and presence of grasses or trees.",
-                     "Values in bold were significant at $\\\\alpha = 0.05$."))
-
-  if (grepl("cf", my_bd)) {
-    my_foot <- c(my_foot, paste("Week 0 is the week of conception.",
-                                "For clubfoot, only the 16-week model was run because limb formation"), "finishes around week 12.")
-  } else {
-    my_foot <- c(my_foot, "Week 0 is the week of conception.")
-  }
+  my_foot <- c(
+    "NA = Data not applicable, either model not run or weeks not included.",
+    paste("Model was adjusted for O\\\\textsubscript{3},",
+          "PM\\\\textsubscript{2.5}, maternal education level,",
+          "maternal smoking, tract-level median income, "),
+    paste("conception season, and presence of grasses or trees.",
+          "Values in bold were significant at $\\\\alpha = 0.05$."),
+    paste("Week 0 is week of conception. ",
+          "Week 12 is the end of the first trimester of pregnancy.")
+  )
 
   t <- readr::read_csv("data/model3cov_rrciwide_2022-08-26_all.csv") |>
     dplyr::filter(defect == my_bd, model_type == "adjusted", !lag == "cum") |>
