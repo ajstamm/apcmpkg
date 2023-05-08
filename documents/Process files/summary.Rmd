@@ -1,0 +1,121 @@
+---
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+    fig_caption: TRUE
+    latex_engine: xelatex
+    number_sections: TRUE
+    toc: TRUE
+    keep_tex: TRUE
+lot: TRUE
+lof: FALSE
+indent: TRUE
+fontsize: 12pt
+linestretch: 1
+filters:
+  - section-bibliographies
+bibliography: library.bib
+csl: ama-citation.csl
+citeproc: FALSE
+documentclass: book
+section-bibs-level: 1
+subparagraph: yes
+---
+
+```{r setup4, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+require(knitr); require(kableExtra); require(bookdown); require(tidyverse)
+```
+
+<!-- Total less than 3 pages -->
+
+# Summary
+
+\doublespacing
+
+
+
+This series of studies explored the relationship between air pollution, as defined by Downscaler estimates of \gls{o3} and \gls{pm25} and the birth defects clubfoot, oral clefts, and craniosynostosis for the years 2002 to 2015 using a case-cohort design. This topic was chosen because there has been little to no research on the association between air pollution and either clubfoot or craniosynostosis and research on air pollution and oral clefts has shown mixed results. However, all of these birth defects are associated with maternal smoking, so we hypothesized that inhaling \gls{pm25}, which contains many of the same components as cigarette smoke, could be associated with increased risk of these birth defects.
+
+<!-- why? shown to be associated with smoking, some air pollution, but not well studied -->
+
+Distributed lag models were used to assess the the risk of each birth defect group over time. The first study evaluated the relationship between each birth defect and each air pollutant separately. The second study evaluated the role of green space, as developed using the \gls{nlcd}, in altering this relationship by evaluating a series of buffer sizes ranging from 50m to 500m around the mother's residence at birth. The third study evaluated the relationship between air pollution and birth defects when both pollutants were combined in the same model. Additional covariates included maternal education, maternal smoking, tract-level median income, and season of conception.
+
+## Clubfoot
+
+All three studies showed that 10ppb increases in weekly \gls{o3} mean and peak concentrations had the highest effect on risk of developing clubfoot when exposure occurred before conception. Including green space and \gls{pm25} in the evaluations did not change these results. All three studies showed that 10\ugm increases in weekly \gls{pm25} mean concentrations had the highest effect when exposure occurred in week 8 of pregnancy in the 12-week evaluation and in or near week 12 of pregnancy in the 16-week evaluation. All three studies showed that 10\ugm increases in weekly \gls{pm25} peak concentrations had the highest effect when exposure occurred in the first month of pregnancy in the 12-week evaluation. The first two studies showed that 10\ugm increases in weekly \gls{pm25} peak concentrations had the highest effect when exposure occurred in the second month of pregnancy in the 12-week evaluation, but in the third evaluation with peak \gls{o3}, the highest effect occurred in week 12 of pregnancy.
+
+Including green space in the evaluations did not alter the weeks of highest effect very much. Including mean \gls{o3} and mean \gls{pm25} in the same evaluation did not alter the results for mean \gls{o3} or mean \gls{pm25} very much. Including peak \gls{o3} and peak \gls{pm25} in the same evaluation shifted the week in which peak \gls{pm25} had the highest effect to week 12 of pregnancy.
+<!-- o3 (m/p) conception & pm (p) start of limb development.  -->
+
+To our knowledge, only one published study has analyzed the association between clubfoot and PM.[@Wang2018] That study did not find an association between \gls{pm10} and clubfoot. No studies have looked at \gls{pm25} or \gls{o3} and clubfoot. In summary, green space does not affect the relationship between air pollution and risk of clubfoot. Pre-conception exposure to \gls{o3} and exposure to \gls{pm25} in the first and second months of pregnancy have the highest effects on risk of clubfoot. Peak \gls{o3} affects the relationship between peak \gls{pm25} and the risk of clubfoot.
+
+
+## Cleft lip with or without cleft palate
+
+All three studies showed that 10ppb increases in weekly \gls{o3} mean and peak concentrations had the highest effect on risk of developing cleft \lcp when exposure occurred around conception in the 16-week evaluation. Including green space and \gls{pm25} in the evaluations did not change these results. The first two studies showed that 10ppb increases in weekly \gls{o3} mean and peak concentrations had the highest effect on risk of developing cleft \lcp when exposure occurred around conception in the 12-week evaluation, but in the third study with \gls{pm25}, the highest effect occurred before conception. 
+
+All three studies showed that 10\ugm increases in weekly \gls{pm25} mean concentrations had weekly \gls{rr}s that were consistently below 1.0 with no high points. The first two studies showed that 10\ugm increases in weekly \gls{pm25} peak concentrations had the highest effect on risk of developing cleft \lcp when exposure occurred in the first month of pregnancy in the 12-week evaluation, but in the 16-week evaluation, all weeks had \gls{rr}s that were consistently below 1.0. The third study showed that 10\ugm increases in weekly \gls{pm25} peak concentrations had weekly \gls{rr}s that were consistently below 1.0 with no high points in the 12-week evaluation, but in the 16-week evaluation, the highest effect occurred in week 12 of pregnancy. 
+
+
+Including green space in the evaluations did not alter the weeks of highest effect very much. Including mean \gls{o3} and mean \gls{pm25} in the same evaluation shifted the weeks in which mean \gls{o3} had the highest effect to before pregnancy, while results for mean \gls{pm25} were unchanged. Including peak \gls{o3} and peak \gls{pm25} in the same evaluation shifted the weeks in which peak \gls{o3} had the highest effect to before conception and the week in which peak \gls{pm25} had the highest effect to week 12 of pregnancy. 
+
+<!-- o3 m/p conception, o3 m & pm m/p month 2  -->
+
+Of the 17 published studies we identified that looked at PM and cleft \lcp, three found significant associations. Of these, one found an association with \gls{pm10} exposure in the second month of pregnancy[@Wang2018] and another found a general spatial association with \gls{pm10} exposure[@Gasca-Sanchez2019]. None of the nine that looked at \gls{pm25} found associations. This is not consistent with our results, which suggested an association with \gls{pm25} in the first month of pregnancy. Of these published studies, nine also looked at \gls{o3} and cleft \lcp, but only one found associations in the first two months of pregnancy[@Hwang2008]. This result is not consistent with ours, so studies that used multi-week means may have diluted their results.
+
+In summary, exposure to \gls{o3} before of during conception and exposure to \gls{pm25} in the first month of pregnancy or at the end of the first trimester have the highest effects on risk of cleft \lcp. Green space does not affect the relationship between air pollution and risk of cleft \lcp. \gls{o3} and \gls{pm25} affect the relationships between each other and the risk of cleft \lcp.
+
+
+## Cleft palate
+
+The first two studies showed that 10ppb increases in weekly \gls{o3} mean concentrations had weekly \gls{rr}s that were consistently around 1.0 with no high points in the 12-week evaluation, but in the 16-week evaluations, the highest effect occurred around conception. The third study showed that 10ppb increases in weekly \gls{o3} mean concentrations had the highest effect on risk of developing cleft palate before conception. 
+The first study showed that 10ppb increases in weekly \gls{o3} peak concentrations had the highest effect on risk of developing cleft palate around conception. The second study showed that 10ppb increases in weekly \gls{o3} peak concentrations had the highest effect on risk of developing cleft palate in week 8 of pregnancy in the 12-week evaluation and in week 12 of pregnancy in the 16-week evaluation. The third study showed that 10ppb increases in weekly \gls{o3} peak concentrations had the highest effect on risk of developing cleft palate in around conception in the 12-week evaluation and in week 12 of pregnancy in the 16-week evaluation. 
+
+All three studies showed that 10\ugm increases in weekly \gls{pm25} mean and peak concentrations had the highest effect on risk of developing cleft palate in week 8 of pregnancy in the 12-week evaluation and in the second month of pregnancy in the 16-week evaluation. 
+Including green space in the evaluations only changed the results for peak \gls{o3}, shifting its week of highest effect to week 8 of pregnancy. Including \gls{o3} and \gls{pm25} in the same evaluation shifted the weeks in which \gls{o3} had the highest effect to before pregnancy, while results for \gls{pm25} were unchanged. 
+
+
+<!-- o3 conception, o3 & pm month 2.  -->
+
+Of the 16 published studies we identified that looked at PM and cleft palate alone, four found significant associations. Of these, two found associations with \gls{pm25} around the second month of pregnancy[@Zhou2017; @Zhu2015b] and one found an association with \gls{pm10} at that time[@Hansen2009a], while two found associations with earlier \gls{pm10} exposure[@Wang2018; @Zhu2015b] The three that found associations during the second month are consistent with our results. Of these published studies, 12 also looked at \gls{o3} and cleft palate, but none found associations. This is not consistent with our results. However, our results showed highest effects before and around conception, but all studies except one only considered times during pregnancy.
+
+In summary, exposure to \gls{o3} before and around conception and exposure to \gls{pm25} in the second month of pregnancy have the highest effects on risk of cleft palate. Green space affects the relationship between peak \gls{o3} and risk of cleft palate. \gls{pm25} affects the relationship between \gls{o3} and the risk of cleft palate.
+
+## Craniosynostosis
+
+All three studies showed that 10ppb increases in weekly \gls{o3} mean concentrations had the highest effect on risk of developing craniosynostosis when exposure occurred around week 8 of pregnancy. All three studies showed that 10ppb increases in weekly \gls{o3} peak concentrations had the highest effect on risk of developing craniosynostosis when exposure occurred around week 8 of pregnancy in the 12-week evaluations and in the first month of pregnancy in the 16-week evaluations. Including green space and \gls{pm25} in the evaluations did not change these results.
+
+The first two studies showed that 10\ugm increases in weekly \gls{pm25} mean and peak concentrations had the highest effect on risk of developing craniosynostosis when exposure occurred around conception. The third study showed that 10\ugm increases in weekly \gls{pm25} mean and peak concentrations had the highest effect on risk of developing craniosynostosis when exposure occurred before conception in the 12-week evaluations. In the 16-week mean \gls{pm25} evaluation, the highest effect occurred around conception, but in the 16-week peak \gls{pm25} evaluation, the highest effect occurred in week 12 of pregnancy. Including green space in the evaluations did not change these results.
+
+Including green space in the evaluations did not alter the weeks of highest effect very much. Including \gls{o3} and \gls{pm25} in the same evaluation shifted the weeks in which mean \gls{pm25} had the highest effect to before conception or week 12 of pregnancy, while results for \gls{o3} were unchanged. 
+
+<!-- pm conception, o3 & pm month 2.  -->
+
+To our knowledge, only two published studies has analyzed the association between craniosynostosis alone and \gls{pm25} and \gls{o3}. One found no association using a two-month average of exposure[@Padula2013a] and the other found strong associations with both \gls{pm25} and \gls{o3} using exposure averaged over the first trimester[@Vinikoor-Imler2015], which makes comparison to our study difficult. In our evaluations, the week of highest effect for \gls{o3} was week 8 of pregnancy, so it makes sense that a study looking at the entire first trimester could find an association, but a study looking at only the first two months would not. In most of our evaluations, the weeks of highest effect for \gls{pm25} were before and during conception, while these studies considered only time periods during pregnancy.
+
+
+In summary, exposure to \gls{pm25} before and around conception and exposure to \gls{o3} around week 8 of pregnancy have the highest effects on risk of craniosynostosis. Green space does not affect the relationship between air pollution and risk of craniosynostosis. \gls{o3} affects the relationship between \gls{pm25} and the risk of craniosynostosis. 
+
+
+## Limitations and suggestions for further research
+
+These studies had several limitations that provide opportunities for further research. They relied on birth mother's residence at birth to assign exposure for both air pollution and green space, which measures potential exposure assuming the mother spent a lot of time outside at that residence. Including both maternal mobility (moving during pregnancy) and the amount of time the mother spends outside at home, as well as other places she frequents (such as workplace) could improve estimates of exposure during pregnancy. These studies did not account for indoor air pollution at all, which could result in exposure misclassification especially during winter months. We tried to account for this by including season of conception in the evaluations. We suggest that studies account for both indoor and outdoor exposure to address this. To estimate green space, we used only one year of the \gls{nlcd}, but it is possible that green space around a mother's home shifted as buildings were built or land was reclaimed, which could result in misclassification of green space. A more complex model that uses the \gls{nlcd}'s datasets that calculate changes in categorization between vintages could address this.
+
+Race was not included in the models in our studies because in 2019 when the studies were being prepared, there was contention in the literature regarding whether race should be included in models if it was not of direct interest in the study. At that time, race was considered a proxy for lived experience related to social status and access to care, but we had no reason to believe biologically that race itself was associated with birth defects. Since then, a lot of research has been done on environmental justice that suggests race should be included in models as a proxy for lived experience that it is difficult to capture in other ways, especially with surveillance data. A next step for this research could be to compare results for births of white and black mothers, and possibly Asian mothers, since among our samples, white mothers had higher proportions of births with birth defects than black or Asian mothers.
+
+We found that including green space as a confounder in the models affected the relationship between \gls{o3} and cleft palate. We would like to explore this further by stratifying green space and rerunning the models to test effect modification.
+
+
+
+## Conclusion
+
+Past studies have struggled with small sample sizes or poor spatial and temporal granularity. Utilizing address-level data from large state and national birth defect registries would help advance this research. 
+We are unsure if the modest results we found are clinically meaningful, so we suggest future research on these birth defects should focus on exposure to air pollution around conception and month 2 of pregnancy. Studies of cleft palate should include green space. Studies of birth defects should include mixed air pollution effects.
+
+\singlespacing
+
+
+## References {-}
+

@@ -1,0 +1,651 @@
+---
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+    fig_caption: TRUE
+    latex_engine: xelatex
+    number_sections: TRUE
+    toc: FALSE
+    toc_depth: 3
+    keep_tex: TRUE
+lot: TRUE
+lof: TRUE
+indent: TRUE
+fontsize: 12pt
+linestretch: 1
+subparagraph: yes
+filters:
+  - section-bibliographies
+bibliography: library.bib
+csl: ama-citation.csl
+citeproc: FALSE
+documentclass: book
+section-bibs-level: 1
+---
+
+
+
+```{r setup1, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(fig.pos = "H", echo = FALSE, warning = FALSE, message = FALSE)
+require(knitr); require(kableExtra); require(bookdown); require(tidyverse)
+devtools::load_all("C:/Users/ajstamm/Documents/GitHub/Coding/apcmpkg/R")
+
+```
+
+<!-- ## References {-}  -->
+<!-- from background --->
+
+
+
+
+# Individual Air Pollutants and Risk of Birth Defects
+
+\doublespacing
+
+## Background
+
+Birth defects affect 3-5% of infants in the United States annually.[@Rynn2008] In \gls{nys}, they result in 20% of deaths among infants between one month and one year old[@Mathews2015] and babies born with birth defects are ten times more likely to die before they are a year old than babies without birth defects.[@CMR2013] Roughly 125,000 children are born in Upstate New York each year. Of these, approximately 6000 children are diagnosed with birth defects before age 3.[@CMR2016]
+
+To date, approximately 30%-40% of birth defects have known causes related to genetics, environment, and maternal health.[@Weinhold2009; @Al-Hadithi2012] The rest are not well understood and are believed to have multiple causes that interrelate.[@Al-Hadithi2012] Birth defects vary in how strongly genetics contributes to their rates. 
+
+Air quality is an ongoing concern in \gls{nys}. One study reported that the \gls{nys} population-weighted average of exposure to \gls{pm25} was 11.2\ugm and to \gls{o3} was 38ppb.[@Zhou2017] Poor air quality has been linked to asthma, cardiovascular diseases, cancer, and low birthweight in \gls{nys}. In urban areas, traffic, industry, and commercial waste add to air pollution. In rural areas, burning agricultural waste and using wood-burning stoves to heat homes add to air pollution. 
+
+The connection between birth defects and maternal smoking via oxidative stress is well documented.[@Hackshaw2011; @Hoyt2016; @Vrijheid2011; @Rao2016; @Baldacci2018; @Wyszynski1997a] Many components of cigarette smoke, such as benzene and chromium VI[@Talhout2011], are also found in \gls{pm} and in ambient air.[@FDA2012] Some of these components are believed to cause epigenetic changes in the developing fetus. Pregnant women exposed to higher concentrations of air pollution show more markers of DNA damage that are associated with oxidative stress than pregnant women exposed to lower concentrations of air pollution.[@Nagiah2015] Given similarities between cigarette smoke and some forms of air pollution, notably \gls{pm25}, a possible link between air pollution and birth defects was explored.
+
+The three birth defects investigated in this study include clubfoot, oral clefts, and craniosynostosis, which are among the more common birth defects in \gls{nys}, with over 100 cases born with each birth defect annually.[@CMR2013] They were selected because they are posited to be susceptible to oxidative stress caused by similar routes of exposure. All three birth defects have an increased risk of developing if the mother smokes[@Hackshaw2011; @Hoyt2016; @Vrijheid2011; @Rao2016; @Baldacci2018; @Wyszynski1997a] and can be diagnosed prenatally.[@Shi2018; @Helfer2016; @Nicholls2017]
+
+Air pollution may be a risk factor for development of oral clefts, clubfoot, and craniosynostosis in the fetus. Results of research have been inconclusive.[@Rao2016; @Baldacci2018] Studies have not been directly comparable, however. They vary in whether they use monitored or modeled pollution data, size of the study area and availability of pollution data throughout the study area, and frequency of pollution measurements. 
+
+This study explored the association between maternal exposure to \gls{pm25} and \gls{o3} during the first trimester of pregnancy using statewide time-varying data for the exposures and a statewide dataset for the outcomes from 2002 to 2015 in \gls{nys}. It used a case-cohort design with logistic regression to determine the relationship between select measures of air pollution and select birth defects. 
+
+
+## Methods
+
+### Study population
+
+The study population was identified through \gls{nys} Vital Records, a registry of all births in \gls{nys}, and included all live births in \gls{nys} outside \gls{nyc}, with residence addresses in \gls{nys}, that were conceived between February 1, 2002 and December 31, 2015. This time frame allowed for one month of exposure prior to the earliest estimated conception date and three months of exposure (until the end of the critical window) following the latest estimated gestation date. The conception date was assigned the last menstrual period if available and within one year of the birth date; otherwise, clinical age of gestation at birth was subtracted from the birth date. Births were geocoded at street level to the mother's residence at birth. If they could not be geocoded, they were assigned to the centroid of the mother's residence \gls{zip} code. Births were excluded if they had invalid \gls{nys} \gls{zip} codes (170 births), had maternal residence outside \gls{nys} (9,949 births), or were missing gestational age at birth or date of last menstrual period (77 births), as missing these fields made linking to environmental data impossible.
+
+Controls were selected at random from all births in the study population. For each case group, three controls per case were selected, matched on year of birth. Controls were not limited to non-cases. Cases were selected by identifying the infants with the relevant birth defects in the \gls{nys} \gls{cmr}.[@CMR2016] The \gls{cmr} and Vital Records[@Vital2017] are linked, so all case-level variables except \gls{bpa} codes[@NCBDD2000] and malformation narratives came from Vital Records. 
+
+
+Cases were classified as shown in Table \@ref(tab:bpa) and included infants with clubfoot, oral cleft (lip and/or palate), or craniosynostosis. Craniosynostosis, clubfoot, and cleft palate alone were distinct groups. Cleft lip occurs when the cells on each side of the head do not fuse fully before birth and cleft palate occurs when the palate of the mouth does not fuse fully before birth.[@CDCclefts2017] 
+This study separated oral clefts into two groups, cleft palate alone and cleft lip with or without cleft palate, as the causes of cleft lip and cleft palate may have different biological mechanisms and are often evaluated separately in birth defects studies. This study combined cleft lip and palate with cleft lip alone, consistent with other studies. 
+
+
+In all, 472 cases were excluded from the four case groups because they had various genetic syndromes in addition to the birth defects of interest as their causes may be genetic rather than environmental. Cases with the following syndromes were excluded based on narrative descriptions and additional diagnosis codes: Antley-Bixler, Apert, Beals-Hecht, Beckwith-Wiedemann, Birk-Barel, Bohring-Opitz, Carey-Fineman-Ziter, Carpenter, CHARGE, Cornelia De Lange, Cri du Chat, Crouzon, DiGeorges, Ehlers-Danlos, Ellis-Van Creveld, Escobar, Fanconi, Femoral Facial, Fragile X, Freeman-Sheldon, Fryns, Gardner-Silengo-Wachtel, Hay-Wells, Jacobsen, Joubert, Kabuki, Kallmann, Kenny-Caffey, Larsen, Loeys-Dietz, Marfan, Meckel-Gruber, Miller-Dieker, Moebius, Nager, Noonan, Oral-Facial-Digital, Otopalatodigital, Pena-Shokeir, Peters-plus, Pfeiffer, Pierre-Marie-Bamberger, Reiters, Roberts, Rubenstein-Taybi, Smith-Lemli-Opitz, Stickler, Treacher-Collins, Turner, Van der Woude, Velo-Cardio-Facial, William, Wolf-Hirschhorn, Zellweger, and various deletion syndromes. Trisomies, which include Down, Edwards, and Patau syndromes, were also excluded.
+
+
+
+### Exposure assessment
+
+This study used the Downscaler air pollution model[@Berrocal2010; @Berrocal2012] developed by the \gls{epa} to estimate daily \gls{hap} exposure for the years 2002-2016. The Downscaler dataset provides modeled daily estimates of average \gls{pm25} and maximum \gls{o3} exposure for someone at ground level averaged over census tracts throughout \gls{nys}. This model is based on the \gls{cmaq} model[@Reich2014], which is a complex air transport model that incorporates meteorology, land use, atmospheric chemistry and several types of pollution sources. This allows for reasonable estimates of exposure for the entire area. Downscaler recalibrates the \gls{cmaq} estimates using air monitoring station data. Weekly average and peak measures of modeled \gls{pm25} and \gls{o3} were calculated from four weeks prior to pregnancy until week 12 of gestation, inclusive. \gls{pm25} and \gls{o3} exposure were calculated from the modeled estimates of \gls{pm25} and \gls{o3}, respectively, in the census tract where the residence at birth was geocoded. 
+
+### Statistical analysis
+
+This study used data from the years 2002-2016 to model each air pollutant and birth defect pair individually. The exposure times covered from 4 weeks prior to conception until 12 weeks after conception. Mother's birth residence was geocoded and if it could not be geocoded, the zip code centroid was used. Air pollutant measures (\gls{pm25} and \gls{o3}), census measures (median household income), and RUCA scores were assigned to each birth based on the census tract of the mother's residence. Location data were spatially joined in ArcGIS.[@ESRI2016]
+
+Descriptive analyses were run on all variables to check for missing data, outliers, and coding issues. Each variable to be considered for analysis was evaluated separately. Missing data and impossible values were assessed and were not imputed. Univariate analyses for categorical variables included frequencies and proportions. Categorical variables included infant's sex, mother's race, mother's ethnicity, mother's pre-pregnancy diabetes, mother's smoking, mother's alcohol use, mother's education level, \gls{ruca} score, infant's cleft palate, infant's cleft lip and/or palate, infant's craniosynostosis, infant's clubfoot, infant's year of conception, infant's month of conception, and whether the mother's residence was geocoded or assigned the zip code centroid. Univariate analyses for continuous variables included summary statistics, such as mean, mode, median, range, interquartile range, and variance. Data transformations, such as log scale, were considered and rejected. Some continuous variables were categorized into ranges. Numeric variables include mother's \gls{bmi}, \gls{pm25} and \gls{o3} peaks and means for each week from one month before conception to three months after conception, median household income, and mother's age.
+
+Bivariate analyses were performed among all variables. Chi-square tests were run for categorical variables, t-tests to compare dichotomous and continuous variables, and correlation tests for continuous variables. Several variables measured components of \gls{ses}, including mother's race, mother's education level, and median household income. Where two of these covariates were closely correlated, only one was chosen based on which one is more closely associated with the exposures and outcomes. 
+
+Logistic regression models were used to calculate adjusted \gls{rr}s and 95% \gls{ci}s for each birth defect group and air pollutant measure. Models were adjusted for the following covariates from birth certificate data: mother's education level, mother's smoking, and season of conception, and median tract-level income from the US Census.[@Census2019] 
+
+The multivariate analysis contained several components. First, a series of distributed lag logistic models were run from the R package dlnm[@Gasparrini2011] for each birth defect group and combination of \gls{o3} and \gls{pm25}. These models have been used previously to study birth outcomes.[@Liang2016] Since an estimate of reasonable lag was not available, but people can experience both chronic and acute (same day) effects of inhaling \gls{pm25}, this study used several possible lag times ranging from one month before estimated conception to estimated end of first trimester, each one week apart.
+
+For clarity the lag weeks were as follows, all calculated from estimated conception date. For the first run, lag 0 was the last week of the first trimester (week 12) of pregnancy, lag 12 was the week of conception, and lag 16 was the week one month before conception. For the second run for the other three case groups, lag 0 was the last week of the second month (week 8) of pregnancy, lag 8 was the week of conception, and lag 12 was the week one month before conception. The first run was intended to capture any association in the first trimester. The second run was intended to focus on the second month of pregnancy, when cranial features develop.
+
+
+This approach allowed modeling of the change in values from week to week, any possible effect of exposure a few weeks prior to the critical window of weeks 3 to 12 of pregnancy, and the week during that time that shows the strongest association with each outcome.[@Adeyeye2019] Running the models using weekly peaks as well as weekly averages captured spikes in exposure effect that would be smoothed out by only averaging. One set of models contained means for \gls{o3} or \gls{pm25}; the other set contained peaks for \gls{o3} or \gls{pm25}. 
+
+Models were run twice. The first time, the basic exposure-outcome models were run to check \gls{aic} values and residuals with best fit lines to determine the settings for each cross-basis. Settings considered included the shapes of linear, polynomial, or natural splines for the relationship between exposure and outcome at lag 0 and for the relationship between exposure and outcome for the matrix containing the remaining lags. For polynomial and natural splines settings, degrees ranged from 2 to 8 and knots ranged from 3 to 8, respectively. The basic model had this structure:
+
+$logit(RR_{bd}) = \beta_0 + \sum{(\alpha_jAir)}$
+
+- $\alpha_jAir$ = series of betas for each week of estimates for each air pollutant (\gls{pm25} or \gls{o3})
+- $bd$ = birth defect (cleft \lcp, cleft palate, craniosynostosis, or clubfoot)
+
+
+For all cross-basis analyses, a linear relationship between exposure and outcome at lag 0 (end of the first trimester in the four-month evaluation and eight week of pregnancy in the three-month evaluation) resulted in the best combinations of lower AIC values and more horizontal fitted lines on the residual plots, so this setting was used for all cross-basis objects. The relationship between exposure and outcome for the matrix containing the remaining lags varied depending on the air pollutant and birth defect, but in general, linear relationships and polynomial relationships using two to four degrees gave the best results. Final selected settings are shown in Table \@ref(tab:cb).
+
+After the cross-basis settings were selected, the full covariate models were run with these settings to determine critical weeks. For diagnostic models, the cross-prediction object was centered on the overall first quartile value for the air pollutant measure and the prediction plot was centered two standard deviations from the mean for the air pollutant measure, which was considered the upper bound of typical values. 
+
+
+
+The full models were based on a directed acyclic graph developed a priori of the relationship between air pollution and birth defects, shown in Figure \@ref(fig:dag).[@Rothman2008] Season of conception was included since the mother may have spent more time indoors in colder months and some components of \gls{pm25} increase in colder weather while others decrease, and the \gls{pm25} estimates alone would not be sufficient to capture that variation. Seasons of conception were coded as "winter" (December to February), "spring" (March to May), "summer" (June to August), and "autumn" (September to November). Maternal education level was coded as "some high school" (did not complete high school), "high school graduate" (completed high school, but no further education past high school), "some college" (education past high school, but no college degree), "college graduate" (college degree, but no further education), and "advanced education" (any education past a college degree). Smoking was coded as "yes" (ever smoked during pregnancy) or "no" (never smoked during pregnancy). Tract-level median household income was included as a proxy for socio-economic status and was coded as "low" (lowest quartile), "medium low" (second quartile), "medium high" (third quartile), and "high" (highest quartile). Four models were run for each birth defect group: \gls{pm25} or \gls{o3}, with either mean or peak values. The full lagged model looked like this:
+
+$logit(RR_{bd}) = \beta_0 + \sum{(\alpha_jAir)} + \beta_1Education + \beta_2Season + \beta_3Smoking + \beta_4Income$
+
+- $\alpha_jAir$ = series of betas for each week of estimates for each air pollutant (\gls{pm25} or \gls{o3})
+- $bd$ = birth defect (clubfoot, cleft \lcp, cleft palate, or craniosynostosis)
+
+The final model contained all weeks of exposure without regard to significance. All analyses were completed in R.[@RCoreTeam2017] 
+
+### Sensitivity analysis
+
+
+Smoking while pregnant is under-reported in \gls{nys}[@Roohan2003], so sensitivity analysis was performed to identify whether that under-reporting was likely to influence study results. The sensitivity analysis was a thought experiment due to the strong association between most of the birth defects and maternal smoking.
+
+Roughly 95% of clubfoot cases in the \gls{nys} \gls{cmr} are talipes equinovarus, but which 95% is not available. Sensitivity analysis was performed to identify the likelihood that misclassifying clubfoot may influence study results using the EValue[@Smith2019] package in R. This package models potential bias due to unmeasured confounders based on estimated prevalence of those confounders.
+
+Sensitivity analysis was performed for geocodability for two reasons: (1) urban areas are more likely to be geocoded in \gls{nys} than rural areas and (2) residences geocoded to the \gls{zip} code centroid, especially in rural areas where the \gls{zip} code area may be large, could be assigned to the wrong census tract and therefore assigned the wrong exposure. The sensitivity analysis was performed by rerunning the model with only cases geocoded at street level and comparing the resulting model estimates and confidence intervals to the full-data models. 
+
+
+
+
+## Results
+
+### Descriptive analysis
+
+
+Per Table \@ref(tab:desc), non-cases included 18,153 births that were conceived between February 1, 2002 and December 31, 2015 and born to mothers living in \gls{nys} outside \gls{nyc} across all four study groups. Cases included 2,423 births with clubfoot, 952 births with cleft palate, 1,281 births with cleft \lcp, and 931 births with craniosynostosis after excluding genetic syndromes. Across all controls, 78.9% of mothers reported white race and 84.5% of mothers reported non-Hispanic ethnicity. Among the case groups, 82.5%-84.4% of mothers reported white race and 84.1%-87.4% of mothers reported non-Hispanic ethnicity. Across all controls, 15.4% of mothers reported smoking while pregnant; among cases, 18.6%-22.3% of mothers reported smoking while pregnant. Across all controls, 61.2% of mothers reported education above high school; among cases, 52.3%-61.5% of mothers reported education above high school. Across all controls, 28.7% of mothers reported ages between 30 and 34; among cases, 25.1%-30.0% of mothers reported ages between 30 and 34. 
+
+Exposures were assigned to all cases and controls throughout the study period based on census tract of mother's residence and estimated week of conception. As shown in Table \@ref(tab:descexp), the mean weekly \gls{o3} mean concentration was 37.2ppb for all controls and 36.1 to 37.6ppb for the case groups. The mean weekly \gls{o3} peak concentration was 48.3ppb for all controls and 46.7 to 48.9ppb for the case groups. The mean weekly \gls{pm25} mean concentration was 10.0\ugm for all controls and 9.8 to 10.1\ugm for the case groups. The mean weekly \gls{pm25} peak concentration was 16.8\ugm for all controls and 16.3 to 17.0\ugm for the case groups. 
+
+
+
+
+
+
+### Multivariate Analysis
+
+<!-- > change 3-month and 4-month to 12-week and 16-week -->
+
+As shown in Table \@ref(tab:rrcum1), the cumulative effect of air pollution was not associated with any of the birth defects studied during the time period of one month prior to conception through the end of the third month of pregnancy. In general, the effect of \gls{o3} on the risk of developing the birth defect was at or above an RR of 1.0 for clubfoot and cleft palate and below 1.0 for cleft \lcps and craniosynostosis. The effect of \gls{pm25} on the risk of developing the birth defect was lower than for \gls{o3} for all birth defects except craniosynostosis, for which the RR was around 1.0, just above the RR for \gls{o3}. These patterns held true in both the 12-week and 16-week evaluations.
+
+
+\begin{flushleft}
+\textbf{Clubfoot} 
+\end{flushleft}
+
+<!-- > cf 12-week: o3 mean/peak nsig, highest week -4; 
+                   pm mean nsig, highest week 6-8; pm peak nsig, highest week 3-4 -->
+<!-- > cf 16-week: o3 mean/peak nsig, highest week -4; 
+                   pm mean nsig, highest week 11-12; pm peak nsig, highest week 6-8, barely above 1.0  -->
+
+<!-- > pre-conception to week 2: o3 mean/peak -->
+<!-- > week 2 onward: pm mean/peak -->
+<!-- > week 12 only or none: none -->
+
+<!-- o3 -->
+In the 12- and 16-week evaluations, the effects of a 10ppb increase on weekly \gls{o3} concentrations on risk of clubfoot were similar between mean \gls{o3} and peak \gls{o3}. The effects of both were highest prior to conception and decreased linearly as the pregnancy progressed to the end of the evaluations. 
+<!-- pm -->
+In the 12-week evaluation, the effect of a 10\ugm increase in weekly \gls{pm25} mean concentration on clubfoot was slightly curved with the highest effect in week 8 of pregnancy. In the 16-week evaluation, the effect of a 10\ugm increase in weekly \gls{pm25} mean concentration on clubfoot was slightly curved with the highest effect in weeks 11 to 12 of pregnancy.
+In the 12-week evaluation, the effect of a 10\ugm increase in weekly \gls{pm25} peak concentration on clubfoot was curved with the highest effect in weeks 2 to 3 of pregnancy. In the 16-week evaluation, the effect of a 10\ugm increase in weekly \gls{pm25} mean concentration on clubfoot was curved with the highest effect in weeks 6 to 8 of pregnancy. 
+See Table \@ref(tab:rrlag1cf) and Figure \@ref(fig:cf1bar) for full results.
+
+
+
+\begin{flushleft}
+\textbf{Cleft lip with or without cleft palate} 
+\end{flushleft}
+
+<!-- > clp 12-week: o3 mean/peak sig week -1, highest week -2-0; 
+                    pm mean nsig, highest week none; pm peak nsig, highest week 1-3 -->
+<!-- > clp 16-week: o3 mean sig week 0, highest week -1-1; o3 peak sig week -1-2, highest week -1-3; 
+                    pm mean/peak nsig, highest week none -->
+
+<!-- > pre-conception to week 2: o3 mean/peak -->
+<!-- > week 2 onward: pm peak (12-week) -->
+<!-- > week 12 only or none: pm mean, pm peak (16-week) -->
+
+<!-- o3 -->
+In the 12- and 16-week evaluations, the effects of a 10ppb increase of weekly \gls{o3} concentrations on the risk of cleft \lcps were similar between mean \gls{o3} and peak \gls{o3}. The effects of both were significantly higher at $\alpha < 0.05$ in the weeks just before to just after conception. 
+<!-- pm -->
+In the 12- and 16-week evaluations, the effects of a 10\ugm increase of weekly \gls{pm25} mean concentration on the risk of cleft \lcps were consistently below the RR of 1.0 for all weeks. In the 12-week evaluation, the effect of a 10\ugm increase of weekly \gls{pm25} peak concentration was curved with the highest effects in weeks 1 to 3 of pregnancy. In the 16-week evaluation, the effects of a 10\ugm increase of weekly \gls{pm25} peak concentration was consistently below the RR of 1.0 for all weeks.
+See Table \@ref(tab:rrlag1clp) and Figure \@ref(fig:clp1bar) for full results.
+
+
+
+\begin{flushleft}
+\textbf{Cleft palate} 
+\end{flushleft}
+
+<!-- > cp 12-week: o3 mean nsig, highest week none; o3 peak nsig, highest week -2-0;  -->
+<!-- >             pm mean nsig, highest week 8; pm peak sig week -4 (low), highest week 8 -->
+<!-- > cp 16-week: o3 mean nsig, highest week -1-1; o3 peak nsig, highest week -??;  -->
+<!-- >             pm mean nsig, highest week 4-7, pm peak nsig, highest week 4-7 -->
+
+<!-- > pre-conception to week 2: o3 mean (16-week), o3 peak -->
+<!-- > week 2 onward: pm mean/peak -->
+<!-- > week 12 only or none: o3 mean (12-week) -->
+
+<!-- o3 -->
+In the 12-week evaluation, the effect of a 10ppb increase of weekly \gls{o3} mean concentration on the risk of cleft palate was consistently at the RR of 1.0 for all weeks. In the 16-week evaluation, the effect of a 10ppb increase of weekly \gls{o3} mean concentration was highest in the weeks just before to just after conception. In the 12- and 16-week evaluations, the effects of a 10ppb increase of weekly \gls{o3} peak concentrations on the risk of cleft palate were similar. The effects of both were higher in the weeks just before to just after conception. 
+<!-- pm -->
+In the 12-week evaluation, the effects of a 10\ugm increase of weekly \gls{pm25} concentration on the risk of cleft palate were similar between mean \gls{pm25} and peak \gls{pm25}. The effects of both were highest in week 8 of pregnancy. In the 16-week evaluation, the effects of a 10\ugm increase of weekly \gls{pm25} concentration on the risk of cleft palate were similar between mean \gls{pm25} and peak \gls{pm25}. The effects of both were highest in weeks 4 to 7 of pregnancy.
+See Table \@ref(tab:rrlag1cp) and Figure \@ref(fig:cp1bar) for full results.
+
+
+\begin{flushleft}
+\textbf{Craniosynostosis} 
+\end{flushleft}
+
+<!-- > cs 12-week: o3 mean nsig, highest week -1-1; o3 peak nsig, highest week -2- -1;  
+>             pm mean nsig, highest week -2-2; pm peak nsig, highest week -2- -1 
+> cs 16-week: o3 mean nsig, highest week 8-9; o3 peak nsig, highest week 2-5; 
+>             pm mean sig week -2-0, highest week -2-0; pm peak nsig, highest week -1-1 -->
+
+<!-- > pre-conception to week 2: o3 mean/peak (12-week), pm mean/peak -->
+<!-- > week 2 onward: o3 mean/peak (16-week) -->
+<!-- > week 12 only or none: none -->
+
+<!-- o3 -->
+In the 12-week evaluation, the effects of a 10ppb increase on weekly \gls{o3} concentrations on risk of craniosynostosis were similar between mean \gls{o3} and peak \gls{o3}. The effects of both were highest in the weeks just before to just after conception. In the 16-week evaluation, the effect of a 10ppb increase of weekly \gls{o3} mean concentration was highest in weeks 8 to 9 of pregnancy and the effect of a 10ppb increase of weekly \gls{o3} peak concentration was highest in weeks 2 to 5 of pregnancy.
+<!-- pm -->
+In the 12-week evaluation, the effects of a 10\ugm increase on weekly \gls{pm25} concentrations on risk of craniosynostosis were similar between mean \gls{pm25} and peak \gls{pm25}. The effects of both were highest in the weeks just before to just after conception. In the 16-week evaluation, the effect of a 10\ugm increase of weekly \gls{pm25} mean concentration was significantly higher at $\alpha < 0.05$ around the week of conception and the effect of a 10\ugm increase of weekly \gls{pm25} peak concentration was highest around the week of conception.
+See Table \@ref(tab:rrlag1cs) and Figure \@ref(fig:cs1bar) for full results.
+
+
+
+### Sensitivity analysis
+
+
+For three of the study groups, clubfoot, cleft palate, and cleft lip with or without cleft palate, maternal smoking during pregnancy was significantly associated with the birth defect of interest. From descriptive analyses, the percent of mothers whose infants were born with these birth defects and who smoked during pregnancy ranged from 20% to 22%, while the percent of mothers among the combined control groups who smoked during pregnancy was 15%. While under-reporting of maternal smoking on birth certificates has been documented in NYS, this difference between cases and controls would likely still exist even if maternal smoking was accurately reported. The roughly 1% of records missing maternal smoking would not have impacted the significance.
+
+To check if misclassification of clubfoot would have an appreciable impact, the R package EValue[@Smith2019] was used. Tests for clubfoot against all four pollutant measures were non-significant, suggesting that any misclassification would not appreciably impact model results. To check if misclassification of exposure due to failure to geocode would have an appreciable impact, 507 records that could only be geocoded at ZIP code level were removed and the models were run with the remaining records. In comparing the pairs of models, all estimates for the model with centroids removed fell inside the respective confidence intervals for the paired model without centroids removed, suggesting that any misclassification would not appreciably impact model results. 
+
+
+
+
+## Discussion
+
+### Cumulative effect
+
+This study proposed that a relationship exists between select measures of air pollution and select birth defects. Results varied by evaluation (three- or four-month), case group, and air pollution measure. Overall, there were no strong cumulative associations between air pollution and birth defects in any of the evaluations. 
+
+Research on the association between birth defects and air pollution is inconclusive. Most studies have used monitoring station data and most have used means or single weighted estimates to represent exposure over periods ranging from one to three months. Consistent with most research, risk ratios for the full time period were not significant, likely because development of birth defects is time-dependent, so the longer the time period under consideration, the more likely the effect is to be diluted. These results suggest that looking at discrete time periods may show stronger effects than looking at broader, more general time periods. Of the 18 studies reviewed, 7 found significant relationships between at least one of the birth defects we studied and \gls{pm25} or \gls{o3}.
+
+In this study, while we found no cumulative associations, air pollutant exposures for some individual weeks were associated with one or more of the birth defects of interest. Only one of the studies we reviewed evaluated any birth defects by week.[@Zhu2015b] That study reviewed oral clefts and modeled \gls{cmaq} exposures. In general, \gls{o3} had the highest effects on the risk of each birth defects around conception and \gls{pm25} had the highest effects on the risk of each birth defect during the birth defects' critical windows of pregnancy.
+
+### Clubfoot
+
+<!-- window: week 5-11 limbs form -->
+
+Weekly \gls{o3} mean and peak concentrations had the highest effect on risk of infants being born with clubfoot before conception, well before the limbs start to form. Weekly \gls{pm25} mean and peak concentrations in two evaluations had the highest effects during the critical window, when the limbs are forming, weekly \gls{pm25} mean concentration in the 16-week evaluation had the highest effect just after the limbs finish forming, and weekly \gls{pm25} peak concentration in the 12-week evaluation had the highest effect just before the limbs start forming. While clubfoot can form later in pregnancy due to awkward positioning in the womb, notably for multiple birth pregnancies, there is not a clear mechanism linking air pollution to awkward positioning.
+
+Only one previous study of clubfoot and either PM or \gls{o3} was identified and its results were non-significant.[@Wang2018] However, that study averaged the entire first trimester and used a model based on monitoring station data. Averaging may have diluted any effect and modeling may have resulted in misclassification if monitoring stations were far apart and other air pollution sources were not considered. Another study combined clubfoot with several other birth defects and found associations with monitoring station monthly \gls{pm10} mean concentrations.[@Huang2021] However, the extent to which clubfoot contributed to those associations is unknown. 
+
+
+### Cleft lip with or without cleft palate
+
+<!-- window: week 3-9 mandible forms -->
+
+
+Weekly \gls{o3} mean and peak concentrations had the highest effect on risk of infants being born with cleft \lcps around conception, well before the mandible starts to form, and all results were significant. Weekly \gls{pm25} peak concentration in the 12- week evaluation had the highest effect in early pregnancy, just before the mandible starts to form. The remaining \gls{pm25} measures had no effect on risk of cleft \lcps in their evaluations. 
+
+Of 16 prior studies of cleft \lcps and \gls{o3} or PM that we reviewed, 11 used monitoring station data and 5 used modeled data. All of the studies averaged exposures over time periods of a month or more. None of the studies using modeled data reported significant findings. Two of the studies using monitoring station data reported significant findings. The only study to report a significant association with \gls{o3} reported it for months 1 and 2 of pregnancy.[@Hwang2008] While our study found a higher effect of \gls{o3} on risk before conception, a second, less high and non-significant, effect was sometimes present for a few weeks later in the pregnancy, depending on the model, consistent with this study.
+
+Consistent with our findings, no studies found any associations with PM before conception. No studies found and associations in month 1 of pregnancy and one study found a strong association with \gls{pm10} in month 2 of pregnancy.[@Wang2018] This makes sense, since the mandible forms in weeks 3 to 8 of pregnancy, a time period that roughly corresponds with month 2 of pregnancy. No prior studies reported PM associations during month 3 of pregnancy, but one study that combined all oral clefts together reported an association with \gls{pm25} for the full first trimester.[@Vinikoor-Imler2015] 
+
+
+### Cleft palate
+
+<!-- window: week 5-12 palatine shelf forms -->
+
+
+Weekly \gls{o3} mean and peak concentrations had the highest effect on risk of infants being born with cleft palate around conception in two evaluations, well before the palatine shelves start to form; in the other two evaluations, they had no effect or the effect was highest at week 12 of pregnancy, after the palatine shelves have finished forming. Weekly \gls{pm25} mean and peak concentrations had the highest effect during the critical window when the palatine shelves are forming.
+
+Of 16 prior studies of cleft \lcps and \gls{o3} or PM that we reviewed, 11 used monitoring station data and 5 used modeled data. All of the studies except one averaged exposures over time periods of a month or more. None reported significance with \gls{o3}, which is not consistent with our findings. 
+
+Of the four studies that reported significance with \gls{pm25}, two used modeled data and two used monitoring station data. The two studies that used monitoring station data reported significant associations with \gls{pm10} averaged over the first month of pregnancy[@Wang2018] and averaged over weeks 3 to 8 of pregnancy[@Hansen2009a]. While the first month of pregnancy is not consistent with our findings, all weeks with strong effects of \gls{pm25} in our study fall between weeks 3 and 8 of pregnancy. One of the studies that reported significance with modeled PM data used Downscaler, as we did, and the other used \gls{cmaq}, the model on which Downscaler is based. The study using Downscaler reported significance with \gls{pm25} during the combined period of week 5 to 10 of pregnancy[@Zhou2017], which is consistent with our findings. The study using \gls{cmaq} reported significance with PM over several time periods, including with \gls{pm10} in the three-month period prior to conception and with \gls{pm25} during the combined period from week 3 to 8 of pregnancy and during each individual week from week 3 to week 5 of pregnancy[@Zhu2015a], which is earlier in the pregnancy than our findings.
+
+
+### Craniosynostosis
+
+<!-- window: week 5-8 cranium forms -->
+
+<!-- > cs 12-week: o3 mean nsig, highest week -1-1; o3 peak nsig, highest week -2- -1;  
+>             pm mean nsig, highest week -2-2; pm peak nsig, highest week -2- -1 
+> cs 16-week: o3 mean nsig, highest week 8-9; o3 peak nsig, highest week 2-5; 
+>             pm mean sig week -2-0, highest week -2-0; pm peak nsig, highest week -1-1 -->
+
+<!-- > pre-conception to week 2: o3 mean/peak (12-week), pm mean/peak -->
+<!-- > week 2 onward: o3 mean/peak (16-week) -->
+<!-- > week 12 only or none: none -->
+
+Weekly \gls{o3} mean and peak concentrations in the 12-week evaluation had the highest effect on risk of infants being born with cleft palate around conception, well before the cranium starts to form. In the 16-week evaluations, weekly \gls{o3} mean concentration had the highest effect at the end of the critical window and weekly \gls{o3} peak concentration had the highest effect at the beginning of the critical window. Weekly \gls{pm25} mean and peak concentrations in the 12-week and 16-week evaluations had the highest effects around conception, well before the cranium starts to form.
+
+Only two studies have evaluated the association between craniosynostosis and air pollution. The study that averaged distance-weighted monitoring station measures over the first two months found no association with either \gls{pm25} or \gls{o3}.[@Padula2013a] The study that averaged Downscaler estimates over the full first trimester found associations with both \gls{pm25} and \gls{o3}.[@Vinikoor-Imler2015] As our study found high effects of both \gls{pm25} and \gls{o3} at conception and of \gls{o3} around the critical window, this is somewhat consistent with our findings.
+
+
+### Strengths and limitations
+
+Strengths of this study included that birth defect cases covered fourteen years and most of \gls{nys}. Birth defects studied are well-diagnosed, so case misclassification is unlikely, and a sensitivity analysis of the one birth defect known to have misclassification issues was not significant. Air pollutant exposure was available daily and residential information was available at point level for most births, allowing greater granularity both temporally and spatially than many currently published studies. 
+
+
+Limitations of this study include possible exposure misclassification that is presumed to be non-differential, which would bias results toward the null. Air pollutant exposures were assigned based on the mother's geocoded residence at birth, but no information was available regarding the mother's activity patterns, including how much time she spent at that residence during her pregnancy, so we cannot assess if assigned exposures are an accurate reflection of actual exposures. However, a sensitivity test of geocoding results showed no issues when ungeocoded births were assigned to \gls{zip} code centroids and research suggests that mothers who move during pregnancy tend to move to areas with similar levels of air pollution.[@Lupo2009] In \gls{nys}, smoking is known to be under-reported on birth certificates[@Roohan2003], but even with presumed non-differential under-reporting, mothers of cases reported smoking more frequently than mothers of controls. Income is based on median census tract income, but the mother's household may have an income much higher or lower than the median in her census tract of residence, which could bias results toward the null. 
+
+
+
+## Conclusion
+
+In conclusion, evaluating the relationship between birth defects and air pollutants over long time periods washes out any effect. \gls{o3} showed delayed effects for all birth defects studied given exposure before and around conception. \gls{pm25} showed effects given exposure during the critical period for three of the birth defects and \gls{o3} showed effects given exposure during the critical period for craniosynostosis. Future studies should focus on shorter time periods, especially around the time of conception and during the birth defects' critical periods. This study is the first of which the authors are aware to evaluate peak values and more studies should evaluate this method and these findings. Overall, the mother's exposure to air pollutants during the entire period from one month before pregnancy to the end of the first trimester increases her fetus' risk of developing birth defects, so reducing the mother's exposure should be a focus of health policy work.
+
+\vfill
+
+\pagebreak
+
+
+## Tables {-}
+
+\singlespacing
+
+```{r bpa, echo = FALSE}
+t <- readr::read_csv("data/bpacodes.csv")[,c(1,3:5)]
+t |> 
+  kable(booktabs = TRUE, format = "latex", # escape = F, longtable = T, 
+      caption = "Relevant codes for birth defect categories used in the study") |>
+  row_spec(0, bold=TRUE) |>
+  kableExtra::kable_styling(
+    latex_options = c("hold_position"), # "striped", , "repeat_header"
+    position = "center", font_size = 11)  |> # , full_width = T
+  footnote(general_title = "Abbreviations: ", 
+           c("BPA = British Pediatric Association; CDC = Centers for Disease Control and Prevention;", 
+             "CM = Clinical Modification; ICD = International Classification of Diseases"), 
+           footnote_as_chunk = FALSE) # threeparttable = T
+```
+
+```{r cb, echo=FALSE, eval = TRUE}
+# move to supplemental?
+t <- readr::read_csv("data/results_singlepoll.csv") |>
+  dplyr::mutate(mb_p_16 = sprintf("%1.2f", round(mb_p_16, digits = 2)),
+         mc_p_16 = sprintf("%1.2f", round(mc_p_16, digits = 2)),
+         mb_p_12 = sprintf("%1.2f", round(mb_p_12, digits = 2)),
+         mc_p_12 = sprintf("%1.2f", round(mc_p_12, digits = 2)),
+         mb_p_12 = gsub("NA", "", mb_p_12),
+         mc_p_12 = gsub("NA", "", mc_p_12),
+         air = gsub("[Pp].+", "PM\\\\textsubscript{2.5}", `Air pollutant`),
+         arglag_12 = ifelse(is.na(arglag_12), "", arglag_12),
+         mb_lag_12 = ifelse(is.na(mb_lag_12), "", mb_lag_12),
+         mc_lag_12 = ifelse(is.na(mc_lag_12), "", mc_lag_12)) |>
+  dplyr::select(bd, air, Measure, arglag_12, mb_p_12, arglag_16, mb_p_16)
+
+
+l <- unique(t$bd)
+b <- table(t$bd)
+names(b) <- c("Clubfoot", "Cleft lip with or without cleft palate",
+              "Cleft Palate", "Craniosynostosis")
+
+v <- t |> dplyr::select(-contains("_lag"), -bd, -contains("mc"))
+
+v |> knitr::kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = "Cross-basis settings for distributed lag logistic regression models",
+        col.names = c("Pollutant", "Measure", rep(c("Setting", "RR"), 2)), 
+        align = c(rep("l", 3), rep("c", 1), "l", rep("c", 1))) |>
+  kableExtra::add_header_above(c(" " = 2, "12-week models" = 2, "16-week models" = 2)) |>
+  kableExtra::row_spec(0, bold=TRUE) |>
+  kableExtra::column_spec(c(3, 5), bold = FALSE, width = "9em") |> # 
+  kableExtra::column_spec(c(1, 2), bold = FALSE, width = "4em") |> # 
+  kableExtra::column_spec(c(4, 6), bold = FALSE, width = "2.5em") |> # 
+  kableExtra::group_rows(index = b) |> # 
+  kableExtra::collapse_rows(1, latex_hline = "none", valign = "top") |>
+  kableExtra::kable_styling(position = "center", font_size = 12, 
+                            latex_options = "hold_position") |> # 
+  kableExtra::footnote(c("Settings are for the unadjusted models. Setting refers to the relationship ", 
+             "between exposure and outcome for the matrix containing the lag weeks."))
+
+```
+
+\FloatBarrier
+
+\pagebreak
+
+\blandscape
+
+```{r descexp, echo = FALSE, warning=FALSE, message=FALSE}
+# table 3
+
+t <- readxl::read_xls("data/tables_desc_20220325.xls", sheet = "air data") |>
+  mutate(n_control = round(n_control, digits = 1),
+         n_cf = round(n_cf, digits = 1),
+         n_cp = round(n_cp, digits = 1),
+         n_cl_p = round(n_cl_p, digits = 1),
+         n_cs = round(n_cs, digits = 1), 
+         cat = gsub(" weekly ", " ", cat))
+
+t |> select(-var) |> 
+  kable(booktabs = TRUE, format = "latex", # longtable = T, escape = F
+        caption = "Means and ranges of air pollutants by case group, week of conception, New York State outside New York City, 2002 to 2015",
+        col.names = c("Pollutant", rep(c("mean", "(range)"), 5)), 
+        align = c("l", rep(c("r", "l"), 5))) |> 
+  row_spec(0, bold=TRUE) |>
+  column_spec(1, bold = FALSE, width = "6em") |> # 
+  column_spec(c(2,4,8), bold = FALSE, width = "2em") |> # 
+  column_spec(c(3,7,9), bold = FALSE, width = "5.5em") |>
+  column_spec(c(6,10), bold = FALSE, width = "2em") |> # 
+  column_spec(c(5,11), bold = FALSE, width = "5em") |> # 
+  add_header_above(c(" ", "Controls \n(n=18,153)" = 2, 
+                     "Clubfoot \n(n=2423)" = 2,  
+                     "Cleft lip w/wo cleft \npalate (n=1281)" = 2, 
+                     "Cleft palate \n(n=952)" = 2, 
+                     "Craniosynostosis \n(n=931)" = 2)) |>
+  kableExtra::kable_styling(position = "center", font_size = 12) |> 
+  kableExtra::footnote("Ozone was measured in ppb and PM\U2082.\U2085 was measured in µg/m\U00B3.")
+
+```
+
+\elandscape
+
+\clearpage
+
+```{r desc, echo = FALSE, warning=FALSE, message=FALSE}
+t <- readxl::read_xlsx("data/tables_desc_20220325.xlsx", sheet = 1) 
+
+n <- unique(t$var)
+v <- factor(t$var, levels = n)
+b <- table(v)
+
+# x <- paste0('"', n, '" = ', b)
+# x <- paste0("c(", paste(x, collapse = ", "), ")")
+# in group_rows, use eval(parse(text = x)) # works, but less direct
+# for each row I want followed by a horizonal line:
+# kableExtra::row_spec(x, 2, extra_css = "border-bottom: 1px solid")
+# where "x, 2" declares row number, number of cells?
+
+t |> select(-var) |> 
+  kable(booktabs = TRUE, format = "latex", longtable = T, # escape = F, 
+        caption = "Distribution of maternal and infant characteristics by case status, New York State outside New York City, 2002 to 2015",
+        col.names = c(" ", rep(c("n", "(%)"), 5)), 
+        align = c("l", rep(c("r", "l"), 5))) |> 
+  row_spec(0, bold=TRUE) |>
+  column_spec(1, bold = FALSE, width = "9.5em") |> # 
+  column_spec(c(2,4,8), bold = FALSE, width = "2em", border_left = T) |> # 
+  column_spec(c(3,5,9), bold = FALSE, width = "3em") |>
+  column_spec(c(6,10), bold = FALSE, width = "2.5em", border_left = T) |> # 
+  column_spec(c(7,11), bold = FALSE, width = "3.5em") |> # 
+  kableExtra::group_rows(index = b, hline_after = T) |> # 
+  add_header_above(c(" ", "Controls \n(n=18,153)" = 2, 
+                     "Clubfoot \n(n=2423)" = 2,  
+                     "Cleft lip w/wo cleft \npalate (n=1281)" = 2, 
+                     "Cleft palate \n(n=952)" = 2, 
+                     "Craniosynostosis \n(n=931)" = 2)) |>
+  kableExtra::kable_styling(
+    latex_options = c("repeat_header"), # "striped", "hold_position", 
+    position = "center", font_size = 9, # full_width = TRUE, 
+    repeat_header_continued = "\\textit{(Continued on Next Page...)}") |> 
+  footnote(general_title = "Note: ", 
+           c("Tobacco smoking and alcohol consumption are defined as having ever smoked tobacco",
+             "or consumed alcohol during pregnancy, respectively.",
+             "RUCA = Rural-Urban Commuting Area;", 
+             "RUCA categories are defined as follows: Metropolitan contains scores 1-3,",
+             "Micropolitan contains scores 4-6, Town contains scores 7-9, and Rural contains score 10."))
+
+```
+
+
+
+\clearpage
+
+```{r rrcum1, echo=FALSE, message = FALSE}
+t <- readr::read_csv("data/model1_rr_all.csv") |>
+  dplyr::filter(lag == "cum") |>
+  dplyr::mutate(rr = sprintf("%1.2f", rr),
+                cil = sprintf("%1.2f", cilow),
+                cih = sprintf("%1.2f", cihigh),
+                air = gsub("pm_", "PM\\\\textsubscript{2.5} ", air),
+                air = gsub("o3_", "Ozone ", air),
+                ci = paste0("(", cil, " - ", cih, ")")) |>
+  dplyr::select(defect, air, lags, rr, ci) |>
+  tidyr::gather(key = "vals", value = "ests", rr:ci) |>
+  dplyr::mutate(vals = paste(vals, lags, sep = "_")) |>
+  dplyr::select(defect, air, vals, ests) |>
+  tidyr::spread(key = "vals", value = "ests") |>
+  dplyr::select(defect, air, rr_12, ci_12, rr_16, ci_16)
+  
+
+l <- unique(t$defect)
+t <- t |> dplyr::mutate(defect = factor(defect, levels = l)) 
+b <- table(t$defect)
+names(b) <- c("Clubfoot", "Cleft lip with or without cleft palate",
+              "Cleft Palate", "Craniosynostosis")
+
+t |> dplyr::select(-defect) |> 
+  knitr::kable(booktabs = TRUE, format = "latex", escape = F, # longtable = T, 
+        caption = "Cumulative risk ratios for covariate models of air pollutant and birth defects pairs, New York State outside New York City, 2002 to 2015", 
+        col.names = c("Pollutant", rep(c("RR", "(95\\% CI)"), 2)), 
+        align = c("l", rep(c("r", "l"), 2))) |>
+  kableExtra::row_spec(0, bold=TRUE) |>
+  kableExtra::column_spec(1, bold = FALSE, width = "8em") |> # 
+  kableExtra::column_spec(c(2, 4), bold = FALSE, width = "4em") |> # 
+  kableExtra::column_spec(c(3, 5), bold = FALSE, width = "8em") |> # 
+  kableExtra::group_rows(index = b) |> # 
+  kableExtra::collapse_rows(1, latex_hline = "none", valign = "top") |>
+  kableExtra::add_header_above(c(" ", "12-week model" = 2, 
+                                 "16-week model" = 2)) |>
+  # column_spec(5:6, bold = FALSE, width = "8em") |> # 
+  kableExtra::kable_styling(
+    latex_options = c("repeat_header"), # "striped", "hold_position", 
+    font_size = 11, # full_width = TRUE, position = "center", 
+    repeat_header_continued = "\\textit{(Continued on Next Page...)}") |> 
+    kableExtra::footnote(c("RR = risk ratio; CI = confidence interval; PM = particulate matter", 
+               "Models were adjusted for maternal education level, maternal smoking, tract-level median income, ", 
+               "and conception season. RR applies to a 10-unit increase over two standard deviations above the mean.", 
+               "Week 0 was week of conception. Week 12 was the end of the first trimester of pregnancy.",
+               "RR applies to a 10-unit increase from the previous week in the air pollutant (ppb for ozone and ",
+               "µg/m\U00B3 for PM\U2082.\U2085) over two standard deviations above the mean."))
+
+```
+
+\clearpage
+
+```{r rrlag1cf, echo=FALSE, message = FALSE, warning = FALSE}
+caption <- paste("Lag risk ratios for covariate models of air pollutant and",
+                 "clubfoot pairs",
+                 "New York State outside New York City, 2002 to 2015")
+
+bd_rr2comp1_300m(bd = "cf", my_caption = caption, 
+                 file = "data/model1_rr_all.csv")
+```
+
+```{r rrlag1clp, echo=FALSE, message = FALSE, warning = FALSE}
+caption <- paste("Lag risk ratios for covariate models of air pollutant and",
+                 "cleft lip with or without cleft palate pairs",
+                 "New York State outside New York City, 2002 to 2015")
+
+bd_rr2comp1_300m(bd = "clp", my_caption = caption, 
+                 file = "data/model1_rr_all.csv")
+```
+
+```{r rrlag1cp, echo=FALSE, message = FALSE, warning = FALSE}
+caption <- paste("Lag risk ratios for covariate models of air pollutant and",
+                 "cleft palate pairs",
+                 "New York State outside New York City, 2002 to 2015")
+
+bd_rr2comp1_300m(bd = "cp", my_caption = caption, 
+                 file = "data/model1_rr_all.csv")
+```
+
+```{r rrlag1cs, echo=FALSE, message = FALSE, warning = FALSE}
+caption <- paste("Lag risk ratios for covariate models of air pollutant and",
+                 "craniosynostosis pairs",
+                 "New York State outside New York City, 2002 to 2015")
+
+bd_rr2comp1_300m(bd = "cs", my_caption = caption, 
+                 file = "data/model1_rr_all.csv")
+```
+
+
+
+\FloatBarrier
+
+\pagebreak
+
+\newpage
+
+## Figures {-}
+
+(ref:dag) Directed acyclic graph of the relationship between air pollutants and birth defects
+
+```{r dag, out.width = '100%', warning = FALSE, message = FALSE, fig.cap = '(ref:dag)', fig.pos='htb!'}
+
+
+knitr::include_graphics("images/dag_defense.png")
+
+```
+
+\clearpage
+
+
+(ref:cf1bar) Clubfoot models: Risk ratios by week of pregnancy
+
+```{r cf1bar, fig.width=6.5, fig.height=8.5, warning = FALSE, message = FALSE, fig.cap = '(ref:cf1bar)', fig.pos='htb!'}
+d <- readr::read_csv("data/model1_rr_all.csv")
+
+draw_forest_wrapper(data = d, defect_abbr = "cf", green = "", 
+                    defect_name = "Clubfoot")
+
+
+```
+
+
+\FloatBarrier
+
+
+(ref:clp1bar) Cleft lip with or without cleft palate models: Risk ratios by week of pregnancy
+
+```{r clp1bar, fig.width=6.5, fig.height=8.5, warning = FALSE, message = FALSE, fig.cap = '(ref:clp1bar)', fig.pos='htb!'}
+
+draw_forest_wrapper(data = d, defect_abbr = "clp", green = "", 
+                    defect_name = "Cleft lip with or without cleft palate")
+
+
+```
+
+
+
+
+\FloatBarrier
+
+(ref:cp1bar) Cleft palate models: Risk ratios by week of pregnancy
+
+```{r cp1bar, fig.width=6.5, fig.height=8.5, warning = FALSE, message = FALSE, fig.cap = '(ref:cp1bar)', fig.pos='htb!'}
+
+draw_forest_wrapper(data = d, defect_abbr = "cp", green = "", 
+                    defect_name = "Cleft palate")
+
+
+```
+
+
+
+\FloatBarrier
+
+(ref:cs1bar) Craniosynostosis models: Risk ratios by week of pregnancy
+
+```{r cs1bar, warning = FALSE, fig.width=6.5, fig.height=8.5, message = FALSE, fig.cap = '(ref:cs1bar)', fig.pos='htb!'}
+
+draw_forest_wrapper(data = d, defect_abbr = "cs", green = "", 
+                    defect_name = "Craniosynostosis")
+
+
+```
+
+
+
+\FloatBarrier
+
+## References {-} 
+
+
+

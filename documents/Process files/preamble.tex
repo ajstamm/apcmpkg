@@ -1,0 +1,164 @@
+% figures and tables
+\usepackage{caption} \captionsetup[table]{singlelinecheck=false, justification = justified}
+\usepackage{caption} \captionsetup[figure]{singlelinecheck=false, justification = justified}
+\usepackage{lscape}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
+% We determine text size and margin, not the style class file.
+\setlength{\textheight}{9.0in} %to leave 1in top and bot margin
+\setlength{\textwidth}{6.5in}  %to leave 1in left and right margin
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0.5in}
+\setlength{\headsep}{0.0in}
+\setlength{\parskip}{0.0em}
+\setlength{\oddsidemargin}{0.0in}  %to get a total of 1in
+\setlength{\evensidemargin}{0.0in}  %to get a total of 1in
+\setlength{\footskip}{0.5in}
+\setlength{\baselineskip}{0pt} % remove space around lists?
+
+
+% layout
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\microtypesetup{protrusion=false}
+\fancyhead{}
+\fancyfoot{}
+\pagestyle{plain}
+\fancyfoot[C]{\thepage}
+% \fancyfoot[C]{Draft revision \today}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setromanfont{Times New Roman}
+\setmonofont{Lucida Console}
+\renewcommand{\familydefault}{\rmdefault} % serif default
+% \renewcommand{\familydefault}{\sfdefault} % sans-serif default
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{placeins}
+% \usepackage[nomarkers,nolists]{endfloat}
+\usepackage{enumitem}
+\setlist{nosep,after=\vspace{\baselineskip}}
+\raggedbottom
+\let\cleardoublepage\clearpage
+
+% titles
+\usepackage{sectsty}
+\allsectionsfont{\normalsize}
+\newcommand\chaptersize{\large}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \large\bfseries \thechapter.\ % <-- Chapter # (without "Chapter")
+    \fi
+    \interlinepenalty\@M
+    #1\par\nobreak% <------------------ Chapter title
+    \vskip 16\p@% <------------------ Space between chapter title and first paragraph
+  }}
+\makeatother
+
+% \usepackage{titlesec}
+% \usepackage[tiny]{titlesec} % or small % titlesec fails
+% \RedeclareSectionCommands[font=\normalsize]
+%   {part,section,subsection,subsubsection,paragraph,subparagraph}
+
+
+% \newcommand\sectionsize{\normalsize}
+% \newcommand\subsectionsize{\normalsize}
+% \newcommand\subsubsectionsize{\normalsize}
+
+% \titleformat{\section}
+%   {\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
+% \titleformat{\subsection}
+%   {\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+% fix font size for TOC
+% THESE COUPLE LINES ARE THAT YOU NEED FOR THE 2ND PART
+\AtBeginDocument{
+  \addtocontents{toc}{\small}
+  \addtocontents{lof}{\small}
+  \addtocontents{lot}{\small}
+}
+
+% THESE COUPLE LINES ARE THAT YOU NEED FOR THE 1ST PART
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\tableofcontents}{\contentsname \@mkboth}{\normalsize\contentsname \@mkboth}{}{}
+% \xpatchcmd{\listoffigures}{\listfigurename }{\normalsize\listfigurename }{}{}
+% \xpatchcmd{\listoftables}{\listtablename \@mkboth}{\normalsize\listtableename \@mkboth}{}{}
+\xpatchcmd{\listoffigures}{\chapter *{\listfigurename }}{\chapter *{\normalsize\listfigurename }}{}{}
+\xpatchcmd{\listoftables}{\chapter *{\listtablename }}{\chapter *{\normalsize\listtableename }}{}{}
+\makeatother
+
+% C:\Program Files\RStudio\resources\app\bin\quarto\share\formats\pdf\pandoc
+
+% citations
+\usepackage{hyperref}
+\usepackage{breakcites}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} \nameref*{#1}}}
+\usepackage[sectionbib]{chapterbib}
+\usepackage[nottoc]{tocbibind}
+
+
+% editing
+% \usepackage{todonotes}
+
+% definitions
+\usepackage{glossaries}
+\setacronymstyle{long-short}
+% miscellaneous
+\newacronym{bpa}{BPA}{British Pediatric Association}
+\newacronym{icd}{ICD}{International Classification of Diseases}
+\newacronym{dna}{DNA}{deoxyribonucleic acid}
+\newacronym{ses}{SES}{socio-economic status}
+\newacronym{copd}{COPD}{coronary obstructive pulmonary disease}
+\newacronym{modis}{MODIS}{Moderate Resolution Imaging Spectroradiometer}
+\newacronym{bmi}{BMI}{body-mass index}
+% organizations
+\newacronym{cmr}{CMR}{Congenital Malformations Registry}
+\newacronym{doh}{DOH}{Department of Health}
+\newacronym{dot}{DOT}{Department of Transportation}
+\newacronym{dec}{DEC}{Department of Environmental Conservation}
+\newacronym{epa}{EPA}{Environmental Protection Agency}
+\newacronym{nasa}{NASA}{the National Aeronautics and Space Administration}
+% geography
+\newacronym{nys}{NYS}{New York State}
+\newacronym{nyc}{NYC}{New York City}
+\newacronym{zip}{ZIP}{Zone Improvement Plan}
+% statistics
+\newacronym{ci}{CI}{confidence interval}
+\newacronym{or}{OR}{odds ratio}
+\newacronym{aor}{aOR}{adjusted odds ratio}
+\newacronym{rr}{RR}{risk ratio}
+\newacronym{aic}{AIC}{Akaike information criterion}
+\newacronym{dag}{DAG}{Directed Acyclic Graph}
+% datasets
+\newacronym{ama}{AMA}{Ambient Monitoring Archive}
+\newacronym{aod}{AOD}{aerosol optical depth}
+\newacronym{cmaq}{CMAQ}{Community Multi-scale Air Quality}
+\newacronym{nata}{NATA}{National-Scale Air Toxics Assessment}
+\newacronym{ndvi}{NDVI}{Normalized Difference Vegetation Index}
+\newacronym{nlcd}{NLCD}{National Land Cover Database}
+\newacronym{sparcs}{SPARCS}{Statewide Planning and Research Cooperative System}
+\newacronym{ruca}{RUCA}{Rural-Urban Commuting Area}
+% pollutants
+\newacronym{hap}{HAP}{hazardous air pollutant}
+\newacronym{roxs}{ROS}{reactive oxygen species}
+\newacronym{pm01}{PM\textsubscript{0.1}}{ultrafine particulate matter}
+\newacronym{pm25}{PM\textsubscript{2.5}}{fine particulate matter}
+\newacronym{pm10}{PM\textsubscript{10}}{coarse particulate matter}
+\newacronym{pm}{PM}{particulate matter}
+\newacronym{nox}{NO\textsubscript{x}}{nitrogen oxides}
+\newacronym{h2o2}{H\textsubscript{2}O\textsubscript{2}}{superoxide}
+\newacronym{pah}{PAHs}{polycyclic aromatic compounds}
+\newacronym{voc}{VOCs}{volatile organic compounds}
+\newacronym{co2}{CO\textsubscript{2}}{carbon dioxide}
+\newacronym{o3}{O\textsubscript{3}}{ozone}
+
+\newcommand*{\ugm}{$\frac{\mu g}{m^3}$ }
+\newcommand*{\lcp}{lip with or without cleft palate}
+\newcommand*{\lcps}{lip with or without cleft palate } % space added due to bug

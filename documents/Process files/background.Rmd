@@ -1,0 +1,337 @@
+---
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+    fig_caption: TRUE
+    latex_engine: xelatex
+    number_sections: TRUE
+    toc: FALSE
+    toc_depth: 3
+    keep_tex: TRUE
+lot: TRUE
+lof: TRUE
+indent: TRUE
+fontsize: 12pt
+linestretch: 1
+subparagraph: yes
+filters:
+  - section-bibliographies
+bibliography: library.bib
+csl: ama-citation.csl
+citeproc: FALSE
+documentclass: book
+section-bibs-level: 1
+---
+
+```{r setup0, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+require(knitr); require(kableExtra); require(bookdown); require(tidyverse)
+```
+
+<!-- Total less than 3 pages -->
+
+\doublespacing
+\newpage
+
+
+# Background
+
+The causes of birth defects are not well understood. Birth defects vary in how strongly genetics contributes to their rates. An estimated 30%-40% of birth defects have known causes related to genetics, environment, and maternal health.[@Weinhold2009; @Al-Hadithi2012] The rest are not well understood and are believed to have multiple causes that interrelate.[@Al-Hadithi2012] 
+
+Several studies have suggested possible causes for birth defects besides genetics. Proposed demographic factors for birth defects include maternal and paternal age,[@Chen2014] maternal race, ethnicity,[@Chen2014; @Padula2015] and education,[@Chen2018] and infant sex and parity.[@Luo2013a] Behavioral factors include maternal and paternal smoking and maternal alcohol and folate use. Other maternal health characteristics include obesity and diabetes.[@Chen2018; @Blanco2015; @Reece2012; @Molina-Solana2013] Maternal \gls{ses} is also associated with birth defects.[@Chen2014; @Padula2015; @Baldacci2018]
+
+Air pollution may be a risk factor for development of birth defects in the fetus, notably the three birth defects explored in this study. The connection between birth defects and maternal smoking is well documented. Given this connection, and similarities between cigarette smoke and some forms of air pollution, notably \gls{pm25}, a possible link between air pollution, this study explored the association between maternal exposure to \gls{pm25} and \gls{o3} during the first trimester of pregnancy and risk of infants being born with clubfoot, oral clefts, or craniosynostosis. It examined the three following aims using statewide time-varying data for the exposures and statewide surveillance data for the outcomes.
+
+
+## Specific Aims
+
+Air pollution may be a risk factor for development of oral clefts, clubfoot, and craniosynostosis in the fetus. This study explored the association between maternal exposure to \gls{pm25} and \gls{o3} during the first trimester of pregnancy and examined these three aims using statewide time-varying data for the exposures and statewide surveillance data for the outcomes.
+
+1. To assess the association between the exposures of \gls{pm25} and \gls{o3} at different time periods and the outcomes of clubfoot, craniosynostosis, cleft palate, and cleft lip with or without cleft palate from 2002 to 2015 in \gls{nys} outside \gls{nyc}.
+
+
+2. To assess whether green space has an interactive effect on the relationship between the time-varying exposures of \gls{pm25} and \gls{o3} and the outcomes of clubfoot, craniosynostosis, cleft palate, and cleft lip with or without cleft palate from 2002 to 2015 in \gls{nys} outside \gls{nyc}.
+
+
+3. To assess whether time-varying exposures of \gls{pm25} and \gls{o3} have an interactive effect on their relationship with the outcomes of clubfoot, craniosynostosis, cleft palate, and cleft lip with or without cleft palate from 2002 to 2015 in \gls{nys} outside \gls{nyc}.
+
+
+
+## Birth defects
+
+Birth defects are structural abnormalities that develop in the fetus during pregnancy. They can affect any part of the fetus's body.[@CDC2018] Since the development of birth defects differs, scientists believe they have different teratogenic mechanisms and should be studied separately.[@BuckLouis2011] The three birth defects that will be investigated in this study include clubfoot, oral clefts, and craniosynostosis, which are among the more common birth defects in \gls{nys}, with over 100 cases of each defect annually.[@CMR2013] They are all included in this study because they are posited to be susceptible to similar routes of exposure, as described in \fullref{sec:biological}. In addition, they can all be diagnosed prenatally.[@Shi2018; @Helfer2016; @Nicholls2017]
+
+### Clubfoot
+\label{sec:clubfoot}
+
+Clubfoot is a deformation of the foot that occurs in about five of every 10,000 \gls{nys} births.[@CMR2013] Clubfoot is slightly more common in male infants than in female infants. It is one of the most common birth defects and 80% of cases are isolated, or idiopathic.[@Pavone2018] In the \gls{nys} \gls{cmr}, an estimated 95% of clubfoot cases are talipes equinovarus, in which the foot is twisted inward like a hand.[@Miedzybrodzka2003] Between one fourth and one half of idiopathic clubfoot cases have a family history of clubfoot.[@Pavone2018] Treatment includes manipulating and immobilizing the foot by stages or, in extreme cases, surgery. Risk factors for clubfoot include parity,[@Luo2013a] maternal education, obesity, and diabetes, but not maternal age.[@Chen2018] Because family history is so strongly associated with clubfoot, most causal research has focused on genetics. The main environmental factor in clubfoot research is smoking, for which there is evidence of an association.[@Sommer2011; @Maffulli2010; @Werler2015] Very little published research could be located for clubfoot and air pollution; only one study was identified for \gls{pm10}.[@Wang2018] 
+
+
+
+
+### Oral clefts
+
+Oral clefts include cleft lip (about 2 per 10,000 \gls{nys} births), cleft palate (about 5 per 10,000 \gls{nys} births), and cleft lip with cleft palate (about 5 per 10,000 \gls{nys} births).[@CMR2013] Cleft palate is more prevalent among female infants, while cleft lip alone or with cleft palate is more common among male infants.[@CMR2013] Cleft lip occurs when the cells on each side of the head do not fuse fully before birth and cleft palate occurs when the palate of the mouth does not fuse fully before birth.[@CDCclefts2017] Studies often separate oral clefts into two groups, cleft palate alone and cleft lip with or without cleft palate, under the hypothesis that the causes of of cleft lip and cleft palate are different. An estimated 80% of oral cleft cases are not syndromic.[@Lupo2015] Treatment is surgery. Risk factors include maternal and paternal age[@Herkrath2012], race, smoking[@Mossey2009], alcohol, and obesity[@Molina-Solana2013]. Research on oral clefts and air pollution has shown mixed results, with more research showing associations with cleft palate than with cleft \lcp.[@Dolk2010; @Gilboa2005; @Girguis2016; @Hansen2009; @Hwang2008; @Marshall2010; @Padula2013b; @Rankin2009; @Schembari2014; @Tanner2015; @Vinikoor-Imler2013; @Vinikoor-Imler2015; @Zhou2017; @Zhu2015a; @Rao2016; @Baldacci2018; @Wang2018]
+
+
+### Craniosynostosis
+
+Craniosynostosis is a common birth defect, occurring in about 4 of every 10,000 births in \gls{nys}.[@CMR2013] Craniosynostosis is about twice as common in male infants as in female infants.[@CMR2013] In craniosynostosis, two or more skull plates fuse prematurely, limiting the brain's ability to grow properly and distorting the skull as other sutures stretch to compensate.[@Twigg2015] An estimated 85% of cases are isolated, involving only one suture.[@Nagaraja2013] An estimated 8% of cases are syndromic or familial.[@Governale2015] Infants born with craniosynostosis can be treated with surgery.[@Governale2015] Research suggests that craniosynostosis is associated with maternal smoking.[@Alderman1994; @Carmichael2008] Research on craniosynostosis and air pollution has shown mixed results.[@Padula2013a; @Vinikoor-Imler2015; @Baldacci2018]
+
+### Gestational age and critical windows
+
+Critical windows are the weeks during pregnancy when the parts of the body affected by each defect develop. Each of the birth defects of interest has a slightly different critical window. The central nervous system develops around week 3, followed by craniofacial structures. The mouth and jaw develop approximately weeks 4 to 9 from neural crest cells, with palatial shelves developing a week later in females than in males.[@Sadler1995] The skull develops approximately weeks 4 to 12 from neural crest cells. The limbs and feet develop approximately weeks 4 to 12, with the footplates developing in week 6 and rotating in week 7.[@Sadler1995]
+
+
+\subsubsection{Biological mechanisms for birth defect formation}
+\label{sec:biological}
+
+The fetus is most at risk for each birth defect during its critical window, when environmental insults can most easily disrupt normal development.[@Sadler1995] For the three birth defects under consideration, the critical windows all occur in the first trimester of pregnancy, sometime during weeks 3 to 12. All three birth defects can be partially explained by heredity.[@Ardalan2012; @Chen2018; @Meng2006]
+The greatest risk for clubfoot occurs during limb development, between week 4, when limb buds appear, and week 12, when limb bones begin to ossify.[@Sadler1995] Incorrect cell signalling or cell death due to reduced oxygen may also be linked to abnormal limb development.
+
+The greatest risk for oral clefts occurs during development of the face and mandible in weeks 3 to 9.[@Sadler1995] If cell signalling is disrupted so that neural crest cells receive the message to die prematurely, then there will not be sufficient neural crest cells to form the full face, which will result in oral clefts. Premature cell death is also believed to be caused by an imbalance of \gls{roxs} and antioxidants. An imbalance between ROS and antioxidants can occur either because there is an increase in ROS creation or there is a decrease in antioxidant creation. This imbalance is representative of oxidative stress, in which the body is unable to remove harmful chemicals and oxygen by-products become reactive, damaging the fetus' \gls{dna}, lipids, and proteins.[@Duhig2016] 
+<!-- palatine shelf -->
+
+
+The greatest risk for craniosynostosis occurs during development of the skull in weeks 4 to 12. Craniosynostosis occurs when skull plates ossify or fuse prematurely.[@Twigg2015] This is believed to occur when neural crest cells fail to differentiate properly due to incorrect signalling. Incorrect signalling can be caused by an excess of reactive oxygen species (ROS) beyond what the cell's antioxidants can handle. 
+
+
+
+
+\subsubsection{General risk factor epidemiology}
+\label{sec:riskfactor}
+
+
+Established risk factors for one or more of the three birth defects under consideration include demographic, behavioral, and maternal health characteristics, as well as genetics. Demographic factors include maternal and paternal age,[@Chen2014] maternal race, ethnicity,[@Chen2014; @Padula2015] and education,[@Chen2018] and infant sex and parity.[@Luo2013a] Behavioral characteristics include maternal and paternal smoking and maternal alcohol and folate use. Maternal health characteristics include obesity and diabetes[@Chen2018; @Blanco2015], notably for orofacial clefts.[@Reece2012; @Molina-Solana2013] Maternal \gls{ses} is also associated with these birth defects.[@Chen2014; @Padula2015; @Baldacci2018]
+
+
+
+All three birth defects have an increased risk of developing if the mother smokes.[@Hackshaw2011; @Hoyt2016; @Vrijheid2011; @Rao2016; @Baldacci2018; @Wyszynski1997a] The mechanism by which inhaled chemicals would cause oxidative stress is still undetermined. One theory is that components of cigarette smoke disrupt the ability of the placenta to transmit oxygen and nutrients. The reduced oxygen atmosphere triggers an increase in both mitochondrial \gls{dna} and \gls{roxs}, which damages the mitochondria over time.[@Janssen2012a] A related theory suggests that extreme oxidative stress causes the blood vessels in the placenta to develop too quickly, which introduces the fetus to a high oxygen environment prematurely, and with it the risk of cellular damage from ROS.[@Schoots2018] Normally, the fetus grows in a low-oxygen environment in the first trimester, shifting gradually to a higher oxygen environment in the second trimester.
+
+Many components of cigarette smoke, such as benzene and chromium VI[@Talhout2011], are also found in particulate matter and in ambient air[@FDA2012]. Some of these components are believed to cause epigenetic changes in the developing fetus. Pregnant women exposed to higher concentrations of air pollution show more markers of \gls{dna} damage that are associated with oxidative stress than pregnant women exposed to lower concentrations of air pollution.[@Nagiah2015] 
+
+The proposed mechanism is that air pollution contains chemicals that lead to an increase of \gls{roxs} beyond what antioxidants can handle. These ROS are necessary to cell functioning, but when they go unchecked, they interact with lipids and proteins, damaging the molecules and disrupting natural signaling processes. Because smoking is associated with the three birth defects of interest, air pollution, which contains many of the same components as cigarette smoke, could also be a causative factor. Cigarette smoke contains chemicals that are believed to increase the concentration of ROS in cells, triggering oxidative stress.[@Vrijheid2011; @Rao2016; @Baldacci2018; @Hackshaw2011]  
+
+One fourth to one half of clubfoot cases are estimated to be genetic. Several genes have been identified that may increase risk of developing clubfoot.[@Pavone2018] Many cases are hypothesized to be caused by interaction between genetics and the environment.[@Chen2018] One of the most studied environmental factors in relation to clubfoot is maternal smoking. A study in Atlanta found an \gls{or} of 6.52 for infants with family history of clubfoot and an \gls{or} of 1.34 for infants whose mothers smoked.[@Honein2000] They found an \gls{or} of 20.30 for infants with both family history of clubfoot and mothers who smoked, which supports the hypothesis that many clubfoot cases can be explained by gene-environment interactions. 
+
+Alcohol is also a trigger of oxidative stress. Alcohol increases the concentration of \gls{h2o2} in the cell. \gls{h2o2} is a \gls{roxs}. Alcohol has also been shown to increase markers of lipid damage in cells, leading to neural crest disruption.[@Schoots2018] Research on maternal alcohol consumption and oral clefts has shown mixed results.[@Vrijheid2011; @Baldacci2018]
+
+
+
+
+
+### Data sources for Birth Defects
+
+
+Some birth defects may be difficult to diagnose objectively, but the birth defects of interest are all well defined in the \gls{cmr}. All three can be identified by ultrasound[@Helfer2016; @Shi2018; @Maarse2015] and are easily recognizable at birth. The \gls{cmr} captures an estimated 71% of all births with birth defects, including 90% of all births with oral clefts.[@CMR2013a] 
+
+
+The \gls{cmr} is a database of all birth defects among children under one year old in \gls{nys}. It is maintained by the \gls{nys} \gls{doh}[@CMR2016] and is linked to \gls{nys} Vital Records.[@Vital2017] The \gls{cmr} classifies cases using \gls{bpa} codes[@NCBDD2000], which provide more detailed diagnoses for birth defects than \gls{icd} codes. Since the datasets are linked and all variables except \gls{bpa} codes and malformation narratives come from Vital Records, they will be described together. An evaluation of the \gls{cmr} concluded that the \gls{cmr} captures most cases and has an accuracy of about 80% of reports.[@Sekhobo2001] Because the birth defects of interest are easily recognizable and since that evaluation, several cases in the \gls{cmr} have been reviewed for accuracy, including clubfoot, accuracy should be higher now.
+
+
+The \gls{cmr} is a surveillance registry to which hospitals and doctor's offices submit all new cases of congenital malformations[@CMR2016a]. \gls{cmr} staff follow up on unclear and missing information, de-duplicate records, and assign appropriate \gls{bpa} codes. Because the \gls{cmr} relies on doctors to correctly diagnose and report their patients, some level of underreporting is likely, so additional cases are identified using corresponding ICD codes in the \gls{nys} \gls{sparcs}. 
+
+\gls{nys} Vital Records includes all births registered in \gls{nys} excluding \gls{nyc} and \gls{nyc} Vital Records includes all births registered in \gls{nyc}. In an assessment of \gls{nys} vital records validity, sensitivity for tobacco and alcohol use was over 80%, with specificity over 90%.[@Roohan2003] The authors generally found \gls{nys} birth certificate data to be accurate.
+
+
+
+
+## Exposures
+
+Several exposures are associated with health outcomes, including air pollution and green space. Air pollution refers to particles suspended in the air and inhaled. Green space refers to open land with grass, trees, or other vegetation, such as parks and gardens. 
+
+
+
+### Air Pollution
+
+
+
+Air pollution is a composite of chemicals suspended in the air that, when inhaled, can cause damage to human health. Two types of air pollution are ground-level \gls{o3} gas and \gls{pm}, which is a mixture of pollutants. \gls{pm} is produced by combustion from industry, car exhaust, wood burning, and other forms of combustion and continues to be an issue in \gls{nys}, especially in urban areas. Ozone is produced by chemical reactions in the air between \gls{pm} and \gls{nox}.  
+
+\gls{pm} and \gls{o3} are being studied in relation to birth defects because they are prevalent in \gls{nys}, with exposures averaging  11.2\ugm for \gls{pm25} and 38ppb for \gls{o3}.[@Zhou2017] Both exposures have been linked to asthma[@Mirabelli2016; @RoyalCollegeofPhysicians2016] and other health outcomes and have been studied as possible causal factors in the development of birth outcomes and birth defects.
+
+\begin{flushleft}
+\textbf{Particulate Matter} 
+\end{flushleft}
+
+\gls{pm} is a mixture of solid, liquid, and gaseous particles that range in size up to 10 micrometers in diameter.[@EPA2017pm] These particles include metals, acids, and organic and inorganic compounds. \gls{pm} tends to be localized and the composition of \gls{pm} varies from locality to locality. \gls{pm} is released by combustion from many sources, including industries, vehicles, wood burning (either as agricultural waste or to heat homes), and cigarette smoking. It comprises haze and smog. 
+
+\gls{pm} has been associated with lung damage due to inhaled particles.[@WHO2013] This can cause and exacerbate respiratory ailments such as asthma. \gls{pm} has also been associated with cardiopulmonary issues, heart attacks, and diabetes and with both short-term and long-term PM exposure. \gls{pm} has been strongly associated with respiratory issues and poor lung function in young children and infants, as well as adverse birth outcomes. PM has been associated with health effects several days after exposure.
+
+
+\gls{pm} is generally measured in the form of \gls{pm10}, \gls{pm25}, and \gls{pm01}. The numbers correspond to the maximum diameter of the particles in micrometers. As particles decrease in size, they become easier to inhale and therefore more likely to damage the lungs. \gls{pm25} measurements are most readily available in \gls{nys}.
+
+While \gls{pm} as a whole may vary little seasonally, the concentrations of components that make up \gls{pm} may change over the course of the year. For \gls{pah}, for example, lighter molecules tend to be gaseous and predominate in summer months while heavier molecules tend to exist as particulates and predominate in winter months.[@Kim2013a]
+
+
+\begin{flushleft}
+\textbf{Ozone} 
+\end{flushleft}
+
+\gls{o3} is an air pollutant that is created when light and heat from the sun cause \gls{voc} and \gls{nox} in the atmosphere to chemically react.[@EPA2018o] \gls{nox} and \gls{voc} can be emitted by industries, vehicle exhaust, and other forms of combustion as well as vapors from gasoline and solvents.[@AirNow]
+
+\gls{o3} located in the stratosphere is beneficial to humans, since it blocks solar radiation, but \gls{o3} close to the earth's surface can damage human health. Ground level \gls{o3} is caused when \gls{voc} and nitrogen oxides (NO$_x$) in PM react with sunlight. Ozone tends to be higher in the summer than in the winter, with spikes on hot, sunny days, which are ideal for the chemical reactions that produce \gls{o3}.
+
+\gls{o3} is associated with respiratory and cardiovascular health.[@WHO2013] Short-term increased exposure to \gls{o3} has been linked to asthma mortality, heart attacks, and hospitalization due to asthma and \gls{copd}. Repeated exposure to increased \gls{o3} has been associated with cardiopulmonary mortality. Some studies have linked \gls{o3} to decreased lung function, cognitive effects, and preterm birth.[@WHO2013]
+
+
+
+### Data sources for Air Pollution
+
+
+\begin{flushleft}
+\textbf{Monitoring station data} 
+\end{flushleft}
+
+The \gls{epa} maintains the Ambient Monitoring Archive (AMA).[@EPA2016] They collect data from all states, including the \gls{nys} \gls{dec}, which maintains over 50 widely scattered air monitoring stations, most of which are located near urban areas and nearly half of which are located in \gls{nyc}. Monitoring stations vary by years of operation, frequency data of collection (usually every 3 days), which of the 197 pollutants they measure, and monitoring station altitude, making direct analysis of the raw data difficult. Of the monitoring stations maintained by the \gls{nys} \gls{dec}, 30 monitor \gls{o3} and 52 monitor \gls{pm25}.[@NYSDEC2018]
+
+In most cases, the monitoring stations do not consider specific exposure sources, elevation, or meteorological data. This can complicate exposure assignment, which is generally limited to ground-level buffer areas around the monitoring stations, thereby excluding a lot of potential cases.
+
+With few monitors along \gls{nys}' borders with Pennsylvania and New England and distances up to 70 miles between monitoring stations, a study in \gls{nys} would need to incorporate monitoring station data from neighboring states. However, the \gls{epa} warns that exposure estimates between states may not be comparable due to differences in equipment used, frequency of measures, and state regulations. 
+
+\begin{flushleft}
+\textbf{Traffic data} 
+\end{flushleft}
+
+
+The \gls{nys} \gls{dot} maintains annual estimates of average daily traffic.[@NYSDOT2016a] The \gls{nys} \gls{dot} data provide statewide annual means of measured or estimated traffic density (annual average daily traffic), from which relative air pollutant exposure can be estimated. They monitor major roads a few days each year, so their estimates may not be applicable outside the season they were collected. They may not monitor minor roads at all and which roads are monitored may vary from year to year.
+
+As with monitoring station data, traffic studies generally rely on buffers 150 to 300 meters from major roads.[@Padula2013a] However, they may ignore other sources of \gls{pm25}. The composition of \gls{pm25} on roadways can vary depending on the type of traffic and the concentration of \gls{pm25} may be misclassified if a section of road experiences a lot of stop-and-go traffic.
+
+\begin{flushleft}
+\textbf{Satellite data} 
+\end{flushleft}
+<!-- drop this section? -->
+
+
+One type of satellite data is \gls{aod}, which refers to measurements of the opacity of airborne particles between orbiting satellites and the earth's surface. \gls{aod} data are collected by several satellites maintained by \gls{nasa}. These satellites vary in how quickly they circumnavigate the earth and in their spatial resolution, but all cover the entire planet. AOD data have been used to estimate ground-level air pollution. 
+
+Raw satellite data is difficult to work with for several reasons. It may contain gaps due to cloud cover. It measures the entire column of air between the satellite and the earth, so raw values are unlikely to match ground-level measurements. It does not provide information on the components of the air pollution. Satellite data are generally incorporated into models that include land surface and meteorology instead of being used in their raw form for health studies. 
+
+
+Strengths of \gls{aod} data include that it is available globally and measures are available for any given area at least every few weeks. \gls{aod} data, when angled relative to the earth's surface, can provide some information to estimate ground-level PM exposure.
+
+\begin{flushleft}
+\textbf{Modeled data} 
+\end{flushleft}
+
+
+The \gls{epa} maintains several datasets that provide modeled estimates of air pollution nationwide. Most of these datasets are based on the \gls{cmaq} model[@Reich2014], which is a complex atmospheric chemistry and air transport model that incorporates meteorology, land use, atmospheric chemistry and several types of pollution sources. Some models also incorporate \gls{aod} data. This allows for reasonable estimates of exposure for the entire area, but because they are estimates, inferences cannot be drawn based on specific levels of exposure. Instead, studies use modeled data to estimate health effects in areas of higher versus lower exposure. The \gls{cmaq} model can be calibrated to provide estimates of individual airborne chemicals, like benzene or cadmium, or combinations of chemicals, like \gls{pah} or various sizes of \gls{pm}. 
+
+The datasets produced using \gls{cmaq} vary in chemicals available and temporal frequency. The \gls{nata}[@EnvironmentalProtection2015b] contains estimates for over 100 individual chemicals, but only provides annual estimates every three or six years. The Downscaler model[@Berrocal2010; @Berrocal2012] provides daily estimates over a span of fifteen years, but contains only \gls{o3} and combined \gls{pm25}. Both models recalibrate their estimates using monitoring station data where available. Datasets also vary by spatial resolution from 1km to 12km square grids or census tracts. All modeled estimates are subject to error. 
+
+
+### Green Space
+
+Studies on the relationship between trees and air pollution have found that trees reduce various types of air pollution by either absorbing them (for example, CO$_2$) or by trapping them in their leaves (for example, \gls{pm25}).[@Ozdemir2019; @Franchini2018] While trees and shrubs have been shown to remove \gls{o3} and \gls{pm25} from the air, published research on the relationship between grasses and air pollution could not be located. Many studies have found positive health benefits from proximity to green space, but have not differentiated whether the green space was trees or other plants. A recent literature review on air pollution and green space[@Franchini2018] noted a few studies on trees' ability to remove various air pollutants from the air, including PM and O$_3$, and stated the need for more research on the connection between green space and air pollution. Another review published more recently found mixed results when assessing the relationship between green space and air pollution, notably for \gls{o3}.[@Eisenman2019] Green space has been linked to several health outcomes, including cancer[@Datzmann2018], asthma[@Eisenman2019], and infant health[@Lee2018].
+
+### Data sources for green space
+
+
+
+There are several datasets that measure land type, vegetation, and tree canopies. Many of these could be used to estimate the presence and amount of green space in an area. Two of the more common datasets are described below.
+
+\begin{flushleft}
+\textbf{Normalized Difference Vegetation Index} 
+\end{flushleft}
+
+
+The \gls{ndvi} is a dataset that measures surface vegetation. It is collected by \gls{nasa}'s \gls{modis} satellite approximately every 16 days.[@NASA2019] The \gls{ndvi} data are provided in 30m square grids, with each color representing a different measure of vegetation density. This dataset provides the amount of green space in each grid, but does not differentiate between types of green space.
+
+One study measured the relationship between green space and birthweight in two US cities using the \gls{ndvi}.[@Cusack2017a] The researchers created buffers of varying sizes around each residence and calculated the percentage of tree cover and green space in each buffer, averaged over one year after removing snow, cloud cover, and other visual disturbances. They found only the closest (50m) buffers for green space and tree cover remained significant after controlling for \gls{ses} and other factors.
+
+Another study measured the relationship between green space and NVDI in Ottawa, Canada.[@VanRyswyk2019] The researchers found that \gls{pm25} and \gls{pm01} were both inversely associated with green space in fall and winter, but not in summer.
+
+\begin{flushleft}
+\textbf{National Land Cover Database} 
+\end{flushleft}
+
+
+The \gls{nlcd} is released every five years.[@MRLC; @EROS] It is a grid of 16 different colors of pixels that cover the United States. Each pixel represents a 30m square area. The \gls{nlcd} data are categorized to differentiate built environment from natural environment. The pixel colors represent 16 land use types, such as green space (forest, wetlands, or pasture), level of development (low to high intensity), or other characteristic, such as water or barren land. Cells that contain predominantly trees can be identified in this dataset. While the \gls{nlcd} is produced every few years, it benefits from modeling at very small areas that is only possible by collecting data over a period of time. 
+
+One study investigated the relationship between birthweight and green space using the \gls{nlcd}.[@Ebisu2016] They collapsed the 16 categories into three categories and created 250 meter buffers around each birth, then calculated the proportion of pixels in each category that fell in the buffer for each birth. They found a positive correlation between birthweight and green space. They also identified the need for further research on the association among green space, air pollution, and birth outcomes.
+
+
+
+## Epidemiology
+
+The studies in this section were identified in EBSCOhost using the keywords "oral clefts", "clubfoot", "talipes equinovarus", and "craniosynostosis" for the outcomes and "pm2.5", "particulate matter", "ozone", and "air pollution" for the exposures. Many studies have found significant relationships between birth defects and air pollution and many studies have not. Of the birth defects of interest, results have been mixed for oral clefts and craniosynostosis. The only research study located that evaluated the relationship between clubfoot and air pollution did not find a significant relationship. 
+
+Studies were included in Table \@ref(tab:littable) if they contained distinct exposures of \gls{pm25}, \gls{pm10}, or \gls{o3} and distinct outcomes cleft \lcp, cleft palate, oral clefts combined, or craniosynostosis. Most of these studies were case-control.
+
+
+### Clubfoot and air pollution
+
+
+No published studies were identified on clubfoot and \gls{pm25} or \gls{o3}. One study assessed \gls{pm10} and clubfoot by calculating monthly kriged averages.[@Wang2018] The results were not significant. As stated in \fullref{sec:clubfoot}, many of the components of cigarette smoke are also found in \gls{pm25}, so the same teratogenic mechanism of oxidative stress that applies for cigarette smoking may also apply for higher levels of \gls{pm25}.
+
+
+
+### Oral clefts and air pollution
+
+Several studies explored the relationship between oral clefts and air pollution. Table \@ref(tab:littable) includes three studies that used monitoring station measures of PM, five studies that used monitoring station measures of PM and \gls{o3}, three studies that used modeled PM estimates, and four studies that used modeled PM and \gls{o3} estimates.
+
+Two studies that used monitoring station PM measurements averaged measurements over the entire critical window. One study assigned averages of monitoring stations within 10km.[@Rankin2009] The other study assigned average measurements of any monitoring stations within the census tract.[@Tanner2015] Neither study found significant associations between PM and oral clefts. The third study used monthly averages of kriged exposures for the first three months of pregnancy.[@Wang2018] This study found significant associations between \gls{pm10} and cleft palate alone in the first month (RR = 1.09; 95% \gls{ci} = 1.01-1.17) and between \gls{pm10} and cleft lip with or without cleft palate in the second month (RR = 1.05; 95% \gls{ci} = 1.01-1.08).
+
+Of the five studies that used monitoring station measurements for PM and \gls{o3}, four averaged measurements over the entire critical window. The fifth study used monthly averages over the first trimester to introduce some temporality.[@Hwang2008] Two studies used distance weighted estimates to assign exposure based on how far the residence or neighborhood was from the monitoring station.[@Padula2013a; @Hwang2008] The other three studies assigned the nearest monitoring station value, though one study excluded residences more than 40km from the nearest monitoring station. One study found an \gls{or} of 0.69 (95% \gls{ci} = 0.50-0.93) for cleft palate given a 4\ugm increase in \gls{pm10}.[@Hansen2009] Another study found increased odds of cleft lip and palate with a 10ppb increase of \gls{o3} for the first and second months of pregnancy.[@Hwang2008] The other three studies found no significant association between oral clefts and either PM or \gls{o3}.
+
+Of the three studies that investigated the relationship between oral clefts and modeled data to estimate PM, one used annual PM values and two averaged PM values over the entire critical window. In one study, cases were assigned the average exposure in the census ward of the residence at birth. The other two studies assigned exposure based on grid values for the residence at birth. None found significance. 
+
+Of the four studies that investigated the relationship between oral clefts and modeled PM and \gls{o3}, three studies averaged exposure over the entire critical window, one averaged over the first trimester, and one also averaged over the three months prior to conception. Three studies assigned the grid estimate of exposure at the residence of birth and one study assigned exposure based on the average exposure for the entire hospital referral area. One study found an \gls{or} of 0.90 (95% \gls{ci} = 0.82-0.99) for combined oral clefts given a 5\ugm change in \gls{pm25}.[@Vinikoor-Imler2015] One study found an \gls{or} of 1.43 (95% \gls{ci} = 1.11-1.86) for cleft palate given a 10\ugm increase in \gls{pm25}.[@Zhou2017] The third study to find significance found an adjusted \gls{or} of 1.74 (95% \gls{ci} = 1.15-2.64) for cleft palate and \gls{pm25} during the critical window and of 1.72 (95% \gls{ci} = 1.12-2.66) for cleft palate and \gls{pm10} in the three months prior to conception.[@Zhu2015a]
+
+### Craniosynostosis and air pollution
+
+Two studies explored the relationship between craniosynostosis and both PM and \gls{o3}. One study used inverse distance weighting of monitoring station data and included births within 5km of the monitoring stations.[@Padula2013a] They analyzed quartiles of exposure. They found no association between craniosynostosis and either \gls{o3} or \gls{pm25}. Their study averaged exposure measures over the first two months of pregnancy, which reduces variation in exposure values and limits how closely exposures can be linked to different points during the critical window. 
+
+The other study used modeled PM and \gls{o3} measures based on \gls{cmaq}.[@Vinikoor-Imler2015] The modeled data allowed use of births from the entire state, but exposure was averaged over the entire first trimester. They analyzed exposure as continuous values and found an adjusted \gls{or} of 0.78 (95% \gls{ci} 0.64-0.96) for a 5\ugm increase in \gls{pm25} in a multi-pollutant model and could not explain why higher odds of craniosynostosis would be associated with lower \gls{pm25}. They also found an adjusted \gls{or} of 1.38 (95% \gls{ci} 1.11-1.72) for a 13.3ppb increase in \gls{o3}. 
+
+## Summary
+
+
+All studies used average values for their exposures. Most averaged over the critical window period, around 3 to 10 weeks, and some averaged by month or over the entire first trimester. Only one study looked at exposure prior to pregnancy. Since a few studies also had small study areas, this could reduce variation in the exposure and complicate detection of significant variations. All studies used residence at birth to assign exposure. For most studies, residential and daily mobility while pregnant was unavailable.
+
+The studies used a variety of covariates, the most common of which were maternal age, race, ethnicity, education, and smoking. All of these except maternal age are associated with \gls{ses}, which is associated with air pollution, and three (maternal age, race, and smoking) are associated with birth defects. 
+
+This dissertation used the \gls{nys} \gls{cmr} and \gls{nys} Vital Records data. Vital Records data contained residence at birth, which was used as the exposure source, as other studies have done. Vital Records data also contained the covariates listed in the previous paragraph, as well as date of birth and estimated gestational age in days. 
+
+This dissertation addressed the weaknesses in past research in two ways. First, it covered the entire \gls{nys} outside of \gls{nyc} for a period of fifteen years, which allowed for a wide variation of \gls{pm25} and \gls{o3} measures. Second, it used weekly mean and peak exposures beginning before birth to capture exposure in greater detail and allow for a possible lagged response to the exposures.
+
+This dissertation aimed to fill part of the gap in knowledge by exploring the relationship between birth defects and maternal exposure to ambient air pollution in \gls{nys}. Because most studies lack time varying exposure, may use imprecise gestational age, and/or are not state-wide, this dissertation could provide valuable insight into the connection between birth defects and air pollution. This dissertation addressed temporality and variation in exposure by using weekly modeled measurements instead of averages over the trimester, month, or critical window. This dissertation used estimated date of conception to determine the critical window instead of the month and used point-level maternal residence addresses, so exposure could be assigned to the modeled grids rather than to county or tract averages. 
+
+
+\singlespacing
+
+\blandscape
+
+## Tables {-}
+
+```{r littable, eval=TRUE, echo=FALSE}
+require(tidyverse); require(kableExtra); require(knitr)
+r <- read_csv("Data/littable.csv")[, 1:8]
+kable(r, caption = "A summary of epidemiological studies that have examined exposure to PM and O\\textsubscript{3} and select birth defects", escape = FALSE, 
+      booktabs = TRUE, format = "latex", longtable = TRUE) |>
+  row_spec(0, bold=TRUE) |>
+  column_spec(1, bold = FALSE, width = "5em") |> # 1 = author, year;
+  column_spec(c(2), bold = FALSE, width = "6em") |> # 2 = design
+  column_spec(c(4), bold = FALSE, width = "6em") |> # 4 = exposure
+  column_spec(c(3), bold = FALSE, width = "5em") |> # 3 = study size; 
+  column_spec(c(5), bold = FALSE, width = "4em") |> # 5 = outcome; 
+  column_spec(c(6), bold = FALSE, width = "7em") |> # 6 = methods; 
+  column_spec(c(7,8), bold = FALSE, width = "11.5em") |> # 7 = findings; 8 = covariates;
+  kableExtra::kable_styling(
+    latex_options = c("striped", "hold_position", "repeat_header"),
+    position = "center", font_size = 10)  |> # , full_width = T # errors
+  footnote("Abbreviations: CP=cleft palate; CLP=cleft lip with or without cleft palate; CS=craniosynostosis; CF=clubfoot")
+```
+
+\elandscape
+
+## References {-} 
+
+
+<!-- ::: {#refs-background} -->
+<!-- ::: -->
+
+
+

@@ -1,0 +1,68 @@
+---
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+      before_body: titlepage.tex
+    fig_caption: TRUE
+    latex_engine: xelatex
+    number_sections: TRUE
+    toc: TRUE
+    toc_depth: 3
+    keep_tex: TRUE
+    pandoc_args: ['--lua-filter=section-bibliographies.lua']
+lot: TRUE
+lof: TRUE
+indent: TRUE
+fontsize: 12pt
+linestretch: 1
+subparagraph: yes
+filters:
+  - section-bibliographies
+bibliography: library.bib
+csl: ama-citation.csl
+citeproc: FALSE
+documentclass: book
+section-bibs-level: 1
+---
+<!-- documentclass: thesis -->
+<!-- would need to ensure no duplication between preamble and thesis.cls -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage
+
+\pagenumbering{arabic}
+<!-- \pagestyle{fancy} -->
+
+
+
+
+<!-- note https://latex.org/forum/viewtopic.php?t=3410 to set up each chapter as a separate file - allows references per chapter (tables at end of each chapter? put in same file) -->
+<!-- note https://www.etiennebacher.com/posts/2020-07-16-tips-and-tricks-r-markdown/ -->
+
+
+<!-- update abstract to match revised results -->
+
+
+
+```{r body, child = c('background.Rmd', 'aim1.Rmd', 'aim2.Rmd', 'aim3.Rmd', 'summary.Rmd', 'appendix.Rmd')}
+```
+
+
+<!-- notes to check post-compiling:
+random code at the end of the following tables - 
+  - aim 1 table 5, 7
+  - aim 2 table 8-10, supplemental 11-17
+  - aim 3 table 18-19, supplemental 20-23
+table badly subsetted - 
+  - aim 1 table 7
+  - aim 2 table 8-10, supplemental 11-17
+  - aim 3 table 18-19, supplemental 20-23
+ -->
+ 
+ 
+ 
+ 
