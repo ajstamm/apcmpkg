@@ -6,4 +6,4 @@ My [dissertation defense slides](Astamm_defense_presentation.pdf) and [script](A
 
 My [dissertation manuscript](Astamm_dissertation_manuscript.pdf)
 
-The folder [Manuscript](Manuscript/) contains the R markdown and LaTeX scripts to produce my dissertation manuscript. The folder [Manuscript](Presentations/) contains the R markdown and LaTeX scripts to produce various dissertation-related presentations.
+The folder [Manuscript](Manuscript/) contains the R markdown and LaTeX scripts to produce my dissertation manuscript. The folder [Presentations](Presentations/) contains the R markdown and LaTeX scripts to produce various dissertation-related presentations.
