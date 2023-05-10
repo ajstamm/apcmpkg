@@ -19,49 +19,18 @@ knitr::opts_chunk$set(echo = FALSE)
 library(knitr); library(kableExtra); library(rmarkdown);library(tidyverse)
 ```
 
-
-
 # Introduction
 
 ## Introduction
 
 <!-- https://airquality.wi.gov/home/map
 State level: note Milwaukee & CO
-County level: note Milwaukee & SO2
--->
+County level: note Milwaukee & SO2 -->
 
-<!--
-From council:
-What they are interested in is seeing an example of environmental health research that can be done with a functioning birth defects surveillance system (which Wisconsin does not now have but is hoping to develop)
--->
+<!-- From council:
+What they are interested in is seeing an example of environmental health research that can be done with a functioning birth defects surveillance system (which Wisconsin does not now have but is hoping to develop) -->
 
-
-<!-- Outline
-Intro
-- For my study, I joined environmental and birth defects surveillance data
-- Today, will focus on environmental datasets and why I chose mine
-- Strengths & limitations of each & determining measures
-- Issues I encountered joining environmental & birth defects data
-- Why issues mattered (how they affect results) and how I handled them
-- Other considerations (eg. NYC)
-- Briefly, my findings
-
-Environmental data
-- Considerations
-    - Geography (tract, county, grid, buffer)
-    - Frequency (how often, how continuous)
-    - Location & altitude (o3 monitor in Demetral Field, east of Lake Mendota near railway, different exposure from Waismann Center to south but on WI tracker represents all fo Dane County - https://dhsgis.wi.gov/DHS/EPHTracker/#/all/Air%20Quality/airQualityIndex/NOTRACT/204/83)
-- Air pollutants
-    - Monitoring (sparse, may be on towers/buildings)
-    - Modeled (may be infrequent, can't measure exact exposure)
-- Green space
-
-
-
--->
-
-<!-- 
-What I emailed them
+<!-- What I emailed them
 
 Introduction (1 min)
 Birth defect data using a passive registry (3 min)
@@ -76,8 +45,7 @@ Environmental data (7 min)
 Example study (3 min)
 * Excerpt from my dissertation looking at one of the four birth defects I studied
 * Strengths and limitations of my results relative to issues noted above
-Conclusion (1 min)
--->
+Conclusion (1 min) -->
 
 ### Objectives
 
@@ -172,11 +140,6 @@ for (i in border_counties) {
 
 wny <- dplyr::bind_rows(l) |> dplyr::filter(AWATER > 10000000)
 
-
-# w <- tigris::area_water(state = "NY", county = "Chautauqua")
-# plot(w$geometry, border = "blue", col = "lightblue")
-# w |> dplyr::arrange(desc(AWATER)) |> head()
-
 a <- readr::read_csv("data/airmonitorlocations.csv") |>
   sf::st_as_sf(coords = c("Longitude", "Latitude"), crs = sf::st_crs(t))
 
@@ -215,12 +178,7 @@ twi3 <- sf::st_crop(twi, c(xmin= -89.5, ymin = 43, xmax = -89.3, ymax = 43.15)) 
 
 ```
 
-
-
-
-
 # Birth defects data
-
 
 ## Defining cases
 
@@ -235,10 +193,8 @@ twi3 <- sf::st_crop(twi, c(xmin= -89.5, ymin = 43, xmax = -89.3, ymax = 43.15)) 
 * Code and narrative may contradict
 * Include or exclude cases with multiple birth defects?
 
-<!-- 
-... as well as year, residency, whatever else is relevant
-I assigned case by code, but excluded hereditary conditions based on code and narrative
--->
+<!-- ... as well as year, residency, whatever else is relevant; 
+I assigned case by code, but excluded hereditary conditions based on code and narrative -->
 
 ## Calculating conception date
 
@@ -253,10 +209,8 @@ I assigned case by code, but excluded hereditary conditions based on code and na
 * Dates may not agree
 * Dates may be impossible
 
-<!--
-I assigned conception date by reasonable LMP first (<350 days) then by birthdate minus clinical age (if <350 days) and excluded the rest
-no conception date = couldn't join to air pollution data
--->
+<!-- I assigned conception date by reasonable LMP first (<350 days) then by birthdate minus clinical age (if <350 days) and excluded the rest; 
+no conception date = couldn't join to air pollution data -->
 
 ## Determining location of mother's residence
 
@@ -267,12 +221,10 @@ no conception date = couldn't join to air pollution data
 ### Concerns
 
 * Address may not geocode
-* State, city, ZIP code may disagree
 * May have access to only part of address
+* State, city, ZIP code may disagree
 
-<!-- 
-I geocoded what I could (prioritized ZIP code over city and state), then used ZIP code centroid for the few that did not geocode, and those without ZIP code I dropped = couldn't join to environmental data
--->
+<!-- I geocoded what I could (prioritized ZIP code over city and state), then used ZIP code centroid for the few that did not geocode, and those without ZIP code I dropped = couldn't join to environmental data -->
 
 ## Determining maternal health & behavior
 
@@ -288,9 +240,7 @@ I geocoded what I could (prioritized ZIP code over city and state), then used ZI
 * Data may be impossible or unreliable
 * No data on father's health & behavior
 
-<!-- 
-I included only smoking and my model dropped missings
--->
+<!-- I included only smoking and my model dropped missings -->
 
 # Environmental data
 
@@ -300,7 +250,7 @@ I included only smoking and my model dropped missings
 
 *Resolution:* What is the resolution level?
 
-*Exposure:* what dosage assumptions will I make?
+*Exposure:* What dosage assumptions will I make?
 
 *Frequency:* Are data daily, monthly, annual?
 
@@ -311,30 +261,17 @@ I included only smoking and my model dropped missings
 \begincols{}
 \column{0.5\textwidth}
 
-
-
-
-**Pros**
-
 \small
 
+* *Geography:* Mostly urban
+* *Resolution:* Points far apart
 * *Exposure:* Measured values
 * *Frequency:* Daily or every few days
 * *Availability:* https://www.airnow.gov/
 
 \normalsize
 
-**Cons**
-
-\small
-
-* *Resolution:* Points spread far apart
-* *Geography:* Mostly in urban areas
-
-\normalsize
-
 \column{0.5\textwidth}
-
 
 ```{r airmonitor, message = FALSE, warning = FALSE}
 graphics::par(mar=c(.1,.1,.1,.1))
@@ -342,70 +279,39 @@ graphics::par(mar=c(.1,.1,.1,.1))
 plot(cny$geometry, border = "darkgrey", col = "ivory")
 plot(wny$geometry, add = TRUE, border = "mediumblue", col = "lightblue")
 plot(a$geometry, add = TRUE, pch = 20, col = "red")
-
-
-
-
 ```
 
-
-
-<!-- \begin{figure}[H] -->
-<!-- \includegraphics[width=1\textwidth, height=!]{images/airmonitors.jpg} -->
-<!-- \end{figure} -->
 \centering
 \footnotesize
 Map of New York air pollution monitors (Source: New York State Department of Environmental Conservation)
 \normalsize
 \stopcols
 
-
-
-
-
 ## Air pollution: Downscaler model
 
 \begincols{}
 \column{0.5\textwidth}
 
-
-
-**Pros**
-
 \small
 
 * *Geography:* Nationwide
+* *Resolution:* Census tract 
+* *Exposure:* Estimated values
 * *Frequency:* Daily
 * Uses topography, weather, pollution sources
 * *Availability:* https://www.epa.gov/hesc/rsig-related-downloadable-data-files
 
 \normalsize
 
-**Cons**
-
-\small
-
-* *Resolution:* Census tract 
-* *Exposure:* Estimated values
-
-
-\normalsize
-
 \column{0.5\textwidth}
 
 ```{r airmodel, message = FALSE, warning = FALSE}
-
-
 graphics::par(mar=c(.1,.1,.1,.1), mgp = c(0, 0, 0), xpd = TRUE)
 
 plot(tny$geometry, border = "darkgrey", col = "ivory")
 plot(wny$geometry, add = TRUE, border = "mediumblue", col = "lightblue")
 
-
-
-
 ```
-
 
 \centering
 \footnotesize
@@ -413,36 +319,19 @@ Map of New York Census tracts
 \normalsize
 \stopcols
 
-
-
 ## Green space: Normalized Difference Vegetation Index (NDVI)
-
 
 \begincols{}
 \column{0.5\textwidth}
 
-
-
-**Pros**
-
 \small
 
-* *Resolution:* 250m x 250m grid
 * *Geography:* Global
-* *Frequency:* Every 16 days
+* *Resolution:* 250 m$^2$ grid
 * *Exposure:* Measured values
+* *Frequency:* Every 16 days
+* Cloud cover, unclear land types
 * *Availability:* R package MODISTools
-* Frequently used in research
-
-\normalsize
-
-**Cons**
-
-\small
-
-* Cloud cover affects usability
-* Hard to differentiate land types
-* Vary by season
 
 \normalsize
 
@@ -462,11 +351,7 @@ raster::plot(wmap, xlim = c(-89.5, -89.3), ylim = c(43.0, 43.15), axes = FALSE,
          add = TRUE) # 
 
 plot(twi2$geometry, border = "black", lwd = 1, add = TRUE, legend = FALSE) # 
-
-
-
 ```
-
 
 \centering
 \footnotesize
@@ -474,46 +359,25 @@ NDVI grid and Census tracts around Madison, WI
 \normalsize
 \stopcols
 
-
 ## Green space: National Land Cover Database (NLCD)
 
 \begincols{}
 \column{0.5\textwidth}
 
-
-
-**Pros**
-
 \small
 
-* *Resolution:* 30m x 30m grid
 * *Geography:* Nationwide
+* *Resolution:* 30 m$^2$ grid
 * *Exposure:* Categorized land types
+* *Frequency:* 3-year estimates
 * *Availability:* R package FedData
 
 \normalsize
-
-**Cons**
-
-\small
-
-* *Frequency:* 3-year estimates
-
-\normalsize
-
-
 
 \column{0.5\textwidth}
 
 ```{r nlcd, message = FALSE, warning = FALSE}
 graphics::par(mar=c(.1,.1,.1,.1), mgp = c(0, 0, 0), xpd = TRUE)
-
-
-# raster::plot(nlct, xlim = c(-89.5, -89.3), ylim = c(43.0, 43.15), 
-#          col = npal$Color, axes = FALSE, legend = FALSE,
-#          xaxt = 'n', # legend.args=list(side = 1, line = 0), 
-#          yaxt = 'n', horizontal = TRUE)
-# graphics::par(mar=c(.1,.1,.1,.1), mgp = c(0, 0, 0), xpd = TRUE)
 
 my_window <- raster::extent(-89.6, -89.3, 43.0, 43.15)
 raster::plot(my_window, col=NA, axes = FALSE, # legend = FALSE, 
@@ -526,12 +390,10 @@ raster::plot(nlct, xlim = c(-89.5, -89.3), ylim = c(43.0, 43.15),
 
 
 plot(twi2$geometry, border = "black", lwd = 1, add = TRUE) # 
-legend(x='bottomleft', legend = ntemp$Class, fill = ntemp$Color, cex = 1.5, bg = "white")
-
-
+legend(x='bottomleft', legend = ntemp$Class, fill = ntemp$Color, cex = 1.5, 
+       bg = "white")
 
 ```
-
 
 \centering
 \footnotesize
@@ -539,9 +401,7 @@ NLCD grid and Census tracts around Madison, WI
 \normalsize
 \stopcols
 
-
 ## Environmental datasets selected
-
 
 ### Project requirements
 
@@ -554,13 +414,9 @@ NLCD grid and Census tracts around Madison, WI
 * Air pollution: Downscaler modeled data, 2002-2015
 * Green space: National Land Cover Database, 2011
 
-
-
-
 # Joining spatial data
 
 ## Join birth defect and air pollution data
-
 
 \begincols{}
 \column{0.5\textwidth}
@@ -568,10 +424,7 @@ NLCD grid and Census tracts around Madison, WI
 1. Plot mothers' residences and join to Census tracts
 2. Join mothers' residences to air pollution data on both Census tract and conception date
 
-
 \column{0.5\textwidth}
-
-
 
 ```{r pointtract, message = FALSE, warning = FALSE, fig.width=2.5, fig.height=1.5}
 pts <- data.frame(name = c("Capitol Building", "Waisman Center"), 
@@ -589,8 +442,6 @@ plot(twi3$geometry, border = "transparent", col = "cornflowerblue",
      add = TRUE) # 
 plot(twi2$geometry, border = "black", lwd = 1, add = TRUE) # 
 points(pts$lon, pts$lat, pch = 20, col = "red")
-
-
 ```
 
 \centering
@@ -602,18 +453,13 @@ Waisman Center and Capitol Building, Madison, WI
 
 $~$
 
-
 ```{r birthtable}
 births <- pts |> dplyr::select(name, geoid10, cdate)
 
 births |> kable(booktabs = TRUE, format = "latex", 
                 caption = NA, 
-                col.names = c("Name", "Census tract", "Conception date"))  # |>
-  # kableExtra::kable_styling(position = "center", font_size = 12)
-
+                col.names = c("Name", "Census tract", "Conception date")) 
 ```
-
-
 
 ## Join birth defect and green space data
 
@@ -645,12 +491,10 @@ plotrix::draw.circle(x=pts$lon[2], y=pts$lat[2], radius=.005)
 
 nid <- c(11:42, 81, 90:95)
 nt2 <- ntemp[ntemp$ID %in% nid, ]
-legend(x='bottomleft', legend = nt2$Class, fill = nt2$Color, cex = .5, bg = "white")
-
-
+legend(x='bottomleft', legend = nt2$Class, fill = nt2$Color, cex = .5, 
+       bg = "white")
 
 ```
-
 
 \centering
 \footnotesize
@@ -675,9 +519,7 @@ Case-cohort study, NYS excluding New York City, 2002-2015
 
 Regression with weekly exposures
 
-
 ## Example results
-
 
 ```{r resultsetup, include = FALSE}
 devtools::load_all("C:/Users/ajstamm/Documents/GitHub/Coding/apcmpkg/R")
@@ -761,7 +603,6 @@ draw_forest_rev <- function(data, defect_abbr, defect_name = "", green = "") {
 
 ```
 
-
 Craniosynostosis models: Risk ratios by week of pregnancy with grasses and trees
 
 ```{r cp3gtbar, fig.width=9, fig.height=5, warning = FALSE, message = FALSE}
@@ -772,8 +613,6 @@ draw_forest_rev(data = d, defect_abbr = "cs", green = "gt",
                 defect_name = "Craniosynostosis")
 
 ```
-
-
 
 ## Summary
 
@@ -799,7 +638,6 @@ bds |> kable(booktabs = TRUE, format = "latex",
 
 ```
 
-
 ### Observation
 
 Results varied depending on air pollutant measure and model settings
@@ -818,13 +656,4 @@ Dissertation: https://github.com/ajstamm/apcmpkg
 Email: BDR@health.ny.gov   
 Contact: Michele Herdt or Amanda St Louis   
 Website: https://health.ny.gov/diseases/congenital_malformations/   
-
-
-
-
-
-
-
-
-
 
